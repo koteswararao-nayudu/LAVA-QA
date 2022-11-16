@@ -1,0 +1,64 @@
+#################
+timeout start1
+1664984524.728326
+#################
+Waiting for Jenkins Download complete
+we have not received any GP Build email and going to exit
+#################
+timeout start1
+1664984934.0720825
+#################
+Waiting for Jenkins Download complete
+we have not received any GP Build email and going to exit
+#################
+timeout start1
+1664985391.7752068
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3028
+
+['2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3028
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3028
+#################
+timeout start
+1664985549.1033776
+#################
+Waiting for CELL UP
+#################
+timeout start1
+1665010857.0878134
+#################
+Waiting for Jenkins Download complete
+we have not received any GP Build email and going to exit
+SUCCESS: The process "QXDM.exe" with PID 20940 has been terminated.
+SUCCESS: The process "QXDM.exe" with PID 19972 has been terminated.
+#################
+timeout start1
+1665047819.634625
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3036
+
+['2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3036
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3036
+Does not find the file
+Does not find the file
+#################
+timeout start
+1665047998.234556
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+665 80

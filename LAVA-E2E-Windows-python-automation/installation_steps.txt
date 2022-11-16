@@ -1,0 +1,16 @@
+@"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
+
+choco install -y python3
+python --version
+python get-pip.py
+
+pip install pyautogui
+pip install pywin32
+pip install serial
+pip install opencv-python
+pip install pillow
+pip install paramiko
+
+reg query HKLM\HARDWARE\DEVICEMAP\SERIALCOMM
+
+Phython-Installation:  https://phoenixnap.com/kb/how-to-install-python-3-windows

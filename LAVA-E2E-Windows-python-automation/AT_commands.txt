@@ -1,0 +1,6 @@
+at commands:
+#############
+
+at+cpin?
+at+cfun=0
+at+cfun=1

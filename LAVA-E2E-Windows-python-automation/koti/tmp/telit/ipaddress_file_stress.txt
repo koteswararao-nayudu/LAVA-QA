@@ -1,0 +1,9 @@
+
+Configuration for interface "Cellular"
+    DHCP enabled:                         No
+    IP Address:                           10.2.1.252
+    Subnet Prefix:                        10.2.1.248/29 (mask 255.255.255.248)
+    Default Gateway:                      10.2.1.253
+    Gateway Metric:                       256
+    InterfaceMetric:                      85
+

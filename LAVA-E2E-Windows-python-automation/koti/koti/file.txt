@@ -1,0 +1,4 @@
+pwd
+iperf -v
+iperf -c TARGET-IP -u -i 1 -p 45679 -t 160 -l 1400 -B 192.168.2.84 -b 400m
+pwd

@@ -1,0 +1,5407 @@
+COM11=Telit Serial Auxiliary Interface 
+Command exit status/return code :  0
+Telit port is available
+b'COM11\r\n'
+COM11
+Command exit status/return code :  0
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+1st ssh complete
+3235
+
+['1234568981', '2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062', '3064', '3066', '3079', '3080', '3081', '3084', '3094', '3095', '3097', '3098', '3101', '3102', '3108', '3111', '3112', '3113', '3119', '3121', '3123', '3125', '3127', '3129', '3131', '3137', '3138', '3139', '3141', '3142', '3144', '3145', '3146', '3151', '3152', '3154', '3161', '3163', '3165', '3168', '3169', '3170', '3172', '3174', '3176', '3182', '3186', '3187', '3188', '3189', '3190', '3191', '3193', '3194', '3195', '3196', '3197', '3198', '3199', '3200', '3201', '3208', '3209', '3210', '3211', '3217', '3218', '3219', '3226', '3227', '3228', '3229']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3235
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3235
+#################
+timeout start
+1666220509.3885179
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+b''
+Command exit status/return code :  0
+b'10.2.1.7\r\n'
+10.2.1.7
+Command exit status/return code :  0
+test pass
+COM11=Telit Serial Auxiliary Interface 
+Command exit status/return code :  0
+Telit port is available
+b'COM11\r\n'
+COM11
+Command exit status/return code :  0
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+#################
+timeout start1
+1666306897.9030988
+#################
+Waiting for Jenkins Download complete
+we have not received any GP Build email and going to exit
+COM11=Telit Serial Auxiliary Interface 
+Command exit status/return code :  0
+Telit port is available
+b'COM11\r\n'
+COM11
+Command exit status/return code :  0
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+1st ssh complete
+3285
+
+['12345', '1234568981', '2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062', '3064', '3066', '3079', '3080', '3081', '3084', '3094', '3095', '3097', '3098', '3101', '3102', '3108', '3111', '3112', '3113', '3119', '3121', '3123', '3125', '3127', '3129', '3131', '3137', '3138', '3139', '3141', '3142', '3144', '3145', '3146', '3151', '3152', '3154', '3161', '3163', '3165', '3168', '3169', '3170', '3172', '3174', '3176', '3182', '3186', '3187', '3188', '3189', '3190', '3191', '3193', '3194', '3195', '3196', '3197', '3198', '3199', '3200', '3201', '3208', '3209', '3210', '3211', '3217', '3218', '3219', '3226', '3227', '3228', '3229', '3235', '3236', '3237', '3238', '3239', '3240', '3241', '3242', '3243', '3244', '3245', '3246', '3252', '3253', '3254', '3255', '3256', '3257', '3263', '3264', '3265', '3284']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3285
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3285
+#################
+timeout start
+1666711501.9787486
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+wait few minutes to assign IP for UE
+b''
+Command exit status/return code :  0
+b'10.2.1.40\r\n'
+10.2.1.40
+Command exit status/return code :  0
+test pass
+Taking screenshot
+COM11=Telit Serial Auxiliary Interface 
+Command exit status/return code :  0
+Telit port is available
+b'COM11\r\n'
+COM11
+Command exit status/return code :  0
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+#################
+timeout start1
+1666746704.6505518
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3292
+
+['12345', '1234568981', '2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062', '3064', '3066', '3079', '3080', '3081', '3084', '3094', '3095', '3097', '3098', '3101', '3102', '3108', '3111', '3112', '3113', '3119', '3121', '3123', '3125', '3127', '3129', '3131', '3137', '3138', '3139', '3141', '3142', '3144', '3145', '3146', '3151', '3152', '3154', '3161', '3163', '3165', '3168', '3169', '3170', '3172', '3174', '3176', '3182', '3186', '3187', '3188', '3189', '3190', '3191', '3193', '3194', '3195', '3196', '3197', '3198', '3199', '3200', '3201', '3208', '3209', '3210', '3211', '3217', '3218', '3219', '3226', '3227', '3228', '3229', '3235', '3236', '3237', '3238', '3239', '3240', '3241', '3242', '3243', '3244', '3245', '3246', '3252', '3253', '3254', '3255', '3256', '3257', '3263', '3264', '3265', '3284', '3285', '3286']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3292
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3292
+#################
+timeout start
+1666746886.6035485
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+wait few minutes to assign IP for UE
+b''
+Command exit status/return code :  0
+b'10.2.1.49\r\n'
+10.2.1.49
+Command exit status/return code :  0
+test pass
+Taking screenshot
+COM11=Telit Serial Auxiliary Interface 
+Command exit status/return code :  0
+Telit port is available
+b'COM11\r\n'
+COM11
+Command exit status/return code :  0
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+#################
+timeout start1
+1666825307.1313527
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3299
+
+['12345', '1234568981', '2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062', '3064', '3066', '3079', '3080', '3081', '3084', '3094', '3095', '3097', '3098', '3101', '3102', '3108', '3111', '3112', '3113', '3119', '3121', '3123', '3125', '3127', '3129', '3131', '3137', '3138', '3139', '3141', '3142', '3144', '3145', '3146', '3151', '3152', '3154', '3161', '3163', '3165', '3168', '3169', '3170', '3172', '3174', '3176', '3182', '3186', '3187', '3188', '3189', '3190', '3191', '3193', '3194', '3195', '3196', '3197', '3198', '3199', '3200', '3201', '3208', '3209', '3210', '3211', '3217', '3218', '3219', '3226', '3227', '3228', '3229', '3235', '3236', '3237', '3238', '3239', '3240', '3241', '3242', '3243', '3244', '3245', '3246', '3252', '3253', '3254', '3255', '3256', '3257', '3263', '3264', '3265', '3284', '3285', '3286', '3292', '3293']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3299
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3299
+#################
+timeout start
+1666825842.1833787
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+wait few minutes to assign IP for UE
+b''
+Command exit status/return code :  0
+b'10.2.1.136\r\n'
+10.2.1.136
+Command exit status/return code :  0
+test pass
+Taking screenshot
+COM11=Telit Serial Auxiliary Interface 
+Command exit status/return code :  0
+Telit port is available
+b'COM11\r\n'
+COM11
+Command exit status/return code :  0
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+#################
+timeout start1
+1667005493.8217156
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+Unable to submit /home/equser/koti/lava-testcases/e2e/board46/tmp/edgeq-raptor2_e2e_gnb_cellup_board46-generic1_RC5.1.yaml: <Fault 400: "Problem with submitted job data: extra keys not allowed @ data['notify']['recipients'][0]['user']">
+
+['12345', '1234568981', '2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062', '3064', '3066', '3079', '3080', '3081', '3084', '3094', '3095', '3097', '3098', '3101', '3102', '3108', '3111', '3112', '3113', '3119', '3121', '3123', '3125', '3127', '3129', '3131', '3137', '3138', '3139', '3141', '3142', '3144', '3145', '3146', '3151', '3152', '3154', '3161', '3163', '3165', '3168', '3169', '3170', '3172', '3174', '3176', '3182', '3186', '3187', '3188', '3189', '3190', '3191', '3193', '3194', '3195', '3196', '3197', '3198', '3199', '3200', '3201', '3208', '3209', '3210', '3211', '3217', '3218', '3219', '3226', '3227', '3228', '3229', '3235', '3236', '3237', '3238', '3239', '3240', '3241', '3242', '3243', '3244', '3245', '3246', '3252', '3253', '3254', '3255', '3256', '3257', '3263', '3264', '3265', '3284', '3285', '3286', '3292', '3293', '3299', '3300', '3301', '3302', '3306', '3307', '3310', '3312', '3313', '3314', '3315']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\Unable to submit /home/equser/koti/lava-testcases/e2e/board46/tmp/edgeq-raptor2_e2e_gnb_cellup_board46-generic1_RC5.1.yaml: <Fault 400: "Problem with submitted job data: extra keys not allowed @ data['notify']['recipients'][0]['user']">
+COM11=Telit Serial Auxiliary Interface 
+Command exit status/return code :  0
+Telit port is available
+b'COM11\r\n'
+COM11
+Command exit status/return code :  0
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+#################
+timeout start1
+1667005933.8221087
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3322
+
+['12345', '1234568981', '2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062', '3064', '3066', '3079', '3080', '3081', '3084', '3094', '3095', '3097', '3098', '3101', '3102', '3108', '3111', '3112', '3113', '3119', '3121', '3123', '3125', '3127', '3129', '3131', '3137', '3138', '3139', '3141', '3142', '3144', '3145', '3146', '3151', '3152', '3154', '3161', '3163', '3165', '3168', '3169', '3170', '3172', '3174', '3176', '3182', '3186', '3187', '3188', '3189', '3190', '3191', '3193', '3194', '3195', '3196', '3197', '3198', '3199', '3200', '3201', '3208', '3209', '3210', '3211', '3217', '3218', '3219', '3226', '3227', '3228', '3229', '3235', '3236', '3237', '3238', '3239', '3240', '3241', '3242', '3243', '3244', '3245', '3246', '3252', '3253', '3254', '3255', '3256', '3257', '3263', '3264', '3265', '3284', '3285', '3286', '3292', '3293', '3299', '3300', '3301', '3302', '3306', '3307', '3310', '3312', '3313', '3314', '3315']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3322
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3322
+#################
+timeout start
+1667006100.9783466
+#################
+Waiting for CELL UP
+COM11=Telit Serial Auxiliary Interface 
+Command exit status/return code :  0
+Telit port is available
+b'COM11\r\n'
+COM11
+Command exit status/return code :  0
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+#################
+timeout start1
+1667262777.162647
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3366
+
+['12345', '1234568981', '2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062', '3064', '3066', '3079', '3080', '3081', '3084', '3094', '3095', '3097', '3098', '3101', '3102', '3108', '3111', '3112', '3113', '3119', '3121', '3123', '3125', '3127', '3129', '3131', '3137', '3138', '3139', '3141', '3142', '3144', '3145', '3146', '3151', '3152', '3154', '3161', '3163', '3165', '3168', '3169', '3170', '3172', '3174', '3176', '3182', '3186', '3187', '3188', '3189', '3190', '3191', '3193', '3194', '3195', '3196', '3197', '3198', '3199', '3200', '3201', '3208', '3209', '3210', '3211', '3217', '3218', '3219', '3226', '3227', '3228', '3229', '3235', '3236', '3237', '3238', '3239', '3240', '3241', '3242', '3243', '3244', '3245', '3246', '3252', '3253', '3254', '3255', '3256', '3257', '3263', '3264', '3265', '3284', '3285', '3286', '3292', '3293', '3299', '3300', '3301', '3302', '3306', '3307', '3310', '3312', '3313', '3314', '3315', '3322', '3338', '3341', '3342', '3345', '3348', '3349', '3351', '3353', '3365']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3366
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3366
+#################
+timeout start
+1667262943.8972788
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b''
+
+Command exit status/return code :  0
+test fail
+Could not locate the IP Address
+COM11=Telit Serial Auxiliary Interface 
+Command exit status/return code :  0
+Telit port is available
+b'COM11\r\n'
+COM11
+Command exit status/return code :  0
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+#################
+timeout start1
+1667343724.4148388
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3380
+
+['12345', '1234568981', '2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062', '3064', '3066', '3079', '3080', '3081', '3084', '3094', '3095', '3097', '3098', '3101', '3102', '3108', '3111', '3112', '3113', '3119', '3121', '3123', '3125', '3127', '3129', '3131', '3137', '3138', '3139', '3141', '3142', '3144', '3145', '3146', '3151', '3152', '3154', '3161', '3163', '3165', '3168', '3169', '3170', '3172', '3174', '3176', '3182', '3186', '3187', '3188', '3189', '3190', '3191', '3193', '3194', '3195', '3196', '3197', '3198', '3199', '3200', '3201', '3208', '3209', '3210', '3211', '3217', '3218', '3219', '3226', '3227', '3228', '3229', '3235', '3236', '3237', '3238', '3239', '3240', '3241', '3242', '3243', '3244', '3245', '3246', '3252', '3253', '3254', '3255', '3256', '3257', '3263', '3264', '3265', '3284', '3285', '3286', '3292', '3293', '3299', '3300', '3301', '3302', '3306', '3307', '3310', '3312', '3313', '3314', '3315', '3322', '3338', '3341', '3342', '3345', '3348', '3349', '3351', '3353', '3365', '3366']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3380
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3380
+#################
+timeout start
+1667344027.8137574
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b''
+
+Command exit status/return code :  0
+test fail
+Could not locate the IP Address
+COM11=Telit Serial Auxiliary Interface 
+Command exit status/return code :  0
+Telit port is available
+b'COM11\r\n'
+COM11
+Command exit status/return code :  0
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+#################
+timeout start1
+1667998968.8690405
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3430
+
+['12345', '1234568981', '2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062', '3064', '3066', '3079', '3080', '3081', '3084', '3094', '3095', '3097', '3098', '3101', '3102', '3108', '3111', '3112', '3113', '3119', '3121', '3123', '3125', '3127', '3129', '3131', '3137', '3138', '3139', '3141', '3142', '3144', '3145', '3146', '3151', '3152', '3154', '3161', '3163', '3165', '3168', '3169', '3170', '3172', '3174', '3176', '3182', '3186', '3187', '3188', '3189', '3190', '3191', '3193', '3194', '3195', '3196', '3197', '3198', '3199', '3200', '3201', '3208', '3209', '3210', '3211', '3217', '3218', '3219', '3226', '3227', '3228', '3229', '3235', '3236', '3237', '3238', '3239', '3240', '3241', '3242', '3243', '3244', '3245', '3246', '3252', '3253', '3254', '3255', '3256', '3257', '3263', '3264', '3265', '3284', '3285', '3286', '3292', '3293', '3299', '3300', '3301', '3302', '3306', '3307', '3310', '3312', '3313', '3314', '3315', '3322', '3338', '3341', '3342', '3345', '3348', '3349', '3351', '3353', '3365', '3366', '3380']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3430
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3430
+#################
+timeout start
+1667999980.6134856
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing ipaddress_file.txt
+COM11=Telit Serial Auxiliary Interface 
+SUCCESS: The process "putty.exe" with PID 17180 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 4452 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 6360 has been terminated.
+SUCCESS: The process "putty.exe" with PID 16728 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 14960 has been terminated.
+SUCCESS: The process "putty.exe" with PID 12904 has been terminated.
+SUCCESS: The process "putty.exe" with PID 7256 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 16224 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 7164 has been terminated.
+Command exit status/return code :  0
+Telit port is available
+b'COM11\r\n'
+COM11
+Command exit status/return code :  0
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+#################
+timeout start1
+1668121301.5326738
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3444
+
+['12345', '1234568981', '2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062', '3064', '3066', '3079', '3080', '3081', '3084', '3094', '3095', '3097', '3098', '3101', '3102', '3108', '3111', '3112', '3113', '3119', '3121', '3123', '3125', '3127', '3129', '3131', '3137', '3138', '3139', '3141', '3142', '3144', '3145', '3146', '3151', '3152', '3154', '3161', '3163', '3165', '3168', '3169', '3170', '3172', '3174', '3176', '3182', '3186', '3187', '3188', '3189', '3190', '3191', '3193', '3194', '3195', '3196', '3197', '3198', '3199', '3200', '3201', '3208', '3209', '3210', '3211', '3217', '3218', '3219', '3226', '3227', '3228', '3229', '3235', '3236', '3237', '3238', '3239', '3240', '3241', '3242', '3243', '3244', '3245', '3246', '3252', '3253', '3254', '3255', '3256', '3257', '3263', '3264', '3265', '3284', '3285', '3286', '3292', '3293', '3299', '3300', '3301', '3302', '3306', '3307', '3310', '3312', '3313', '3314', '3315', '3322', '3338', '3341', '3342', '3345', '3348', '3349', '3351', '3353', '3365', '3366', '3380', '3430', '3431', '3432', '3433', '3434', '3435', '3438']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3444
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3444
+#################
+timeout start
+1668121620.8383856
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.4\r\n'
+10.2.1.4
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+pwd
+iperf -v
+iperf -c 10.2.1.4 -u -i 1 -p 45679 -t 3000 -l 1400 -B 192.168.2.84 -b 400m
+pwd
+iperf -s -u -i 1 -t 3000 -p 45679 -l 1400
+Taking screenshot
+Taking screenshot
+Taking screenshot
+COM11=Telit Serial Auxiliary Interface 
+SUCCESS: The process "putty.exe" with PID 19480 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 16868 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 19624 has been terminated.
+SUCCESS: The process "putty.exe" with PID 12732 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 20200 has been terminated.
+SUCCESS: The process "putty.exe" with PID 9128 has been terminated.
+SUCCESS: The process "putty.exe" with PID 19876 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 11152 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 16328 has been terminated.
+Command exit status/return code :  0
+Telit port is available
+b'COM11\r\n'
+COM11
+Command exit status/return code :  0
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+#################
+timeout start1
+1668220385.3013883
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3465
+
+['12345', '1234568981', '2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062', '3064', '3066', '3079', '3080', '3081', '3084', '3094', '3095', '3097', '3098', '3101', '3102', '3108', '3111', '3112', '3113', '3119', '3121', '3123', '3125', '3127', '3129', '3131', '3137', '3138', '3139', '3141', '3142', '3144', '3145', '3146', '3151', '3152', '3154', '3161', '3163', '3165', '3168', '3169', '3170', '3172', '3174', '3176', '3182', '3186', '3187', '3188', '3189', '3190', '3191', '3193', '3194', '3195', '3196', '3197', '3198', '3199', '3200', '3201', '3208', '3209', '3210', '3211', '3217', '3218', '3219', '3226', '3227', '3228', '3229', '3235', '3236', '3237', '3238', '3239', '3240', '3241', '3242', '3243', '3244', '3245', '3246', '3252', '3253', '3254', '3255', '3256', '3257', '3263', '3264', '3265', '3284', '3285', '3286', '3292', '3293', '3299', '3300', '3301', '3302', '3306', '3307', '3310', '3312', '3313', '3314', '3315', '3322', '3338', '3341', '3342', '3345', '3348', '3349', '3351', '3353', '3365', '3366', '3380', '3430', '3431', '3432', '3433', '3434', '3435', '3438', '3444', '3445', '3446']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3465
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3465
+#################
+timeout start
+1668220554.3899863
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.135\r\n'
+10.2.1.135
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+pwd
+iperf -v
+iperf -c 10.2.1.135 -u -i 1 -p 45679 -t 3000 -l 1400 -B 192.168.2.84 -b 400m
+pwd
+iperf -s -u -i 1 -t 3000 -p 45679 -l 1400
+Taking screenshot
+Taking screenshot
+Taking screenshot
+COM11=Telit Serial Auxiliary Interface 
+Command exit status/return code :  0
+Telit port is available
+b'COM11\r\n'
+COM11
+Command exit status/return code :  0
+COM26=Telit Serial Auxiliary Interface 
+Command exit status/return code :  0
+Telit port is available
+b'COM26\r\n'
+COM26
+Command exit status/return code :  0
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+#################
+timeout start1
+1668427398.5629356
+#################
+1st ssh complete
+3482
+
+['12345', '1234568981', '2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062', '3064', '3066', '3079', '3080', '3081', '3084', '3094', '3095', '3097', '3098', '3101', '3102', '3108', '3111', '3112', '3113', '3119', '3121', '3123', '3125', '3127', '3129', '3131', '3137', '3138', '3139', '3141', '3142', '3144', '3145', '3146', '3151', '3152', '3154', '3161', '3163', '3165', '3168', '3169', '3170', '3172', '3174', '3176', '3182', '3186', '3187', '3188', '3189', '3190', '3191', '3193', '3194', '3195', '3196', '3197', '3198', '3199', '3200', '3201', '3208', '3209', '3210', '3211', '3217', '3218', '3219', '3226', '3227', '3228', '3229', '3235', '3236', '3237', '3238', '3239', '3240', '3241', '3242', '3243', '3244', '3245', '3246', '3252', '3253', '3254', '3255', '3256', '3257', '3263', '3264', '3265', '3284', '3285', '3286', '3292', '3293', '3299', '3300', '3301', '3302', '3306', '3307', '3310', '3312', '3313', '3314', '3315', '3322', '3338', '3341', '3342', '3345', '3348', '3349', '3351', '3353', '3365', '3366', '3380', '3430', '3431', '3432', '3433', '3434', '3435', '3438', '3444', '3445', '3446', '3465']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3482
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3482
+#################
+timeout start
+1668427411.1348183
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b''
+
+Command exit status/return code :  0
+test fail
+Could not locate the IP Address
+COM11=Telit Serial Auxiliary Interface 
+SUCCESS: The process "putty.exe" with PID 30208 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 18180 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 29620 has been terminated.
+SUCCESS: The process "putty.exe" with PID 30860 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 26700 has been terminated.
+SUCCESS: The process "putty.exe" with PID 25648 has been terminated.
+SUCCESS: The process "putty.exe" with PID 30632 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 29876 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 24980 has been terminated.
+Command exit status/return code :  0
+Telit port is available
+b'COM11\r\n'
+COM11
+Command exit status/return code :  0
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+#################
+timeout start1
+1668466897.6169732
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3496
+
+['12345', '1234568981', '2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062', '3064', '3066', '3079', '3080', '3081', '3084', '3094', '3095', '3097', '3098', '3101', '3102', '3108', '3111', '3112', '3113', '3119', '3121', '3123', '3125', '3127', '3129', '3131', '3137', '3138', '3139', '3141', '3142', '3144', '3145', '3146', '3151', '3152', '3154', '3161', '3163', '3165', '3168', '3169', '3170', '3172', '3174', '3176', '3182', '3186', '3187', '3188', '3189', '3190', '3191', '3193', '3194', '3195', '3196', '3197', '3198', '3199', '3200', '3201', '3208', '3209', '3210', '3211', '3217', '3218', '3219', '3226', '3227', '3228', '3229', '3235', '3236', '3237', '3238', '3239', '3240', '3241', '3242', '3243', '3244', '3245', '3246', '3252', '3253', '3254', '3255', '3256', '3257', '3263', '3264', '3265', '3284', '3285', '3286', '3292', '3293', '3299', '3300', '3301', '3302', '3306', '3307', '3310', '3312', '3313', '3314', '3315', '3322', '3338', '3341', '3342', '3345', '3348', '3349', '3351', '3353', '3365', '3366', '3380', '3430', '3431', '3432', '3433', '3434', '3435', '3438', '3444', '3445', '3446', '3465', '3482', '3483', '3484', '3485', '3486', '3487', '3488', '3489', '3490']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3496
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3496
+#################
+timeout start
+1668467193.5195453
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.164\r\n'
+10.2.1.164
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+pwd
+iperf -v
+iperf -c 10.2.1.164 -u -i 1 -p 45679 -t 3000 -l 1400 -B 192.168.2.84 -b 400m
+pwd
+iperf -s -u -i 1 -t 3000 -p 45679 -l 1400
+Taking screenshot
+Taking screenshot
+Taking screenshot
+COM11=Telit Serial Auxiliary Interface 
+SUCCESS: The process "putty.exe" with PID 40560 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 41912 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 37428 has been terminated.
+SUCCESS: The process "putty.exe" with PID 36192 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 9080 has been terminated.
+SUCCESS: The process "putty.exe" with PID 37616 has been terminated.
+SUCCESS: The process "putty.exe" with PID 39028 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 39352 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 33720 has been terminated.
+COM11=Telit Serial Auxiliary Interface 
+SUCCESS: The process "putty.exe" with PID 45744 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 32824 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 30728 has been terminated.
+SUCCESS: The process "putty.exe" with PID 43948 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 43576 has been terminated.
+SUCCESS: The process "putty.exe" with PID 42620 has been terminated.
+SUCCESS: The process "putty.exe" with PID 32536 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 45624 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 40740 has been terminated.
+Command exit status/return code :  0
+Telit port is available
+b'COM11\r\n'
+COM11
+Command exit status/return code :  0
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+#################
+timeout start1
+1668500910.454161
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3502
+
+['12345', '1234568981', '2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062', '3064', '3066', '3079', '3080', '3081', '3084', '3094', '3095', '3097', '3098', '3101', '3102', '3108', '3111', '3112', '3113', '3119', '3121', '3123', '3125', '3127', '3129', '3131', '3137', '3138', '3139', '3141', '3142', '3144', '3145', '3146', '3151', '3152', '3154', '3161', '3163', '3165', '3168', '3169', '3170', '3172', '3174', '3176', '3182', '3186', '3187', '3188', '3189', '3190', '3191', '3193', '3194', '3195', '3196', '3197', '3198', '3199', '3200', '3201', '3208', '3209', '3210', '3211', '3217', '3218', '3219', '3226', '3227', '3228', '3229', '3235', '3236', '3237', '3238', '3239', '3240', '3241', '3242', '3243', '3244', '3245', '3246', '3252', '3253', '3254', '3255', '3256', '3257', '3263', '3264', '3265', '3284', '3285', '3286', '3292', '3293', '3299', '3300', '3301', '3302', '3306', '3307', '3310', '3312', '3313', '3314', '3315', '3322', '3338', '3341', '3342', '3345', '3348', '3349', '3351', '3353', '3365', '3366', '3380', '3430', '3431', '3432', '3433', '3434', '3435', '3438', '3444', '3445', '3446', '3465', '3482', '3483', '3484', '3485', '3486', '3487', '3488', '3489', '3490', '3496', '3499', '3500', '3501']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3502
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3502
+#################
+timeout start
+1668501139.4473555
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.184\r\n'
+10.2.1.184
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+pwd
+iperf -v
+iperf -c 10.2.1.184 -u -i 1 -p 45679 -t 3000 -l 1400 -B 192.168.2.84 -b 400m
+pwd
+iperf -s -u -i 1 -t 3000 -p 45679 -l 1400
+Taking screenshot
+Taking screenshot
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.185\r\n'
+10.2.1.185
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.186\r\n'
+10.2.1.186
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.187\r\n'
+10.2.1.187
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.188\r\n'
+10.2.1.188
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.191\r\n'
+10.2.1.191
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.190\r\n'
+10.2.1.190
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.192\r\n'
+10.2.1.192
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.193\r\n'
+10.2.1.193
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.194\r\n'
+10.2.1.194
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.195\r\n'
+10.2.1.195
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.196\r\n'
+10.2.1.196
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.197\r\n'
+10.2.1.197
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.198\r\n'
+10.2.1.198
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.199\r\n'
+10.2.1.199
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.200\r\n'
+10.2.1.200
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.202\r\n'
+10.2.1.202
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.204\r\n'
+10.2.1.204
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.201\r\n'
+10.2.1.201
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.205\r\n'
+10.2.1.205
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.206\r\n'
+10.2.1.206
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.207\r\n'
+10.2.1.207
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.208\r\n'
+10.2.1.208
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.211\r\n'
+10.2.1.211
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.212\r\n'
+10.2.1.212
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.210\r\n'
+10.2.1.210
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.213\r\n'
+10.2.1.213
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.209\r\n'
+10.2.1.209
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.214\r\n'
+10.2.1.214
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.216\r\n'
+10.2.1.216
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.217\r\n'
+10.2.1.217
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.218\r\n'
+10.2.1.218
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.215\r\n'
+10.2.1.215
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.219\r\n'
+10.2.1.219
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.221\r\n'
+10.2.1.221
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.222\r\n'
+10.2.1.222
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.223\r\n'
+10.2.1.223
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.220\r\n'
+10.2.1.220
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.225\r\n'
+10.2.1.225
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.226\r\n'
+10.2.1.226
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.228\r\n'
+10.2.1.228
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.224\r\n'
+10.2.1.224
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.229\r\n'
+10.2.1.229
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.232\r\n'
+10.2.1.232
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.233\r\n'
+10.2.1.233
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.227\r\n'
+10.2.1.227
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.235\r\n'
+10.2.1.235
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.236\r\n'
+10.2.1.236
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.230\r\n'
+10.2.1.230
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.239\r\n'
+10.2.1.239
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.241\r\n'
+10.2.1.241
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+COM11=Telit Serial Auxiliary Interface 
+SUCCESS: The process "putty.exe" with PID 65508 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 67888 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 70068 has been terminated.
+SUCCESS: The process "putty.exe" with PID 57312 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 70760 has been terminated.
+SUCCESS: The process "putty.exe" with PID 68256 has been terminated.
+SUCCESS: The process "putty.exe" with PID 45180 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 63744 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 31788 has been terminated.
+Command exit status/return code :  0
+Telit port is available
+b'COM11\r\n'
+COM11
+Command exit status/return code :  0
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+#################
+timeout start1
+1668515440.84064
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3504
+
+['12345', '1234568981', '2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062', '3064', '3066', '3079', '3080', '3081', '3084', '3094', '3095', '3097', '3098', '3101', '3102', '3108', '3111', '3112', '3113', '3119', '3121', '3123', '3125', '3127', '3129', '3131', '3137', '3138', '3139', '3141', '3142', '3144', '3145', '3146', '3151', '3152', '3154', '3161', '3163', '3165', '3168', '3169', '3170', '3172', '3174', '3176', '3182', '3186', '3187', '3188', '3189', '3190', '3191', '3193', '3194', '3195', '3196', '3197', '3198', '3199', '3200', '3201', '3208', '3209', '3210', '3211', '3217', '3218', '3219', '3226', '3227', '3228', '3229', '3235', '3236', '3237', '3238', '3239', '3240', '3241', '3242', '3243', '3244', '3245', '3246', '3252', '3253', '3254', '3255', '3256', '3257', '3263', '3264', '3265', '3284', '3285', '3286', '3292', '3293', '3299', '3300', '3301', '3302', '3306', '3307', '3310', '3312', '3313', '3314', '3315', '3322', '3338', '3341', '3342', '3345', '3348', '3349', '3351', '3353', '3365', '3366', '3380', '3430', '3431', '3432', '3433', '3434', '3435', '3438', '3444', '3445', '3446', '3465', '3482', '3483', '3484', '3485', '3486', '3487', '3488', '3489', '3490', '3496', '3499', '3500', '3501', '3502', '3503']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3504
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3504
+Does not find the file
+Does not find the file
+#################
+timeout start
+1668515635.0171142
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.4\r\n'
+10.2.1.4
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+pwd
+iperf -v
+iperf -c 10.2.1.4 -u -i 1 -p 45679 -t 3000 -l 1400 -B 192.168.2.84 -b 400m
+pwd
+iperf -s -u -i 1 -t 3000 -p 45679 -l 1400
+Taking screenshot
+Taking screenshot
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.8\r\n'
+10.2.1.8
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.5\r\n'
+10.2.1.5
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.2\r\n'
+10.2.1.2
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.6\r\n'
+10.2.1.6
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.7\r\n'
+10.2.1.7
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.11\r\n'
+10.2.1.11
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.10\r\n'
+10.2.1.10
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.13\r\n'
+10.2.1.13
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+in if condition
+COM11=Telit Serial Auxiliary Interface 
+SUCCESS: The process "putty.exe" with PID 57112 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 78844 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 64404 has been terminated.
+SUCCESS: The process "putty.exe" with PID 76720 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 77880 has been terminated.
+SUCCESS: The process "putty.exe" with PID 77232 has been terminated.
+SUCCESS: The process "putty.exe" with PID 78036 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 74300 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 76900 has been terminated.
+Command exit status/return code :  0
+Telit port is available
+b'COM11\r\n'
+COM11
+Command exit status/return code :  0
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+#################
+timeout start1
+1668524211.7545314
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3507
+
+['12345', '1234568981', '2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062', '3064', '3066', '3079', '3080', '3081', '3084', '3094', '3095', '3097', '3098', '3101', '3102', '3108', '3111', '3112', '3113', '3119', '3121', '3123', '3125', '3127', '3129', '3131', '3137', '3138', '3139', '3141', '3142', '3144', '3145', '3146', '3151', '3152', '3154', '3161', '3163', '3165', '3168', '3169', '3170', '3172', '3174', '3176', '3182', '3186', '3187', '3188', '3189', '3190', '3191', '3193', '3194', '3195', '3196', '3197', '3198', '3199', '3200', '3201', '3208', '3209', '3210', '3211', '3217', '3218', '3219', '3226', '3227', '3228', '3229', '3235', '3236', '3237', '3238', '3239', '3240', '3241', '3242', '3243', '3244', '3245', '3246', '3252', '3253', '3254', '3255', '3256', '3257', '3263', '3264', '3265', '3284', '3285', '3286', '3292', '3293', '3299', '3300', '3301', '3302', '3306', '3307', '3310', '3312', '3313', '3314', '3315', '3322', '3338', '3341', '3342', '3345', '3348', '3349', '3351', '3353', '3365', '3366', '3380', '3430', '3431', '3432', '3433', '3434', '3435', '3438', '3444', '3445', '3446', '3465', '3482', '3483', '3484', '3485', '3486', '3487', '3488', '3489', '3490', '3496', '3499', '3500', '3501', '3502', '3503', '3504', '3505', '3506']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3507
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3507
+#################
+timeout start
+1668524391.7354634
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.26\r\n'
+10.2.1.26
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+pwd
+iperf -v
+iperf -c 10.2.1.26 -u -i 1 -p 45679 -t 3000 -l 1400 -B 192.168.2.84 -b 400m
+pwd
+iperf -s -u -i 1 -t 3000 -p 45679 -l 1400
+Taking screenshot
+Taking screenshot
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.28\r\n'
+10.2.1.28
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.29\r\n'
+10.2.1.29
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.27\r\n'
+10.2.1.27
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.30\r\n'
+10.2.1.30
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.31\r\n'
+10.2.1.31
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.32\r\n'
+10.2.1.32
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.33\r\n'
+10.2.1.33
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.36\r\n'
+10.2.1.36
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.37\r\n'
+10.2.1.37
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.38\r\n'
+10.2.1.38
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.35\r\n'
+10.2.1.35
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.40\r\n'
+10.2.1.40
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.42\r\n'
+10.2.1.42
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.43\r\n'
+10.2.1.43
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.41\r\n'
+10.2.1.41
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.44\r\n'
+10.2.1.44
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.46\r\n'
+10.2.1.46
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.45\r\n'
+10.2.1.45
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.48\r\n'
+10.2.1.48
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.34\r\n'
+10.2.1.34
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.47\r\n'
+10.2.1.47
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.49\r\n'
+10.2.1.49
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.103\r\n'
+10.2.1.103
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.105\r\n'
+10.2.1.105
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.101\r\n'
+10.2.1.101
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.107\r\n'
+10.2.1.107
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.104\r\n'
+10.2.1.104
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.106\r\n'
+10.2.1.106
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.108\r\n'
+10.2.1.108
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.109\r\n'
+10.2.1.109
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.110\r\n'
+10.2.1.110
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+in if condition
+COM11=Telit Serial Auxiliary Interface 
+Command exit status/return code :  0
+Telit port is available
+b'COM11\r\n'
+COM11
+Command exit status/return code :  0
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+#################
+timeout start1
+1668553296.7524214
+#################
+Waiting for Jenkins Download complete
+we have not received any GP Build email and going to exit
+COM11=Telit Serial Auxiliary Interface 
+SUCCESS: The process "putty.exe" with PID 54220 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 82920 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 93524 has been terminated.
+SUCCESS: The process "putty.exe" with PID 93460 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 94032 has been terminated.
+SUCCESS: The process "putty.exe" with PID 96168 has been terminated.
+SUCCESS: The process "putty.exe" with PID 45072 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 96400 has been terminated.
+SUCCESS: The process "powershell.exe" with PID 96344 has been terminated.
+Command exit status/return code :  0
+Telit port is available
+b'COM11\r\n'
+COM11
+Command exit status/return code :  0
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+#################
+timeout start1
+1668591384.894234
+#################
+1st ssh complete
+3514
+
+['12345', '1234568981', '2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062', '3064', '3066', '3079', '3080', '3081', '3084', '3094', '3095', '3097', '3098', '3101', '3102', '3108', '3111', '3112', '3113', '3119', '3121', '3123', '3125', '3127', '3129', '3131', '3137', '3138', '3139', '3141', '3142', '3144', '3145', '3146', '3151', '3152', '3154', '3161', '3163', '3165', '3168', '3169', '3170', '3172', '3174', '3176', '3182', '3186', '3187', '3188', '3189', '3190', '3191', '3193', '3194', '3195', '3196', '3197', '3198', '3199', '3200', '3201', '3208', '3209', '3210', '3211', '3217', '3218', '3219', '3226', '3227', '3228', '3229', '3235', '3236', '3237', '3238', '3239', '3240', '3241', '3242', '3243', '3244', '3245', '3246', '3252', '3253', '3254', '3255', '3256', '3257', '3263', '3264', '3265', '3284', '3285', '3286', '3292', '3293', '3299', '3300', '3301', '3302', '3306', '3307', '3310', '3312', '3313', '3314', '3315', '3322', '3338', '3341', '3342', '3345', '3348', '3349', '3351', '3353', '3365', '3366', '3380', '3430', '3431', '3432', '3433', '3434', '3435', '3438', '3444', '3445', '3446', '3465', '3482', '3483', '3484', '3485', '3486', '3487', '3488', '3489', '3490', '3496', '3499', '3500', '3501', '3502', '3503', '3504', '3505', '3506', '3507', '3508']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3514
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3514
+#################
+timeout start
+1668591397.5977235
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.129\r\n'
+10.2.1.129
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+pwd
+iperf -v
+iperf -c 10.2.1.129 -u -i 1 -p 45679 -t 3000 -l 1400 -B 192.168.2.84 -b 400m
+pwd
+iperf -s -u -i 1 -t 3000 -p 45679 -l 1400
+Taking screenshot
+Taking screenshot
+Taking screenshot
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.130\r\n'
+10.2.1.130
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.133\r\n'
+10.2.1.133
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.134\r\n'
+10.2.1.134
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.102\r\n'
+10.2.1.102
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.21\r\n'
+10.2.1.21
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.9\r\n'
+10.2.1.9
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.132\r\n'
+10.2.1.132
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.135\r\n'
+10.2.1.135
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.136\r\n'
+10.2.1.136
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.137\r\n'
+10.2.1.137
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.139\r\n'
+10.2.1.139
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.138\r\n'
+10.2.1.138
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.144\r\n'
+10.2.1.144
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.141\r\n'
+10.2.1.141
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.148\r\n'
+10.2.1.148
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.149\r\n'
+10.2.1.149
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.142\r\n'
+10.2.1.142
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.150\r\n'
+10.2.1.150
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.140\r\n'
+10.2.1.140
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.152\r\n'
+10.2.1.152
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.155\r\n'
+10.2.1.155
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.159\r\n'
+10.2.1.159
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.158\r\n'
+10.2.1.158
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.154\r\n'
+10.2.1.154
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.153\r\n'
+10.2.1.153
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.156\r\n'
+10.2.1.156
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.163\r\n'
+10.2.1.163
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.165\r\n'
+10.2.1.165
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.157\r\n'
+10.2.1.157
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.164\r\n'
+10.2.1.164
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.168\r\n'
+10.2.1.168
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.170\r\n'
+10.2.1.170
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.169\r\n'
+10.2.1.169
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.171\r\n'
+10.2.1.171
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.172\r\n'
+10.2.1.172
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.173\r\n'
+10.2.1.173
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.167\r\n'
+10.2.1.167
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.174\r\n'
+10.2.1.174
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.175\r\n'
+10.2.1.175
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.176\r\n'
+10.2.1.176
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.177\r\n'
+10.2.1.177
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.178\r\n'
+10.2.1.178
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.179\r\n'
+10.2.1.179
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.180\r\n'
+10.2.1.180
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.182\r\n'
+10.2.1.182
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.183\r\n'
+10.2.1.183
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.184\r\n'
+10.2.1.184
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.185\r\n'
+10.2.1.185
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.186\r\n'
+10.2.1.186
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.187\r\n'
+10.2.1.187
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.188\r\n'
+10.2.1.188
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.191\r\n'
+10.2.1.191
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.192\r\n'
+10.2.1.192
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.193\r\n'
+10.2.1.193
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.194\r\n'
+10.2.1.194
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.195\r\n'
+10.2.1.195
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.197\r\n'
+10.2.1.197
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.198\r\n'
+10.2.1.198
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.199\r\n'
+10.2.1.199
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.200\r\n'
+10.2.1.200
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.202\r\n'
+10.2.1.202
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.203\r\n'
+10.2.1.203
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.204\r\n'
+10.2.1.204
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.206\r\n'
+10.2.1.206
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.208\r\n'
+10.2.1.208
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.211\r\n'
+10.2.1.211
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.212\r\n'
+10.2.1.212
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.210\r\n'
+10.2.1.210
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.213\r\n'
+10.2.1.213
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.209\r\n'
+10.2.1.209
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.214\r\n'
+10.2.1.214
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.217\r\n'
+10.2.1.217
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.218\r\n'
+10.2.1.218
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.219\r\n'
+10.2.1.219
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.221\r\n'
+10.2.1.221
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.223\r\n'
+10.2.1.223
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.220\r\n'
+10.2.1.220
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.225\r\n'
+10.2.1.225
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.226\r\n'
+10.2.1.226
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.228\r\n'
+10.2.1.228
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.224\r\n'
+10.2.1.224
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.229\r\n'
+10.2.1.229
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.231\r\n'
+10.2.1.231
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.232\r\n'
+10.2.1.232
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.233\r\n'
+10.2.1.233
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.235\r\n'
+10.2.1.235
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.236\r\n'
+10.2.1.236
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.230\r\n'
+10.2.1.230
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.239\r\n'
+10.2.1.239
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.241\r\n'
+10.2.1.241
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.240\r\n'
+10.2.1.240
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.238\r\n'
+10.2.1.238
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.242\r\n'
+10.2.1.242
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.237\r\n'
+10.2.1.237
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.181\r\n'
+10.2.1.181
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.244\r\n'
+10.2.1.244
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.243\r\n'
+10.2.1.243
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.247\r\n'
+10.2.1.247
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.234\r\n'
+10.2.1.234
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.245\r\n'
+10.2.1.245
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.249\r\n'
+10.2.1.249
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition
+in if condition
+'at \r\n\r\nOK'
+'at+cfun=0 \r\n\r\nOK'
+'at+cfun=1 \r\n\r\nOK'
+''
+'at+cpin? \r\n\r\n+CPIN: READY\r\n\r\nOK'
+''
+'at+cimi \r\n\r\n311480123456792\r\n\r\nOK'
+wait few minutes to assign IP for UE
+Removing netsh_show_interfaces_file_stress.txt
+b''
+Command exit status/return code :  0
+b' Cellular\r\n'
+Cellular
+Command exit status/return code :  0
+Removing ipaddress_file.txt
+b''
+Command exit status/return code :  0
+b'10.2.1.252\r\n'
+10.2.1.252
+Command exit status/return code :  0
+test pass
+test pass
+Taking screenshot
+before if condition

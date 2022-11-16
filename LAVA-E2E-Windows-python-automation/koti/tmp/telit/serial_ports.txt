@@ -1,0 +1,9 @@
+COM11=Telit Serial Auxiliary Interface 
+COM12=Telit Serial NMEA Interface 
+COM9=Telit Serial Diagnostics Interface 
+COMBluetooth Device (RFCOMM Protocol TDI=Bluetooth Device (RFCOMM Protocol TDI)
+CommonProgramFiles=C:\Program Files\Common Files
+CommonProgramFiles(x86)=C:\Program Files (x86)\Common Files
+CommonProgramW6432=C:\Program Files\Common Files
+COMPUTERNAME=DESKTOP-8A0BAA9
+ComSpec=C:\Windows\system32\cmd.exe

@@ -1,0 +1,32 @@
+#################
+timeout start1
+1665097281.165905
+#################
+Waiting for Jenkins Download complete
+we have not received any GP Build email and going to exit
+SUCCESS: The process "QXDM.exe" with PID 7444 has been terminated.
+#################
+timeout start1
+1665139114.6787853
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3054
+
+['2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3054
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3054
+#################
+timeout start
+1665139271.5693908
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+Could not locate the UE_registratioin string
+Could not locate the PDU establishsment string
+665 80

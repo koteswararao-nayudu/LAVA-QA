@@ -1,0 +1,345 @@
+SUCCESS: The process "QXDM.exe" with PID 21068 has been terminated.
+#################
+timeout start1
+1665097265.2128763
+#################
+Waiting for Jenkins Download complete
+we have not received any GP Build email and going to exit
+SUCCESS: The process "QXDM.exe" with PID 4740 has been terminated.
+#################
+timeout start1
+1665129057.3350027
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3047
+
+['2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3047
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3047
+#################
+timeout start
+1665129065.334973
+#################
+Waiting for CELL UP
+#################
+timeout start1
+1665134807.5849931
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3048
+
+['2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3048
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3048
+Does not find the file
+Does not find the file
+#################
+timeout start
+1665134814.2722924
+#################
+Waiting for CELL UP
+SUCCESS: The process "QXDM.exe" with PID 1212 has been terminated.
+#################
+timeout start1
+1665136650.8974998
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3050
+
+['2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3050
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3050
+Does not find the file
+Does not find the file
+#################
+timeout start
+1665136861.1787853
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+Could not locate the UE_registratioin string
+Could not locate the PDU establishsment string
+665 80
+SUCCESS: The process "QXDM.exe" with PID 4736 has been terminated.
+#################
+timeout start1
+1665140488.3193347
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3056
+
+['2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3056
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3056
+#################
+timeout start
+1665140640.8193848
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+Could not locate the UE_registratioin string
+Could not locate the PDU establishsment string
+665 80
+SUCCESS: The process "QXDM.exe" with PID 4576 has been terminated.
+SUCCESS: The process "QXDM.exe" with PID 1604 has been terminated.
+#################
+timeout start1
+1665153897.9443996
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3060
+
+['2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3060
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3060
+#################
+timeout start
+1665154053.7100213
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+Could not locate the UE_registratioin string
+Could not locate the PDU establishsment string
+665 80
+SUCCESS: The process "QXDM.exe" with PID 1940 has been terminated.
+#################
+timeout start1
+1665183662.5068567
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3064
+
+['2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3064
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3064
+#################
+timeout start
+1665183811.5848234
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+Could not locate the UE_registratioin string
+Could not locate the PDU establishsment string
+665 80
+SUCCESS: The process "QXDM.exe" with PID 8880 has been terminated.
+#################
+timeout start1
+1665404204.8505502
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3079
+
+['2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062', '3064', '3066']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3079
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3079
+#################
+timeout start
+1665404375.975176
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+SUCCESS: The process "QXDM.exe" with PID 5712 has been terminated.
+#################
+timeout start1
+1665407682.4287171
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3081
+
+['2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062', '3064', '3066', '3079', '3080']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3081
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3081
+#################
+timeout start
+1665407925.4757688
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+665 80
+SUCCESS: The process "QXDM.exe" with PID 10972 has been terminated.
+#################
+timeout start1
+1665446212.7840054
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3094
+
+['2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062', '3064', '3066', '3079', '3080', '3081', '3084']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3094
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3094
+#################
+timeout start
+1665446590.5184126
+#################
+Waiting for CELL UP
+#################
+timeout start1
+1665447721.5652678
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+Unable to submit /home/equser/koti/lava-testcases/e2e/board41/tmp/edgeq-raptor2_e2e_gnb_cellup_board41-generic1_RC3.yaml: <Fault 400: 'Problem with submitted job data: Loading job submission failed: mapping values are not allowed in this context\n  in "<unicode string>", line 3, column 51.'>
+
+['2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062', '3064', '3066', '3079', '3080', '3081', '3084', '3094']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\Unable to submit /home/equser/koti/lava-testcases/e2e/board41/tmp/edgeq-raptor2_e2e_gnb_cellup_board41-generic1_RC3.yaml: <Fault 400: 'Problem with submitted job data: Loading job submission failed: mapping values are not allowed in this context\n  in "<unicode string>", line 3, column 51.'>
+#################
+timeout start1
+1665448476.455892
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3095
+
+['2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062', '3064', '3066', '3079', '3080', '3081', '3084', '3094']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3095
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3095
+Does not find the file
+Does not find the file
+#################
+timeout start
+1665448844.034015
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+Could not locate the flight mode on button
+SUCCESS: The process "QXDM.exe" with PID 3520 has been terminated.
+#################
+timeout start1
+1665615683.4692903
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3119
+
+['2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062', '3064', '3066', '3079', '3080', '3081', '3084', '3094', '3095', '3097', '3098', '3101', '3102', '3108', '3111', '3112', '3113']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3119
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3119
+#################
+timeout start
+1665616262.0943158
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+Could not locate the flight mode on button
+SUCCESS: The process "QXDM.exe" with PID 9676 has been terminated.
+#################
+timeout start1
+1665705117.586749
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3138
+
+['2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062', '3064', '3066', '3079', '3080', '3081', '3084', '3094', '3095', '3097', '3098', '3101', '3102', '3108', '3111', '3112', '3113', '3119', '3121', '3123', '3125', '3127', '3129', '3131', '3137']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3138
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3138
+#################
+timeout start
+1665705296.28989
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+655 81
+SUCCESS: The process "QXDM.exe" with PID 9224 has been terminated.
+#################
+timeout start1
+1665856229.695034
+#################
+Waiting for Jenkins Download complete
+0
+1st ssh complete
+3174
+
+['1234568981', '2886', '2897', '2907', '2908', '2915', '2918', '2920', '2922', '2923', '2927', '2929', '2935', '2937', '2960', '2986', '2989', '2990', '2993', '2994', '2996', '2998', '2999', '3001', '3003', '3005', '3006', '3008', '3010', '3011', '3013', '3015', '3017', '3018', '3019', '3020', '3026', '3028', '3036', '3047', '3048', '3050', '3052', '3054', '3056', '3058', '3060', '3062', '3064', '3066', '3079', '3080', '3081', '3084', '3094', '3095', '3097', '3098', '3101', '3102', '3108', '3111', '3112', '3113', '3119', '3121', '3123', '3125', '3127', '3129', '3131', '3137', '3138', '3139', '3141', '3142', '3144', '3145', '3146', '3151', '3152', '3154', '3161', '3163', '3165', '3168', '3169', '3170', '3172']
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots
+\\192.168.3.230\public\lava-qa\results\screenshots\3174
+None
+Current working directory is: \\192.168.3.230\public\lava-qa\results\screenshots\3174
+#################
+timeout start
+1665856396.1013165
+#################
+Waiting for CELL UP
+2
+3
+CELL UP Done
+Could not locate the UE_registratioin string
+Could not locate the PDU establishsment string
+655 81
+#################
+timeout start1
+1665874862.0075185
+#################
+Waiting for Jenkins Download complete
+we have not received any GP Build email and going to exit
+#################
+timeout start1
+1665961262.7559662
+#################
+Waiting for Jenkins Download complete
+we have not received any GP Build email and going to exit
