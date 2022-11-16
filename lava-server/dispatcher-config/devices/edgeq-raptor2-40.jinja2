@@ -1,0 +1,32 @@
+{% extends 'edgeq-raptor2.jinja2' %}
+
+{% set connection_list = ['uart0', 'uart1'] %}
+{% set connection_commands = {'uart0': 'telnet localhost 5001', 'uart1': 'telnet localhost 5002'} %}
+{% set connection_tags = {'uart0': ['primary', 'telnet'], 'uart1': ['telnet']} %}
+
+{% set bootloader_prompt = '=>' %}
+
+{% set uboot_set_mac = uboot_set_mac|default('true') %}
+{% set uboot_mac_addr = uboot_mac_addr|default('fc:9b:d4:00:00:c8') %}
+
+#{% set uboot_ipaddr_cmd = "setenv ipaddr 192.168.3.123" %}
+{% set uboot_serverip_cmd = "setenv serverip 192.168.3.40" %}
+
+{% set base_uboot_bootcmd = uboot_bootcmd|default(uboot_bootx_cmd|default('false')) -%}
+
+{% set power_off_command = '/lab-nfs/scratch/jude/board/EVB/common/pmic_off_EvBv2.py' %}
+{% set power_on_command = '/lab-nfs/scratch/jude/board/EVB/common/pmic_on_EvBv2.py ' %}
+
+{% set hard_reset_command = ' /lab-nfs/scratch/jude/board/EVB/common/pmic_off_on_board26_EVB_v2_1.sh ' %}
+{% set soft_reset_command = ' reboot ' %}
+
+{% set interrupt_prompt = "=>" %}
+{% set reboot_reset = true %}
+
+{% set flasher_deploy_commands = ['/lab-nfs/scratch/jude/board/EVB/common/pmic_off_EvBv2.py',
+                                  'sleep 10',
+                                  '/lab-nfs/scratch/jude/board/EVB/common/pmic_on_EvBv2.py',
+                                  'sleep 10',
+                                  '/lab-nfs/lava/files/flash.sh "{IMAGE}" &',
+                                  'sleep 2',
+                                  'sleep 2'] %}

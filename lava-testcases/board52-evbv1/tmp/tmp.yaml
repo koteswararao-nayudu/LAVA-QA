@@ -1,0 +1,45 @@
+device_type: edgeq-raptor2
+
+
+job_name: Edgeq-raptor2 linux, Zephyr and linux+Zephyr boot test
+timeouts:
+  job:
+    minutes: 20
+  action:
+    minutes: 20
+  connection:
+    minutes: 20
+priority: medium
+visibility: public
+
+
+actions:
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands: koti
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2_280322_313"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+

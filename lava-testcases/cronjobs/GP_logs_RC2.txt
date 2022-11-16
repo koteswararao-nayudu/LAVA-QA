@@ -1,0 +1,25 @@
+date and time: 07-Oct-2022
+SINCE 07-Oct-2022
+0
+date and time: 07-Oct-2022
+SINCE 07-Oct-2022
+1
+b'3128'
+EDGEQ GP2 E2E SOFTWARE JENKINS : 64 - SUCCESS
+email part
+email part
+email part
+EDGEQ GP2 E2E SOFTWARE JENKINS : 64 - SUCCESS
+subject line matches Success string
+071022
+64
+/usr/bin/sh /home/equser/lava_uramdisk_img.sh 64
+wget success
+64
+Password$2021
+sudo: unable to resolve host eq-lab-rp174: Name or service not known
+[sudo] password for equser: 
+Password$2021
+sudo: unable to resolve host eq-lab-rp174: Name or service not known
+[sudo] password for equser: 
+

@@ -1,0 +1,4663 @@
+device_type: edgeq-raptor2
+
+
+job_name: Edgeq-raptor2 reset stress test  -raptor2_010322_285
+
+timeouts:
+  job:
+    minutes: 2990
+  action:
+    minutes: 2990
+  connection:
+    minutes: 2990
+priority: 5
+visibility: public
+
+
+
+actions:
+#- deploy:
+#    namespace: linux1
+#    timeout:
+#      minutes: 20
+#    to: flasher
+#    images:
+#      image:
+#        url: file:/lab-nfs/koti/latestimages/raptor2_gnb_311022_551/IMAGES/FIRMWARE/NON_SECURE_MODE/EVB-V2/firmware.bin
+
+
+# - boot:
+    # namespace: linux1
+    # method: u-boot
+    # commands:
+    # - 'setenv serverip ;'
+    # - 'setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.26; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_311022_551'
+    # - 'tftp ${spl_addr_r}  /srv/tftp/koti/raptor2_gnb_311022_551/FLASHER/flash_image_evb2.bin'
+    # - 'run flash_firmware'
+    # timeout:
+     # minutes: 20
+    # prompts:
+    # - '=>'
+    # timeout:
+      # minutes: 20
+
+
+
+# - boot:
+    # namespace: linux1
+    # method: minimal
+    # auto_login:
+      # login_prompt: 'login:'
+      # username: rootrootroot
+    # timeout:
+     # minutes: 3
+    # prompts:
+    # - 'Password:'
+    # timeout:
+      # minutes: 3
+
+
+# - test:
+    # namespace: linux1
+    # timeout:
+      # minutes: 3
+    # interactive:
+    # - name: basic_linux_commands_emmcboot
+      # prompts: ["login:"]
+      # script:
+      # - command: root
+# #        name: basic_linux_commands
+
+# - test:
+    # namespace: linux1
+    # timeout:
+      # minutes: 3
+    # interactive:
+    # - name: basic_linux_commands_emmcboot
+      # prompts: ["# "]
+      # script:
+      # - command: root
+# #        name: basic_linux_commands
+
+# - test:
+    # namespace: linux1
+    # timeout:
+      # minutes: 3
+    # interactive:
+    # - name: basic_linux_commands_emmcboot
+      # prompts: ["# "]
+      # script:
+      # - command: pwd;ls
+# #        name: basic_linux_commands
+
+# - test:
+    # namespace: linux1
+    # timeout:
+      # minutes: 20
+    # interactive:
+    # - name: emmc_flasher_script_verification
+      # prompts: ["# "]
+      # script:
+      # - command: sleep 5;ip link set dev eth0 address fc:9b:d4:00:00:04
+      # - command: sleep 5;export TFTP_SERVER_IP="192.168.3.110"
+      # - command: sleep 5;export TFTP_PKG_DIR="/srv/tftp/koti/raptor2_gnb_311022_551"
+      # - command: sleep 5;export PACKAGE_VARIANT_NAME="GNB"
+      # - command: sleep 5;export FIRMWARE_EVB_VER="2"
+      # - command: sleep 5;export ETHERNET_PORT="eth0"
+      # - command: sleep 5;cd /opt/flasher/
+      # - command: sleep 5;ip link set dev eth0 address fc:9b:d4:00:00:04
+      # - command: sleep 5;export TFTP_SERVER_IP="192.168.3.110"
+      # - command: sleep 5;export TFTP_PKG_DIR="/srv/tftp/koti/raptor2_gnb_311022_551"
+      # - command: sleep 5;export PACKAGE_VARIANT_NAME="GNB"
+      # - command: sleep 5;export FIRMWARE_EVB_VER="2"
+      # - command: sleep 5;export ETHERNET_PORT="eth0"
+      # - command: sleep 5;cd /opt/flasher/
+      # - command: sleep 5;ip link set dev eth0 address fc:9b:d4:00:00:04
+      # - command: sleep 5;export TFTP_SERVER_IP="192.168.3.110"
+      # - command: sleep 5;export TFTP_PKG_DIR="/srv/tftp/koti/raptor2_gnb_311022_551"
+      # - command: sleep 5;export PACKAGE_VARIANT_NAME="GNB"
+      # - command: sleep 5;export FIRMWARE_EVB_VER="2"
+      # - command: sleep 5;export ETHERNET_PORT="eth0"
+      # - command: sleep 5;cd /opt/flasher/
+
+
+# - test:
+    # namespace: linux1
+    # timeout:
+      # minutes: 20
+    # interactive:
+    # - name: emmc_flasher_script_verification1
+      # prompts: ["Entering Raptor2 restart handler"]
+      # script:
+      # - command: echo "y" | sh -v emmc_flasher.sh; export TFTP_PKG_DIR="koti/raptor2_gnb_311022_551"; cd /opt/flasher; echo "y" | sh -v emmc_flasher.sh
+        # name: emmc_flasher_script_verification
+        # #successes:
+        # #- message: "Entering Raptor2 restart handler"
+        # #failures:
+        # #- message: "TIMEOUT"
+        # #  exception: InfrastructureError
+        # #  error: "emmc_flasher_script failed"
+
+
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' print  ethaddr;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 5
+      skip: true
+
+
+#- test:
+#    namespace: linux
+#    timeout:
+#      minutes: 4
+#    interactive:
+#    - name: FirmwareFlash
+#      prompts: ["=>"]
+#      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: sleep 2;version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_gnb_311022_551"
+#        failures:
+#        - message: "TIMEOUT"
+#          exception: InfrastructureError
+#          error: "u-boot version command failed"
+
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+      - command:
+#        name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 2
+      skip: true
+    interactive:
+    - name: u-boot_reset
+      prompts: ["=>"]
+      script:
+ #     - command: reset
+ #       name: U-Boot_reset
+      - command:  reset
+        name: u-boot_reset
+        successes:
+        - message: "Board"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "u-boot reset  failed"
+
+

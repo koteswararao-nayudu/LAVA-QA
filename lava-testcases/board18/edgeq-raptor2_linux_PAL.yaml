@@ -1,0 +1,60 @@
+device_type: edgeq-raptor2
+
+
+job_name: Edgeq-raptor2 PAL Scenarios
+timeouts:
+  job:
+    minutes: 20
+  action:
+    minutes: 20
+  connection:
+    minutes: 20
+priority: medium
+visibility: public
+
+
+actions:
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:5A;setenv netretry yes;setenv ipaddr 192.168.3.225; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_030222_264/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: PALScenarios
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 18 eth0; ifconfig
+        name: NetworkInterfacesetup
+        successes:
+        - message: "192.168.3.218"
+        failures:
+        - message: "BROADCAST MULTICAST"
+          exception: InfrastructureError
+          error: "NetworkInterface setup failed"
+      - command: /raptor/etc/sys_params.sh 
+        name: SysParametersSetup
+        successes:
+        - message: "drop_caches:"
+        failures:
+        - message: "error"
+          exception: InfrastructureError
+          error: "SystemParameters setup failed"
+

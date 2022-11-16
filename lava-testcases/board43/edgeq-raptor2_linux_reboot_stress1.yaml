@@ -1,0 +1,93 @@
+device_type: edgeq-raptor2
+
+
+job_name: Edgeq-raptor2 linux, Zephyr and linux+Zephyr boot test
+timeouts:
+  job:
+    minutes: 20
+  action:
+    minutes: 20
+  connection:
+    minutes: 20
+priority: medium
+visibility: public
+#context:
+#  test_character_delay: 10
+#commands:
+#  soft_reboot: reboot
+
+actions:
+
+- boot:
+    namespace: linux
+    method: minimal
+    #reset: false
+    #soft_reboot: ["reboot"]
+    #commands:
+    #  soft_reboot:  "reboot"
+    parameters:
+      shutdown-message: "Restarting system"
+    auto_login:
+       login_prompt: 'login:'
+       username: root
+       password: " "
+       username: " "
+       password: " "
+       password: " "
+    prompts:
+       - '# '
+    timeout:
+       minutes: 20
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_commands
+      prompts: ["# "]
+      script:
+      - command: ls -ltr;pwd
+        name: lstest
+        successes:
+        - message: "total"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "ls failed"
+
+
+- boot:
+    namespace: linux
+    method: minimal
+    reset: false
+    soft_reboot: ["reboot"]
+    #commands:
+    #  soft_reboot:  "reboot"
+    parameters:
+      shutdown-message: "Restarting system"
+    auto_login:
+       login_prompt: 'login:'
+       username: root
+    prompts:
+       - '# '
+    timeout:
+       minutes: 20
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_commands
+      prompts: ["# "]
+      script:
+      - command: ls -ltr;pwd
+        name: lstest
+        successes:
+        - message: "total"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "ls failed"
+

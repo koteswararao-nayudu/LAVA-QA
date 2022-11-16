@@ -1,0 +1,103 @@
+device_type: edgeq-raptor2
+
+job_name: USB Functional Tests Board #43
+
+tags:
+- e2e
+ 
+notify:
+    recipients:
+    - to:
+       method: email
+       user: admin
+    criteria:
+      status: finished
+    verbosity: verbose
+    compare:
+       blacklist: [lava]
+
+
+timeouts:
+  job:
+    minutes: 28880
+  action:
+    minutes: 28880
+  connection:
+    minutes: 40
+priority: medium
+visibility: public
+
+actions:
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/usb/; setenv img_path_ramdisk /srv/tftp/koti/usb/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/raptor2-A0.dtb"'
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/uRamdisk.img"'
+    - ' run bootargs_r;run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+#- test:
+#    namespace: linux
+#    timeout:
+#      minutes: 20
+#    interactive:
+#    - name: USB_MassStorage_enumeration
+#      prompts: ["# "]
+#      echo: discard
+#      script:
+#      - command: ifconfig eth0 192.168.3.52 up;
+#      - command: touch /root/1.txt; echo "hai" >> /root/1.txt
+#      - command: dmesg | grep -i usb | grep "USB .* Storage device detected" && echo "SUCCESS" || echo "FAIL"
+#        name: USB-detection-Linux
+#        successes:
+#        - message: "SUCCESS"
+#        failures:
+#        - message: "FAIL"
+#          error: "USB MassStorage enumeration  at linux level test fail"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 3
+    interactive:
+    - name: USB_Drive_dection
+      prompts: ["# "]
+      echo: discard
+      script:
+      - command: lsusb | grep "Bus 002" && ls /dev | grep sd && echo "SUCCESS"  || echo "FAIL"
+        name: USB-detection-Linux
+        successes:
+        - message: "SUCCESS"
+        failures:
+        - message: "FAIL"
+          error: "USB Drive detection at linux level test fail"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 3
+    interactive:
+    - name: USB_mount_copy_file
+      prompts: ["# "]
+      echo: discard
+      script:
+      - command: mount /dev/sda1 /mnt && cp /root/1.txt /mnt  && echo "SUCCESS"  || echo "FAIL"
+        name: USB-mount_copy_file
+        successes:
+        - message: "SUCCESS"
+        failures:
+        - message: "FAIL"
+          error: "USB Mount and copy at linux level test fail"

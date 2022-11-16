@@ -1,0 +1,195 @@
+device_type: edgeq-raptor2
+
+
+job_name: Edgeq-raptor2 eMMC-boot boot test -raptor2_gnb_270622_418
+timeouts:
+  job:
+    minutes: 100
+  action:
+    minutes: 100
+  connection:
+    minutes: 30
+priority: medium
+visibility: public
+
+
+actions:
+- deploy:
+    namespace: linux
+    timeout:
+      minutes: 20
+    to: flasher
+    images:
+      image:
+        url: file:/lab-nfs/koti/latestimages/raptor2_gnb_270622_418/FLASHER/flash_image_evb2.bin
+        #url: file:/lab-nfs/koti/latestimages/raptor2_gnb_270622_418/IMAGES/FIRMWARE/EVB-V2/firmware.bin
+
+
+- boot:
+    namespace: linux
+    method: minimal
+    auto_login:
+      login_prompt: 'login:'
+      username: rootrootroot
+    timeout:
+     minutes: 20
+    prompts:
+    - 'Password:'
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 10
+    interactive:
+    - name: basic_linux_commands_emmcboot
+      prompts: ["login:"]
+      script:
+      - command: root
+#        name: basic_linux_commands
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 10
+    interactive:
+    - name: basic_linux_commands_emmcboot
+      prompts: ["# "]
+      script:
+      - command: root
+#        name: basic_linux_commands
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 10
+    interactive:
+    - name: basic_linux_commands_emmcboot
+      prompts: ["# "]
+      script:
+      - command: pwd;ls
+#        name: basic_linux_commands
+
+#- test:
+#    namespace: linux
+#    timeout:
+#      minutes: 4
+#    interactive:
+#    - name: basic_linux_commands
+#      prompts: ["# "]
+#      script:
+#      - command: ls -ltr;pwd
+#        name: lstest
+#        successes:
+#        - message: "total"
+#        failures:
+#        - message: "TIMEOUT"
+#          exception: InfrastructureError
+#          error: "ls failed"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 10
+    interactive:
+    - name: emmc_flasher_script_verification
+      prompts: ["# "]
+      script:
+      - command: ip link set dev eth0 address fc:9b:d4:00:00:04
+      - command: export TFTP_SERVER_IP="192.168.3.110"
+      - command: export TFTP_PKG_DIR="/srv/tftp/koti/raptor2_gnb_270622_418"
+      - command: export PACKAGE_VARIANT_NAME="GNB"
+      - command: export FIRMWARE_EVB_VER="2"
+      - command: cd /opt/flasher/
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 10
+    interactive:
+    - name: emmc_flasher_script_verification1
+      prompts: ["Entering Raptor2 restart handler"]
+      script:
+      - command: echo "y" | sh emmc_flasher.sh
+        #name: emmc_flasher_script_verification
+        #successes:
+        #- message: "Entering Raptor2 restart handler"
+        #failures:
+        #- message: "TIMEOUT"
+        #  exception: InfrastructureError
+        #  error: "emmc_flasher_script failed"
+
+
+#- boot:
+#    namespace: linux
+#    method: minimal
+#    reset: false
+#    auto_login:
+#      login_prompt: 'login:'
+#      username: root
+##      password: root
+#    prompt:
+#    - '# '
+#    timeout:
+#      minutes: 20
+
+
+- boot:
+    namespace: linux
+    method: minimal
+    auto_login:
+      login_prompt: 'login:'
+      username: rootrootroot
+    timeout:
+     minutes: 20
+    prompts:
+    - 'Password:'
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 10
+    interactive:
+    - name: basic_linux_commands_emmcboot
+      prompts: ["login:"]
+      script:
+      - command: root
+#        name: basic_linux_commands
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 10
+    interactive:
+    - name: basic_linux_commands_emmcboot
+      prompts: ["# "]
+      script:
+      - command: root
+#        name: basic_linux_commands
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_commands
+      prompts: ["# "]
+      script:
+      - command: ls -ltr;pwd
+#        name: lstest
+        successes:
+        - message: "total"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "ls failed"
+
+

@@ -1,0 +1,122 @@
+device_type: edgeq-raptor2
+
+
+job_name: Edgeq-raptor2 linux performance tests
+timeouts:
+  job:
+    minutes: 20
+  action:
+    minutes: 20
+  connection:
+    minutes: 20
+priority: medium
+visibility: public
+
+
+actions:
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - 'setenv serverip ;dhcp'
+    - 'setenv ethaddr fc:9b:d4:00:00:82;setenv netretry yes;setenv ipaddr 192.168.3.26; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_150322_301/'
+    - 'setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/LINUX/BM-uRamdisk.img"' 
+    - 'setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - 'run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 10
+    interactive:
+    - name: LMBench_Performance_Test
+      prompts: ["# "]
+      script:
+      - command: cd /benchmarks/lmbench-3.0-a9/;cp configs/CONFIG.raptor2 bin/arm-linux/;cd scripts/;export OS=arm-linux;taskset -c 3 ./results
+        name: LMBench
+        successes:
+        - message: "Calculating memory load latency"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "LMBench failed"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 10
+    interactive:
+    - name: LMBench_Performance_output
+      prompts: ["# "]
+      script:
+      - command: cat /benchmarks/lmbench-3.0-a9/results/arm-linux/raptor2.0 >> results.txt; cat results.txt
+        name: LMBench-output
+        successes:
+        - message: "Random load latency"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "LMBench failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 10
+    interactive:
+    - name: Coremark_mthread_Performance_Test 
+      prompts: ["# "]
+      script:
+      - command: cd /benchmarks/coremark;./coremark_mthread.exe
+        name: Coremark_mthread-output
+        successes:
+        - message: "Correct operation validated"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "Coremark_mthread test failed"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 10
+    interactive:
+    - name: Coremark_sthread_Performance_Test
+      prompts: ["# "]
+      script:
+      - command: cd /benchmarks/coremark;./coremark_sthread.exe
+        name: Coremark_sthread-output
+        successes:
+        - message: "Correct operation validated"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "Coremark_sthread test failed"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 10
+    interactive:
+    - name: Dhrystone_Performance_Test
+      prompts: ["# "]
+      script:
+      - command: cd  /benchmarks/dhrystone2.1; echo 100000000 | ./cc_dry2
+        name: Dhrystone-output
+        successes:
+        - message: "Dhrystones per Second:"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "Dhrystone test failed"

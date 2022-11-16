@@ -1,0 +1,117 @@
+device_type: edgeq-raptor2
+
+
+job_name: Edgeq-raptor2 gNB Cell_UP
+timeouts:
+  job:
+    minutes: 40
+  action:
+    minutes: 40
+  connection:
+    minutes: 40
+priority: medium
+visibility: public
+
+
+actions:
+
+#- deploy:
+#    namespace: linux
+#    timeout:
+#      minutes: 10
+#    to: flasher
+#    images:
+#      image:
+#        url: file:/lab-nfs/koti/latestimages/raptor2_gnb_090622_399/IMAGES/FIRMWARE/NON_SECURE_MODE/EVB-V2/firmware.bin
+
+
+
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2_gnb_090622_399"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "Firmware Flash failed"
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.125;'
+    - ' tftp 0x406000000 vijay/RAPTOR2-GP1-v1.1.3-PLFM_REL/IMAGES/LINUX/LINUX-RT/raptor2-A0.dtb'
+    - ' tftp 0x408000000 vijay/RAPTOR2-GP1-v1.1.3-PLFM_REL/IMAGES/LINUX/LINUX-RT/Image'
+    - ' tftp 0x40C000000 vijay/gp1_builds/uRamdisk_e2e_gp1_27.img; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 20
+    interactive:
+    - name: gNB_CU_DU_setup
+      prompts: ["# "]
+      script:
+      - command: cd /raptor;tar -xvf l23sw.tar.gz;/raptor/etc/net_interface.sh 43 eth0;/raptor/etc/nfs_mount.sh;cd /;
+      - command: rm -rf raptor;cp -r /tmp/nfs/QA/B43_J27/raptor /
+      - command: echo N > /sys/module/sctp/parameters/no_checksums ;
+      - command: systemctl start raptor2
+        name: gnb_CU_DU_setup
+#        successes:
+#        - message: "bytes to ILM"
+#        failures:
+#        - message: "FAIL"
+#          error: "gNB cu du setp test fail"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 20
+    interactive:
+    - name: gNB_CELL_UP
+      prompts: ["# "]
+      echo: discard
+      script:
+      - command: sleep 240;cat /raptor/l23sw/du/bin/du_log | grep 'CELL\[.*\] is UP'
+        name: gnb_CELL_UP
+        successes:
+        - message: 'CELL\[1\] is UP'
+        failures:
+        - message: "FAIL"
+          error: "gNB test fail"
+
+

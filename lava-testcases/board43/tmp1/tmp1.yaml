@@ -1,0 +1,2861 @@
+device_type: edgeq-raptor2
+
+
+job_name: Bug-3422 reproducibility
+timeouts:
+  job:
+    minutes: 20
+  action:
+    minutes: 20
+  connection:
+    minutes: 20
+priority: medium 
+visibility: public
+
+
+actions:
+- deploy:
+    namespace: linux
+    timeout:
+      minutes: 10
+    to: flasher
+    images:
+      image:
+        url: file:/lab-nfs/koti/latestimages/raptor2_060422_326/FIRMWARE/NON_SECURE_MODE/EVB2/firmware.bin
+
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;saveenv'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2_060422_326"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+
+
+
+
+
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_060422_326/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 15
+    prompts:
+    - '# '
+    timeout:
+      minutes: 15
+

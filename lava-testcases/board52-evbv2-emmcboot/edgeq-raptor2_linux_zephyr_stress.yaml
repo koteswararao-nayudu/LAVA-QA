@@ -1,0 +1,6105 @@
+device_type: edgeq-raptor2
+
+
+job_name: Edgeq-raptor2 linux, Zephyr boot stress test
+timeouts:
+  job:
+    minutes: 9000
+  action:
+    minutes: 9000
+  connection:
+    minutes: 9000
+priority: medium
+visibility: public
+
+
+actions:
+- deploy:
+    namespace: linux
+    timeout:
+      minutes: 10
+    to: flasher
+    images:
+      image:
+        url: file:/lab-nfs/koti/latestimages/raptor2_gnb_300522_381/IMAGES/FIRMWARE/NON_SECURE_MODE/EVB-V2/firmware.bin
+
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:04;saveenv'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2_gnb_300522_381"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/IMAGES/LINUX/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+

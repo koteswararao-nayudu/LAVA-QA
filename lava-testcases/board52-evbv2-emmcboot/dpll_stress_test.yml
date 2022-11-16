@@ -1,0 +1,4780 @@
+device_type: edgeq-raptor2
+
+
+job_name: Edgeq-raptor2 linux, Zephyr boot stress test for dpll
+timeouts:
+  job:
+    minutes: 9000
+  action:
+    minutes: 9000
+  connection:
+    minutes: 9000
+priority: medium
+visibility: public
+
+#constants:
+#  u-boot:
+#    interrupt-prompt: "Hit any key to stop autoboot"
+
+
+actions:
+#- deploy:
+#    namespace: linux
+#    timeout:
+#      minutes: 10
+#    to: flasher
+#    images:
+#      image:
+#        url: file:/lab-nfs/koti/latestimages/raptor2_gnb_300522_381/IMAGES/FIRMWARE/NON_SECURE_MODE/EVB-V2/firmware.bin
+
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed" 
+
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed" 
+
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed" 
+
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed" 
+
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed" 
+
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed" 
+
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    #interrupt-prompt: "Hit any key to stop autoboot"
+    commands:
+    - ' print ethaddr; '
+    - ' ping 192.168.3.110'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: ubootping
+      prompts: ["=>"]
+      script:
+#      - command: version
+#        name: U-Boot_version
+#      - command: version
+#        name: FirmwareFlash
+#        successes:
+#        - message: "raptor2_du_140522_8-13-g5014f35a6c"
+#        failures:
+#        - message: "TIMEOUT"
+#          error: "zephyr version command failed"
+      - command: ping 192.168.3.110
+        name: U-Boot_ping
+      - command: ping 192.168.3.110
+        name: ubootping
+        successes:
+        - message: "is alive"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-Boot ping command failed"
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'	
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' setenv tftp_fdt_amp "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0-wlan.dtb"'
+    - ' run bootargs_r;run tftp_linux_amp; setenv img_path ${img_path}/IMAGES/WLAN; run tftp_bootz; run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_ping_commands
+      prompts: ["# "]
+      script:
+      - command: /raptor/etc/net_interface.sh 52 eth0;ping 192.168.3.110 -c 5
+        name: ping
+        successes:
+        - message: "5 packets received"
+        failures:
+        - message: "TIMEOUT"
+          error: "linux level ping failed"
+ 
+  

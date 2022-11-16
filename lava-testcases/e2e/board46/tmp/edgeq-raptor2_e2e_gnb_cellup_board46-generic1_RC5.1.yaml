@@ -1,0 +1,302 @@
+device_type: edgeq-raptor2
+
+job_name: :TestCase "gNB Cell_ATTACH" GP2-92 (PLFM :RC5.1)
+
+tags:
+- e2e
+
+notify:
+    recipients:
+    - to:
+       method: email
+       user: admin
+#    - to:
+#        method: email
+#        email: eqqa@edgeq.io
+#    - to:
+#        method: email
+#        email: platform-sw@edgeq.io
+#    - to:
+#        method: email
+#        email: controlfw@edgeq.io
+#    - to:
+#       method: email
+#       email: eq-nr-l23@edgeq.io
+#    - to:
+#        method: email
+#        email: ec-l23@edgeq.io
+    criteria:
+      status: finished
+    verbosity: verbose
+    compare:
+       blacklist: [lava]
+
+
+timeouts:
+  job:
+    minutes: 300
+  action:
+    minutes: 300
+  connection:
+    minutes: 300
+priority: medium
+visibility: public
+
+actions:
+#- deploy:
+#    namespace: linux
+#    timeout:
+#      minutes: 10
+#    to: flasher
+#    images:
+#      image:
+#        url: file:/lab-nfs/koti/latestimages/RAPTOR2-GNB-PLFM-v1.2.0-RC5.1/IMAGES/FIRMWARE/EVB-V2/firmware.bin
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    #- ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:7d;setenv netretry yes;setenv ipaddr 192.168.3.46; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/RAPTOR2-GNB-PLFM-v1.2.0-RC5.1/; setenv img_path_ramdisk /srv/tftp/koti/e2eramdisk/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-RT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-RT/raptor2-A0.dtb"'
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path_ramdisk}/uRamdisk.img"'
+    - ' run bootargs_r;run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+      password_prompt: "Password:"
+      password: "root"
+    timeout:
+     minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 20
+    interactive:
+    - name: gNB_CELL_UP_config_setup
+      prompts: ["# "]
+      echo: discard
+      script:
+      - command: touch /root/logsdisplay.txt; echo "logsdisplaycomplete" >> /root/logsdisplay.txt;
+      - command: rm -rf /raptor/l23sw_oam.tar.gz
+      - command: cd /raptor;tar -xvf l23sw.tar.gz;/raptor/etc/net_interface.sh 46 eth0;/raptor/etc/nfs_mount.sh;cd /;sync
+      #- command: cp -r /tmp/nfs/vasanth/ci/cu/config/* /raptor/l23sw/cu/config/
+      #- command: cp -r /tmp/nfs/vasanth/ci/du/config/* /raptor/l23sw/du/config/
+      - command: cd /raptor/l23sw/cu/config/
+      - command: lnnum=`grep -rn "\"EP_NgC\":" oam_3gpp_cu_sa_1du_1cell.json | awk -F ":" '{print $1}'`
+      - command: lnnum=$(( $lnnum + 4 )) ; lnnum="${lnnum}s" 
+      - command: echo $lnnum
+      - command: sed -i "$lnnum|\"localIpAddress\":.*$|\"localIpAddress\":\ \"192.168.3.46\",|g" oam_3gpp_cu_sa_1du_1cell.json
+      - command: lnnum=`grep -rn "\"EP_NgC\":" oam_3gpp_cu_sa_1du_1cell.json | awk -F ":" '{print $1}'`
+      - command: lnnum=$(( $lnnum + 8 )) ; lnnum="${lnnum}s" 
+      - command: echo $lnnum
+      - command: sed -i "$lnnum|\"remoteAddress\":.*$|\"remoteAddress\":\ \"192.168.3.195\",|g" oam_3gpp_cu_sa_1du_1cell.json ; sync
+      - command: cat oam_3gpp_cu_sa_1du_1cell.json | grep 192.168.3.195
+      - command: lnnum=`grep -rn "\"EP_NgU\":" oam_3gpp_cu_sa_1du_1cell.json | awk -F ":" '{print $1}'`
+      - command: cat oam_3gpp_cu_sa_1du_1cell.json | grep 192.168.3.195
+      - command: lnnum=$(( $lnnum + 4 )) ; lnnum="${lnnum}s" 
+      - command: cat oam_3gpp_cu_sa_1du_1cell.json | grep 192.168.3.195
+      - command: echo $lnnum
+      - command: cat oam_3gpp_cu_sa_1du_1cell.json | grep 192.168.3.195
+      - command: sed -i "$lnnum|\"localIpAddress\":.*$|\"localIpAddress\":\ \"192.168.3.96\",|g" oam_3gpp_cu_sa_1du_1cell.json
+      - command: cat oam_3gpp_cu_sa_1du_1cell.json | grep 192.168.3.195
+      - command: lnnum=`grep -rn "\"EP_NgU\":" oam_3gpp_cu_sa_1du_1cell.json | awk -F ":" '{print $1}'` 
+      - command: lnnum=$(( $lnnum + 8 )) ; lnnum="${lnnum}s" 
+      - command: echo $lnnum
+      - command: sed -i "$lnnum|\"remoteAddress\":.*$|\"remoteAddress\":\ \"192.168.3.194\",|g" oam_3gpp_cu_sa_1du_1cell.json
+      - command: cat oam_3gpp_cu_sa_1du_1cell.json | grep 192.168.3.195
+      - command: lnnum=`grep -rn "\"gNBCUName\":" oam_3gpp_cu_sa_1du_1cell.json | awk -F ":" '{print $1}'`
+      - command: lnnum=$(( $lnnum + 1 )) ; lnnum="${lnnum}s" 
+      - command: echo $lnnum
+      - command: sed -i "$lnnum|\"gNBId\":.*$|\"gNBId\":\ \"46\",|g" oam_3gpp_cu_sa_1du_1cell.json
+      - command: cat oam_3gpp_cu_sa_1du_1cell.json | grep 192.168.3.195
+      - command: sed -i "s|\"MCC\":\ \".*\"|\"MCC\":\ \"001\"|g" oam_3gpp_cu_sa_1du_1cell.json
+      - command: sed -i "s|\"MNC\":\ \".*\"|\"MNC\":\ \"01\"|g" oam_3gpp_cu_sa_1du_1cell.json
+      - command: cat oam_3gpp_cu_sa_1du_1cell.json
+      - command: cp oam_3gpp_cu_sa_1du_1cell.json /tmp/nfs/lava-qa/
+      - command: cd /raptor/l23sw/du/config/
+      - command: lnnum=`grep -rn "\"puschPwrCfg\":" oam_3gpp_cell_cfg_mu1_1cell.json | awk -F ":" '{print $1}'` 
+      - command: lnnum=$(( $lnnum + 7 )) ; lnnum="${lnnum}s" 
+      - command: echo $lnnum
+      - command: sed -i "$lnnum|\"p0nominal\":.*$|\"p0nominal\":\ \"-100\"|g" oam_3gpp_cell_cfg_mu1_1cell.json
+      - command: lnnum=`grep -rn "\"nrCellId\":" oam_3gpp_cell_cfg_mu1_1cell.json | awk -F ":" '{print $1}'` 
+      - command: lnnum="${lnnum}s" 
+      - command: echo $lnnum
+      - command: sed -i "$lnnum|\"nrCellId\":.*$|\"nrCellId\":\ \"0000002e1\",|g" oam_3gpp_cell_cfg_mu1_1cell.json
+      - command: lnnum=`grep -rn "\"gNBId\":" oam_3gpp_cell_cfg_mu1_1cell.json | awk -F ":" '{print $1}'` 
+      - command: lnnum="${lnnum}s" 
+      - command: echo $lnnum
+      - command: sed -i "$lnnum|\"gNBId\":.*$|\"gNBId\":\ \"46\",|g" oam_3gpp_cell_cfg_mu1_1cell.json
+      - command: sed -i "s|\"MCC\":\ \".*\"|\"MCC\":\ \"001\"|g" oam_3gpp_cell_cfg_mu1_1cell.json
+      - command: sed -i "s|\"MNC\":\ \".*\"|\"MNC\":\ \"01\"|g" oam_3gpp_cell_cfg_mu1_1cell.json
+      - command: cat oam_3gpp_cell_cfg_mu1_1cell.json
+      - command: cp oam_3gpp_cell_cfg_mu1_1cell.json /tmp/nfs/lava-qa
+      - command: cp -r /tmp/nfs/scratch/l1_etc/b46/layer1_config_params.yaml /raptor/etc/
+      #- command: cp -r /tmp/nfs/l1_etc/b46/su_deployment_config.yaml /raptor/etc/
+      - command: sync
+      #- command: cp /raptor/l23sw/cu/config/oam_3gpp_cu_sa_1du_1cell.json  /tmp/nfs/koti/e2e-automation/siddharth-modified-files/lava-files
+      #- command: cp /raptor/l23sw/du/config/oam_3gpp_cell_cfg_mu1_1cell.json     /tmp/nfs/koti/e2e-automation/siddharth-modified-files/lava-files
+      #- command: cp /tmp/nfs/QA/new2/GP2_07/raptor/l23sw/cu/config/oam_3gpp_cu_sa_1du_1cell.json  /raptor/l23sw/cu/config/
+      #- command: cp /tmp/nfs/QA/vinit/B43_GP2_01/raptor/etc/layer1_config_params.yaml /raptor/etc/.
+      #- command: cp /tmp/nfs/QA/vinit/B43_GP2_01/raptor/etc/su_deployment_config.yaml /raptor/etc/.
+      #- command: cp /tmp/nfs/QA/vinit/B43_GP2_01/raptor/l23sw/cu/config/sys_config.txt /raptor/l23sw/cu/config/.
+      #- command: cp /tmp/nfs/QA/vinit/B43_GP2_01/raptor/l23sw/cu/config/oam_3gpp_cu_sa_1du_1cell.json /raptor/l23sw/cu/config/.
+      #- command: cp /tmp/nfs/QA/vinit/B43_GP2_01/raptor/l23sw/du/config/oam_3gpp_cell_cfg_mu1_1cell.json /raptor/l23sw/du/config/.
+      - command: echo N > /sys/module/sctp/parameters/no_checksums ;
+        name: gnb_CELL_UP_config_setup
+      - command: systemctl start raptor2
+      #- name: wait-for-the-prompt
+      #  command:
+      #- name: wait-for-the-prompt
+      #  command:
+      #- name: wait-for-the-prompt
+      #  command:
+      #- name: wait-for-the-prompt
+      #  command:
+      #- name: wait-for-the-prompt
+      #  command:
+      #- name: wait-for-the-prompt
+      #  command:
+#        successes:
+#        - message: "bytes to ILM"
+#        failures:
+#        - message: "FAIL"
+#          error: "gNB cu du setp test fail"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 20
+    interactive:
+    - name: gNB_CELL_UP
+      prompts: ["# "]
+      echo: discard
+      script:
+      #- name: wait-for-the-prompt
+      #  command:
+      #- name: wait-for-the-prompt
+      #  command:
+      #- name: wait-for-the-prompt
+      #  command:
+      - command: sleep 240;cat /raptor/l23sw/du/bin/du_log | grep 'CELL\[.*\] is UP'
+        name: gnb_CELL_UP
+        successes:
+        - message: 'CELL\[1\] is UP'
+        failures:
+        - message: "FAIL"
+          exception: InfrastructureError
+          error: "gNB CELL_UP test fail"
+      #- name: wait-for-the-prompt
+      #  command:
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 60
+    interactive:
+    - name: gNB_CELL_UP_logs
+      prompts: ["logsdisplaycomplete"]
+      echo: discard
+      script:
+      - command: cat /raptor/l23sw/du/bin/du_log | grep 'CELL\[.*\] is UP' ; cat /raptor/l23sw/du/bin/du_log ;cat /root/logsdisplay.txt
+      - command: cat /raptor/l23sw/cu/bin/cu_log ; ps -aef | grep -i gnb ;cat /root/logsdisplay.txt
+      - command: ps -aef | grep -i gnb ; cat /root/logsdisplay.txt
+      - command: pwd;cat /root/logsdisplay.txt
+      #- name: wait-for-the-prompt
+      #- command:
+      #- name: wait-for-the-prompt
+      #-  command:
+      - command: cat /raptor/l23sw/du/bin/du_log | grep 'CELL\[.*\] is UP' && mkdir -p  /tmp/nfs/lava-qa/results ; mkdir -p /tmp/nfs/lava-qa/results/linux-results ; mkdir -p /tmp/nfs/lava-qa/results/windows-results ; touch /tmp/nfs/lava-qa/results/windows-results/cell_attach.txt;touch /tmp/nfs/lava-qa/results/windows-results/cell_attach_stress.txt; touch /tmp/nfs/lava-qa/results/linux-results/job_id.txt;  touch /tmp/nfs/lava-qa/results/linux-results/cell_up_status.txt; echo CELL_UP="done" >> /tmp/nfs/lava-qa/results/linux-results/cell_up_status.txt;chmod 777 -R /tmp/nfs/lava-qa/results/windows-results ; chmod 777 -R /tmp/nfs/lava-qa/results/linux-results/* ; sync; cat /root/logsdisplay.txt
+      - command: attach_done="CELL_ATTACH_DONE"; cat /root/logsdisplay.txt
+      - command: attach_fail="CELL_ATTACH_FAIL" ; cat /root/logsdisplay.txt
+      #- command: cat /raptor/l23sw/du/bin/du_log | grep 'CELL\[.*\] is UP'
+      #- command: mkdir -p  /tmp/nfs/lava-qa/results
+      #- command: mkdir -p /tmp/nfs/lava-qa/results/linux-results 
+      #- command: mkdir -p /tmp/nfs/lava-qa/results/windows-results 
+      #- command: touch -p /tmp/nfs/lava-qa/results/windows-results/cell_attach.txt
+      #- command: touch /tmp/nfs/lava-qa/results/linux-results/job_id.txt
+      #- command: touch /tmp/nfs/lava-qa/results/linux-results/cell_up_status.txt
+      #- command: echo CELL_UP="done" > /tmp/nfs/lava-qa/results/linux-results/cell_up_status.txt
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 60
+    interactive:
+    - name: gNB_CELL_ATTACH
+      prompts: ["logsdisplaycomplete"]
+      echo: discard
+      script:
+      - command: while [ True ]; do if [ `cat /tmp/nfs/lava-qa/results/windows-results/cell_attach.txt | grep done` ]; then echo $attach_done;sleep 2;break;fi; if [ `cat /tmp/nfs/lava-qa/results/windows-results/cell_attach.txt | grep fail` ]; then job_id_number=`cat /tmp/nfs/lava-qa/results/linux-results/job_id.txt` ; chmod 777 -R /tmp/nfs/lava-qa/results/screenshots/ ; chmod 777 -R /tmp/nfs/lava-qa/results/screenshots/$job_id_number; echo "Please find the CELL_ATTACH_Screenshots path at http://192.168.3.198/tmp/screenshots/screenshots/$job_id_number"; echo $attach_fail; sleep 2 ;break; fi ; sleep 60; done;cat /root/logsdisplay.txt
+        name: gnb_CELL_ATTACH
+        successes:
+        - message: 'CELL_ATTACH_DONE'
+        failures:
+        - message: "CELL_ATTACH_FAIL"
+          exception: InfrastructureError
+          error: "gNB CELL_ATTACH_FAIL test fail"
+
+
+#- test:
+#    namespace: linux
+#    timeout:
+#      minutes: 60
+#    interactive:
+#    - name: SCREENSHOTS_gNB_CELL_ATTACH
+#      prompts: ["logsdisplaycomplete"]
+#      echo: discard
+#      script:
+#      - command: job_id_number=`cat /tmp/nfs/lava-qa/results/linux-results/job_id.txt` ; chmod 777 -R /tmp/nfs/lava-qa/results/screenshots/; chmod 777 /tmp/nfs/lava-qa/results/screenshots/$job_id_number;  echo "Please find the CELL_ATTACH_Screenshots path at http://192.168.3.198/tmp/screenshots/screenshots/$job_id_number"; cat /root/logsdisplay.txt
+#        name: SCREENSHOTS_gNB_CELL_ATTACH
+#        successes:
+#        - message: 'CELL_ATTACH_Screenshots'
+#        failures:
+#        - message: "CELL_ATTACH_FAIL"
+#          exception: InfrastructureError
+#          error: "gNB CELL_ATTACH_FAIL test fail"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 200
+    interactive:
+    - name: gNB_CELL_ATTACH_Stress
+      prompts: ["logsdisplaycomplete"]
+      echo: discard
+      script:
+      - command: while [ True ]; do if [ `cat /tmp/nfs/lava-qa/results/windows-results/cell_attach_stress.txt | grep done` ]; then echo $attach_done;sleep 2;break;fi; if [ `cat /tmp/nfs/lava-qa/results/windows-results/cell_attach_stress.txt | grep fail` ]; then job_id_number=`cat /tmp/nfs/lava-qa/results/linux-results/job_id.txt` ; chmod 777 -R /tmp/nfs/lava-qa/results/screenshots/ ; chmod 777 -R /tmp/nfs/lava-qa/results/screenshots/$job_id_number; echo "Please find the CELL_ATTACH_Screenshots path at http://192.168.3.198/tmp/screenshots/screenshots/$job_id_number"; echo $attach_fail; sleep 2 ;break; fi ; sleep 60; done;cat /root/logsdisplay.txt
+        name: gnb_CELL_ATTACH
+        successes:
+        - message: 'CELL_ATTACH_DONE'
+        failures:
+        - message: "CELL_ATTACH_FAIL"
+          exception: InfrastructureError
+          error: "gNB CELL_ATTACH_FAIL test fail"
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 60
+    interactive:
+    - name: SCREENSHOTS_gNB_CELL_ATTACH
+      prompts: ["logsdisplaycomplete"]
+      echo: discard
+      script:
+      - command: job_id_number=`cat /tmp/nfs/lava-qa/results/linux-results/job_id.txt` ; chmod 777 -R /tmp/nfs/lava-qa/results/screenshots/; chmod 777 /tmp/nfs/lava-qa/results/screenshots/$job_id_number;  echo "Please find the CELL_ATTACH_Screenshots path at http://192.168.3.198/tmp/screenshots/screenshots/$job_id_number"; cat /root/logsdisplay.txt
+        name: SCREENSHOTS_gNB_CELL_ATTACH
+        successes:
+        - message: 'CELL_ATTACH_Screenshots'
+        failures:
+        - message: "CELL_ATTACH_FAIL"
+          exception: InfrastructureError
+          error: "gNB CELL_ATTACH_FAIL test fail"
+

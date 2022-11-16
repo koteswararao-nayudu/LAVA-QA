@@ -1,0 +1,30 @@
+{% extends 'edgeq-raptor2.jinja2' %}
+
+{% set connection_list = ['uart0', 'uart1'] %}
+{% set connection_commands = {'uart0': 'telnet localhost 5001', 'uart1': 'telnet localhost 5002'} %}
+{% set connection_tags = {'uart0': ['primary', 'telnet'], 'uart1': ['telnet']} %}
+
+{% set bootloader_prompt = '=>' %}
+
+
+#{% set uboot_mac_addr = uboot_mac_addr|default('fc:9b:d4:00:00:82') %}
+#{% set base_uboot_set_mac = (" - setenv ethaddr " + uboot_mac_addr) -%}
+#{% set mac_address: 'fc:9b:d4:00:00:82' %}
+
+
+{% set power_off_command = '/lab-nfs/scratch/jude/board/EVB/common/pmic_off.py' %}
+{% set power_on_command = '/lab-nfs/scratch/jude/board/EVB/common/pmic_on.py --vdd_0v8 0.88 ' %}
+
+{% set hard_reset_command = '/lab-nfs/scratch/jude/board/EVB/common/pmic_off_on_board26.py' %}
+#{% set hard_reset_command = '/lab-nfs/scratch/jude/board/EVB/common/pmic_off_EvBv2.py; sleep 10; /lab-nfs/scratch/jude/board/EVB/common/pmic_on_EvBv2.py ' %}
+
+{% set interrupt_prompt = "=>" %}
+
+
+{% set flasher_deploy_commands = ['/lab-nfs/scratch/jude/board/EVB/common/pmic_off.py',
+                                  'sleep 10',
+                                  '/lab-nfs/scratch/jude/board/EVB/common/pmic_on.py --vdd_0v8 0.88',
+                                  'sleep 10',
+                                  '/lab-nfs/lava/files/flash.sh "{IMAGE}" &',
+                                  'sleep 2',
+                                  'sleep 2'] %}

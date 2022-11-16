@@ -1,0 +1,2007 @@
+device_type: edgeq-raptor2
+
+
+job_name: Bug-3422 reproducibility
+timeouts:
+  job:
+    minutes: 50
+  action:
+    minutes: 50
+  connection:
+    minutes: 50
+priority: medium 
+visibility: public
+
+
+actions:
+- deploy:
+    namespace: linux
+    timeout:
+      minutes: 10
+    to: flasher
+    images:
+      image:
+        url: file:/lab-nfs/koti/latestimages/raptor2_180322_304/FIRMWARE/NON_SECURE_MODE/EVB-V2/firmware.bin
+
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+          
+
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+          

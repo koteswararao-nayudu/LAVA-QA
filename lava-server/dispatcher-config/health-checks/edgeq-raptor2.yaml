@@ -1,0 +1,71 @@
+device_type: edgeq-raptor2
+
+# NFS fails on panda and arndale.
+
+job_name: Edgeq-raptor2 Health check
+timeouts:
+  job:
+    minutes: 20
+  action:
+    minutes: 20
+  connection:
+    minutes: 2
+priority: medium
+visibility: public
+#commands:
+#  connect: telnet localhost 5001
+#  hard_reset: /usr/bin/bash /lab-nfs/lava/board43-webpdu-off-on.sh
+#  power_off: /usr/bin/bash /lab-nfs/lava/board43-webpdu-off.sh
+#  power_on: /usr/bin/bash /lab-nfs/lava/board43-webpdu-on.sh
+
+actions:
+- boot:
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp '
+    - ' setenv ipaddr 192.168.3.224;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/health-check/ '
+    #- ' setenv ipaddr 192.168.3.224;setenv serverip 192.168.3.143; setenv img_path /srv/tftp/koti/raptor2_100322_294/ '
+    #- ' tftp 0x406000000 ${img_path}/LINUX/raptor2-A0.dtb; tftp 0x408000000 ${img_path}/LINUX/Image; tftp 0x40C000000 ${img_path}/LINUX/BM-uRamdisk.img; '
+    - ' tftp 0x406000000 ${img_path}/LINUX/raptor2-A0.dtb; tftp 0x408000000 ${img_path}/LINUX/Image; tftp 0x40C000000 ${img_path}/LINUX/BM-uRamdisk.img;run bootargs_r;run boot_linux_r '
+    #- ' run bootargs_r;run boot_linux_r '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    prompts:
+    - '# '
+    timeout:
+      minutes: 10
+
+
+- test:
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiccommands
+      prompts: ["# "]
+      script:
+      - command: ls -ltr;pwd
+        name: lstest
+        successes:
+        - message: "total"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "ls failed"
+
+
+          #- test:
+          #timeout:
+          #minutes: 20
+          #interactive:
+          #- name: PerformanceTests
+          #prompts: ["# "]
+          #script:
+          #- command: cd /benchmarks/lmbench-3.0-a9/;cp configs/CONFIG.raptor2 bin/arm-linux/;cd scripts/;export OS=arm-linux;taskset -c 3 ./results; cat /benchmarks/lmbench-3.0-a9/results/arm-linux/raptor2.0; sleep 5
+          #name: LMBenchTest
+          #successes:
+          #- message: "LMBENCH VERSION"
+          #failures:
+          #- message: "TIMEOUT"
+          #exception: InfrastructureError
+          #error: "LMBench failed"

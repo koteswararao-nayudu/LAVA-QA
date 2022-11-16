@@ -1,0 +1,77 @@
+device_type: edgeq-raptor2
+
+job_name: :TestCse "gNB Cell_UP - raptor2"
+
+tags:
+- e2e
+ 
+notify:
+    recipients:
+    - to:
+       method: email
+       user: admin
+    - to:
+        method: email
+        email: kotisoftwaretest@gmail.com
+    criteria:
+      status: finished
+    verbosity: verbose
+    compare:
+      blacklist: [lava]
+
+
+timeouts:
+  job:
+    minutes: 40
+  action:
+    minutes: 40
+  connection:
+    minutes: 40
+priority: medium
+visibility: public
+
+actions:
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/RAPTOR2-GP1-v1.1.4-PLFM_REL; setenv img_path_ramdisk /srv/tftp/koti/e2eramdisk/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-RT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-RT/raptor2-A0.dtb"'
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path_ramdisk}/uRamdisk.img"'
+    - ' run bootargs_r;run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 20
+    interactive:
+    - name: gNB_CU_DU_setup
+      prompts: ["# "]
+      script:
+      - command: cd /raptor;tar -xvf l23sw.tar.gz;/raptor/etc/net_interface.sh 43 eth0;/raptor/etc/nfs_mount.sh;cd /;
+      - command: cp /tmp/nfs/QA/vinit/B43_GP2_01/raptor/etc/layer1_config_params.yaml /raptor/etc/.
+      - command: cp /tmp/nfs/QA/vinit/B43_GP2_01/raptor/etc/su_deployment_config.yaml /raptor/etc/.
+      - command: cp /tmp/nfs/QA/vinit/B43_GP2_01/raptor/l23sw/cu/config/sys_config.txt /raptor/l23sw/cu/config/.
+      - command: cp /tmp/nfs/QA/vinit/B43_GP2_01/raptor/l23sw/cu/config/oam_3gpp_cu_sa_1du_1cell.json /raptor/l23sw/cu/config/.
+      - command: cp /lab-nfs/QA/vinit/B43_GP2_01/raptor/l23sw/du/config/oam_3gpp_cell_cfg_mu1_1cell.json /raptor/l23sw/du/config/.
+      - command: echo N > /sys/module/sctp/parameters/no_checksums ;
+      - command: systemctl start raptor2
+        name: gnb_CU_DU_setup
+#        successes:
+#        - message: "bytes to ILM"
+#        failures:
+#        - message: "FAIL"
+#          error: "gNB cu du setp test fail"
+

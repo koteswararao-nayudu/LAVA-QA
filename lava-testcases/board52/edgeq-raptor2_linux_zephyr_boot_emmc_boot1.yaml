@@ -1,0 +1,26 @@
+device_type: edgeq-raptor2
+
+
+job_name: Edgeq-raptor2 linux, Zephyr and linux+Zephyr boot test -raptor2_gnb_270622_418
+timeouts:
+  job:
+    minutes: 20
+  action:
+    minutes: 20
+  connection:
+    minutes: 20
+priority: medium
+visibility: public
+
+
+actions:
+- deploy:
+    namespace: linux
+    timeout:
+      minutes: 10
+    to: flasher
+    images:
+      image:
+        #url: file:/lab-nfs/koti/latestimages/raptor2_gnb_270622_418/IMAGES/FIRMWARE/NON_SECURE_MODE/EVB-V2/firmware.bin
+        url: file:/lab-nfs/koti/latestimages/raptor2_gnb_270622_418/FLASHER/flash_image_evb2.bin
+

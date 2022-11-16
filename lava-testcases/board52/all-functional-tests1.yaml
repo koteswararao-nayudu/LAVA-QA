@@ -1,0 +1,179 @@
+device_type: edgeq-raptor2
+
+
+job_name: Edgeq-raptor2 linux USB  tests -raptor2_gnb_280622_419
+timeouts:
+  job:
+    minutes: 2990
+  action:
+    minutes: 2990
+  connection:
+    minutes: 2990
+priority: 5
+visibility: public
+
+
+actions:
+##Edgeq-raptor2 linux, Zephyr and linux+Zephyr boot test -raptor2_gnb_280622_419
+#######################
+
+
+- boot:
+    namespace: linux1
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:04;saveenv'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux1
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2_gnb_280622_419"
+        failures:
+        - message: "TIMEOUT"
+#          exception: InfrastructureError
+          error: "Firmware Flash failed"
+
+
+
+- boot:
+    namespace: linux1
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_280622_419'
+    - 'setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - 'setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'
+    - 'setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' run bootargs_r;run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux1
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_commands
+      prompts: ["# "]
+      script:
+      - command: ls -ltr;pwd
+        name: lstest
+        successes:
+        - message: "total"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "ls failed"
+    - name: dmesg_errors
+      prompts: ["# "]
+      script:
+      - command: echo "SUCCESS" >> /root/success.txt; echo "FAIL" >> /root/fail.txt
+      - command: dmesg | grep error | grep -v ARCH_SOC_ID | grep -v "error -110 whilst initialising MMC card"; if  [ $? == 0 ] ; then cat /root/fail.txt;else cat /root/success.txt; fi
+        name: dmesg_errors
+        successes:
+        - message: "SUCCESS"
+        failures:
+        - message: "FAIL"
+          error: "dmesg_error test fail"
+    - name: dmesg_fail
+      prompts: ["# "]
+      script:
+      - command: echo "SUCCESS" >> /root/success.txt; echo "FAIL" >> /root/fail.txt
+      - command: dmesg | grep -i fail | grep -v kernel.sched | grep -v "Parsing zephyr-mem"; if  [ $? == 0 ] ; then cat /root/fail.txt;else cat /root/success.txt; fi
+        name: dmesg_fail
+        successes:
+        - message: "SUCCESS"
+        failures:
+        - message: "FAIL"
+          error: "dmesg_fail test fail"
+    - name: dpdk_helloworld_linux
+      prompts: ["# "]
+      script:
+      - command: echo 1024 > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages; dpdk-helloworld -l 0-3 -n 4 | grep -c 'hello from core 1\|hello from core 2\|hello from core 3\|hello from core 0' | grep '[4]'; if  [ $? == 0 ] ; then cat /root/success.txt;else cat /root/fail.txt; fi
+        name: dpdk_helloworld_linux
+        successes:
+        - message: "SUCCESS"
+        failures:
+        - message: "FAIL"
+          error: "dpdk hellowrold test fail"
+    - name: eMMC-Linux
+      prompts: ["# "]
+      echo: discard
+      script:
+      - command: dmesg | grep -i mmc | grep "MMC card at address" && echo "SUCCESS"
+        name: eMMC-detection-Linux
+        successes:
+        - message: "SUCCESS"
+        failures:
+        - message: "FAIL"
+          error: "eMMC detection at linux level test fail"
+      - command: "cd /root; echo 'label: dos' >> mmcblk01.sfdisk ; echo 'label-id: 0x02adb288' >> mmcblk01.sfdisk ; echo 'device: /dev/mmcblk0' >> mmcblk01.sfdisk ; echo 'unit: sectors' >> mmcblk01.sfdisk; echo ' ' >> mmcblk01.sfdisk ; echo '/dev/mmcblk0p1 : start=       2048, size=      4194304, type=83' >> mmcblk01.sfdisk"
+      - command: "cat mmcblk01.sfdisk"
+      - command: umount /dev/mmcblk0* | echo "y" | sfdisk /dev/mmcblk0 < mmcblk01.sfdisk && echo "SUCCESS"
+        name: eMMC-partition-table-creation-Linux
+        successes:
+        - message: "SUCCESS"
+        failures:
+        - message: "FAIL"
+          error: "eMMC partition table creation at linux level test fail"
+      - command: echo "y" | mkfs.ext4 /dev/mmcblk0p1 && echo "SUCCESS"
+        name: eMMC-format-Linux
+        successes:
+        - message: "SUCCESS"
+        failures:
+        - message: "FAIL"
+          error: "eMMC format at linux level test fail"
+    - name: USB-Linux
+      prompts: ["# "]
+      echo: discard
+      script:
+      - command: dmesg | grep -i usb | grep "USB .* Storage device detected" && echo "SUCCESS"
+        name: USB-detection-Linux
+        successes:
+        - message: "SUCCESS"
+        failures:
+        - message: "FAIL"
+          error: "USB detection at linux level test fail"
+      - command: cd /root
+      - command: "echo 'label: dos' >> usb.sfdisk ; echo 'label-id: 0x02adb289' >> usb.sfdisk ; echo 'device: /dev/sda' >> usb.sfdisk ; echo 'unit: sectors' >> usb.sfdisk; echo ' ' >> usb.sfdisk ; echo '/dev/sda1 : start=       2048, size=      4194304, type=83' >> usb.sfdisk "
+      - command: "cat usb.sfdisk"
+      - command: umount /dev/sd* | echo "y" | sfdisk /dev/sda < usb.sfdisk && echo "SUCCESS"
+        name: USB-partition-table-creation-Linux
+        successes:
+        - message: "SUCCESS"
+        failures:
+        - message: "FAIL"
+          error: "USB partition table creation at linux level test fail"
+      - command: echo "y" | mkfs.ext4 /dev/sda1 && echo "SUCCESS"
+        name: USB-format-Linux
+        successes:
+        - message: "SUCCESS"
+        failures:
+        - message: "FAIL"
+          error: "USB format at linux level test fail"
+
+
+

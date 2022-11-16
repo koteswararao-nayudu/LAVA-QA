@@ -1,0 +1,27 @@
+device_type: edgeq-raptor2
+
+job_name: Edgeq Raptor2 Health Check
+timeouts:
+  job:
+    minutes: 10
+  action:
+    minutes: 5
+  connection:
+    minutes: 2
+priority: medium
+visibility: public
+
+
+actions:
+- boot:
+    method: minimal
+    reset: false
+
+- test:
+    timeout:
+      minutes: 5
+    definitions:
+    - repository: http://git.linaro.org/lava-team/lava-functional-tests.git
+      from: git
+      path: lava-test-shell/smoke-tests-basic.yaml
+      name: smoke-tests

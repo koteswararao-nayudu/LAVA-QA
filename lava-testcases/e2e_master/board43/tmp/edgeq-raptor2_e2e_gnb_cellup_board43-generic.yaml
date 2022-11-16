@@ -1,0 +1,148 @@
+device_type: edgeq-raptor2
+
+job_name: :TestCase "gNB Cell_UP" GP2-8
+
+tags:
+- e2e
+ 
+notify:
+    recipients:
+    - to:
+       method: email
+       user: admin
+    - to:
+        method: email
+        email: eqqa@edgeq.io
+    - to:
+        method: email
+        email: platform-sw@edgeq.io
+    - to:
+        method: email
+        email: controlfw@edgeq.io
+    - to:
+        method: email
+        email: eq-nr-l23@edgeq.io
+    - to:
+        method: email
+        email: ec-l23@edgeq.io
+    criteria:
+      status: finished
+    verbosity: verbose
+    compare:
+       blacklist: [lava]
+
+
+timeouts:
+  job:
+    minutes: 40
+  action:
+    minutes: 40
+  connection:
+    minutes: 40
+priority: medium
+visibility: public
+
+actions:
+- deploy:
+    namespace: linux1
+    timeout:
+      minutes: 10
+    to: flasher
+    images:
+      image:
+        url: file:/lab-nfs/koti/tmp/RAPTOR2-GNB-PLFM-v1.2.0-RC2/IMAGES/FIRMWARE/EVB-V2/firmware.bin
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/RAPTOR2-GNB-PLFM-v1.2.0-RC2/; setenv img_path_ramdisk /srv/tftp/koti/e2eramdisk/'
+    - ' setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-RT/Image"'
+    - ' setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-RT/raptor2-A0.dtb"'
+    - ' setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path_ramdisk}/uRamdisk.img"'
+    - ' run bootargs_r;run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 20
+    interactive:
+    - name: gNB_CELL_UP_config_setup
+      prompts: ["# "]
+      script:
+      - command: cd /raptor;tar -xvf l23sw.tar.gz;/raptor/etc/net_interface.sh 43 eth0;/raptor/etc/nfs_mount.sh;cd /;
+      - command: cp /tmp/nfs/QA/vinit/B43_GP2_01/raptor/etc/layer1_config_params.yaml /raptor/etc/.
+      - command: cp /tmp/nfs/QA/vinit/B43_GP2_01/raptor/etc/su_deployment_config.yaml /raptor/etc/.
+      - command: cp /tmp/nfs/QA/vinit/B43_GP2_01/raptor/l23sw/cu/config/sys_config.txt /raptor/l23sw/cu/config/.
+      - command: cp /tmp/nfs/QA/vinit/B43_GP2_01/raptor/l23sw/cu/config/oam_3gpp_cu_sa_1du_1cell.json /raptor/l23sw/cu/config/.
+      - command: cp /tmp/nfs/QA/vinit/B43_GP2_01/raptor/l23sw/du/config/oam_3gpp_cell_cfg_mu1_1cell.json /raptor/l23sw/du/config/.
+      - command: echo N > /sys/module/sctp/parameters/no_checksums ;
+      - command: systemctl start raptor2
+        name: gnb_CELL_UP_config_setup
+#        successes:
+#        - message: "bytes to ILM"
+#        failures:
+#        - message: "FAIL"
+#          error: "gNB cu du setp test fail"
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 20
+    interactive:
+    - name: gNB_CELL_UP
+      prompts: ["# "]
+      echo: discard
+      script:
+      - command: sleep 240;cat /raptor/l23sw/du/bin/du_log | grep 'CELL\[.*\] is UP'
+        name: gnb_CELL_UP
+        successes:
+        - message: 'CELL\[1\] is UP'
+        failures:
+        - message: "FAIL"
+          exception: InfrastructureError
+          error: "gNB CELL_UP test fail"
+      - command: cat /raptor/l23sw/du/bin/du_log | grep 'CELL\[.*\] is UP' ; cat /raptor/l23sw/du/bin/du_log ;sleep 10;
+      - command: cat /raptor/l23sw/cu/bin/cu_log ; ps -aef | grep -i gnb ; sleep 10;
+      - command: ps -aef | grep -i gnb ; sleep 10;
+      - command: pwd; sleep 20;
+      #- command: cat /raptor/l23sw/du/bin/du_log | grep 'CELL\[.*\] is UP' && mkdir -p  /tmp/nfs/lava-qa/results ; mkdir -p /tmp/nfs/lava-qa/results/linux-results ; mkdir -p /tmp/nfs/lava-qa/results/windows-results ; touch /tmp/nfs/lava-qa/results/windows-results/cell_attach.txt; touch /tmp/nfs/lava-qa/results/linux-results/job_id.txt; echo "JOB_ID=1" >> /tmp/nfs/lava-qa/results/linux-results/job_id.txt; touch /tmp/nfs/lava-qa/results/linux-results/cell_up_status.txt; echo CELL_UP="done" >> /tmp/nfs/lava-qa/results/linux-results/cell_up_status.txt;chmod 777 -R /tmp/nfs/lava-qa/results/windows-results ; chmod 777 -R /tmp/nfs/lava-qa/results/linux-results/*
+      #- command: attach_done="CELL_ATTACH_DONE"
+      #- command: attach_fail="CELL_ATTACH_FAIL"
+      #- command: cat /raptor/l23sw/du/bin/du_log | grep 'CELL\[.*\] is UP'
+      #- command: mkdir -p  /tmp/nfs/lava-qa/results
+      #- command: mkdir -p /tmp/nfs/lava-qa/results/linux-results 
+      #- command: mkdir -p /tmp/nfs/lava-qa/results/windows-results 
+      #- command: touch -p /tmp/nfs/lava-qa/results/windows-results/cell_attach.txt
+      #- command: touch /tmp/nfs/lava-qa/results/linux-results/job_id.txt
+      #- command: echo "JOB_ID=1" > /tmp/nfs/lava-qa/results/linux-results/job_id.txt
+      #- command: touch /tmp/nfs/lava-qa/results/linux-results/cell_up_status.txt
+      #- command: echo CELL_UP="done" > /tmp/nfs/lava-qa/results/linux-results/cell_up_status.txt
+
+#- test:
+#    namespace: linux
+#    timeout:
+#      minutes: 20
+#    interactive:
+#    - name: gNB_CELL_attach
+#      prompts: ["# "]
+#      echo: discard
+#      script:
+#      - command: while [ True ]; do if [ `cat /tmp/nfs/lava-qa/results/windows-results/cell_attach.txt | grep done` ]; then echo $attach_done;sleep 2;break;fi; if [ `cat /tmp/nfs/lava-qa/results/windows-results/cell_attach.txt | grep fail` ]; then echo $attach_fail; sleep 2 ;break; fi ; sleep 60; done
+#        name: gnb_CELL_UP
+#        successes:
+#        - message: 'CELL_ATTACH_DONE'
+#        failures:
+#        - message: "CELL_ATTACH_FAIL"
+#          exception: InfrastructureError
+#          error: "gNB CELL_ATTACH_FAIL test fail"

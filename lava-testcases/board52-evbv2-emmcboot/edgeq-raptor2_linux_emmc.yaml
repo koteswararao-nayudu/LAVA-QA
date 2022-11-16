@@ -1,0 +1,206 @@
+device_type: edgeq-raptor2
+
+
+job_name: Edgeq-raptor2 U-Boot and linux eMMC scenarios -raptor2_gnb_300522_381
+timeouts:
+  job:
+    minutes: 50
+  action:
+    minutes: 50
+  connection:
+    minutes: 50
+priority: medium
+visibility: public
+
+
+actions:
+#- deploy:
+##    namespace: linux
+#    timeout:
+#      minutes: 10
+#    to: flasher
+#    images:
+#      image:
+#        url: file:/lab-nfs/koti/latestimages/raptor2_gnb_300522_381/IMAGES/FIRMWARE/NON_SECURE_MODE/EVB-V1/firmware.bin
+
+- boot:
+#    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - 'print ethaddr '
+    prompts:
+    - '=> '
+    timeout:
+      minutes: 3
+
+
+- test:
+    timeout:
+      minutes: 15
+    interactive:
+    - name: U-boot-ethaddr
+      prompts: ["=> "]
+      echo: discard
+      script:
+      - name: U-Boot-ethaddr
+        command: print ethaddr
+      - name: wait-for-the-prompt
+        command:
+
+
+- test:
+#    namespace: linux
+    timeout:
+      minutes: 15
+    interactive:
+    - name: u-boot-eMMC-tests-mtest
+      prompts: ["=> "]
+      echo: discard
+      script:
+      - name: u-boot-eMMC-tests-mtest
+        command: mtest 0x410000000 0x4e0000000 0xa5a5dead 1
+        successes:
+        - message: "with 0 errors"
+        failures:
+        - message: "TIMEOUT"
+          error: "U-boot eMMC mtest command failed"
+
+- test:
+#    namespace: linux
+    timeout:
+      minutes: 15
+    interactive:
+    - name: u-boot-eMMC-tests-3GB-write
+      prompts: ["=> "]
+      echo: discard
+      script:
+      - name: U-Boot_eMMC_3_5GB_datawrite_from_256MB_offset
+        command: mmc write 0x410000000 0 700000
+        successes:
+        - message: "blocks written: OK"
+        failures:
+        - message: "blocks written: ERROR"
+          error: "U-boot eMMMC 3.5GB data write failed"
+
+- test:
+#    namespace: linux
+    timeout:
+      minutes: 15
+    interactive:
+    - name: U-Boot_eMMC_3_5GB_dataread_on_4GB_offset_read
+      prompts: ["=> "]
+      echo: discard
+      script:
+      - name: U-Boot_eMMC_3_5GB_dataread_on_4GB_offset
+        command: mmc read 0x500000000 0 700000
+        successes:
+        - message: "blocks read: OK"
+        failures:
+        - message: "blocks read: ERROR"
+          error: "U-boot eMMC 3.5GB data read failed"
+
+- test:
+#    namespace: linux
+    timeout:
+      minutes: 15
+    interactive:
+    - name: U-Boot_eMMC_compare_3_5GB_data_compare
+      prompts: ["=> "]
+      echo: discard
+      script:
+      - name: U-Boot_eMMC_compare_3_5GB_data
+        command: cmp.b 0x410000000 0x500000000 0xe0000000
+        successes:
+        - message: "3758096384 byte"
+        failures:
+        - message: "Total of 0 byte"
+          error: "U-boot eMMC 3.5GB data read failed"
+
+
+
+
+
+
+- boot:
+#    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:04;setenv netretry yes;setenv ipaddr 192.168.3.52; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_gnb_300522_381/'
+    - 'setenv tftp_kernel "tftp ${kernel_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/Image"'
+    - 'setenv tftp_fdt "tftp ${fdt_addr_r} ${img_path}/IMAGES/LINUX/LINUX-NRT/raptor2-A0.dtb"'
+    - 'setenv tftp_ramdisk "tftp ${ramdisk_addr_r} ${img_path}/IMAGES/LINUX/uRamdisk.img"'
+    - ' run bootargs_r;run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+#    namespace: linux
+    timeout:
+      minutes: 45
+    interactive:
+    - name: Linux-eMMC-fio-tests
+      prompts: ["# "]
+      script:
+      - command: echo p >> fdisk.txt ;echo d >> fdisk.txt;echo d >> fdisk.txt;echo d >> fdisk.txt;echo d >> fdisk.txt;echo n >> fdisk.txt;echo p >> fdisk.txt;echo " " >> fdisk.txt; echo " " >> fdisk.txt; echo " " >> fdisk.txt ;echo Y >> fdisk.txt;echo p >> fdisk.txt ;echo w >> fdisk.txt;echo q >> fdisk.txt
+      - command: sync;cat  fdisk.txt
+      - command: cat fdisk.txt | fdisk /dev/mmcblk0 
+        name: Linux-eMMC-format
+        successes:
+        - message: "Syncing disks"
+        failures:
+        - message: "error"
+          #exception: InfrastructureError
+          error: "eMMC format failed"
+      - command: sync; echo yes | mkfs.ext4 /dev/mmcblk0p1; ls  /dev  | grep mmc | grep 0p1
+        name: Linux-eMMC-format1
+        successes:
+        - message: "mmcblk0p1"
+        failures:
+        - message: "error"
+          #exception: InfrastructureError
+          error: "eMMC format failed"
+      - command:  echo "PASS" >> pass.txt ; echo "FAIL" >> fail.txt
+      - command: fio --filename=/dev/mmcblk0p1 --name=write --iodepth=16 --rw=write --bs=4k --direct=0 --size=1536M --numjobs=16 --runtime=240 --group_reporting; if [ $? == 0 ] ; then cat pass.txt;else cat fail.txt; fi
+        name: Linux-eMMC-fio-write
+        successes:
+        - message: "PASS"
+        failures:
+        - message: "FAIL"
+          #exception: InfrastructureError
+          error: "eMMC fio write failed"
+      - command: fio --filename=/dev/mmcblk0p1 --name=randwrite --iodepth=16 --rw=randwrite --bs=4k --direct=0 --size=1536M --numjobs=16 --runtime=240 --group_reporting; if [ $? == 0 ] ; then cat pass.txt;else cat fail.txt; fi
+        name: Linux-eMMC-fio-randwrite
+        successes:
+        - message: "PASS"
+        failures:
+        - message: "FAIL"
+          #exception: InfrastructureError
+          error: "eMMC fio randwrite failed"
+      - command: fio --filename=/dev/mmcblk0p1 --name=read --iodepth=16 --rw=read --bs=4k --direct=0 --size=1536M --numjobs=16 --runtime=240 --group_reporting ; if [ $? == 0 ] ; then cat pass.txt;else cat fail.txt; fi
+        name: Linux-eMMC-fio-read
+        successes:
+        - message: "PASS"
+        failures:
+        - message: "FAIL"
+          #exception: InfrastructureError
+          error: "eMMC fio read failed"
+      - command: fio --filename=/dev/mmcblk0p1 --name=randread --iodepth=16 --rw=randread --bs=4k --direct=0 --size=1536M --numjobs=16 --runtime=240 --group_reporting; if [ $? == 0 ] ; then cat pass.txt;else cat fail.txt; fi
+        name: Linux-eMMC-fio-randread
+        successes:
+        - message: "PASS"
+        failures:
+        - message: "FAIL"
+          #exception: InfrastructureError
+          error: "eMMC fio randread failed"
+
+

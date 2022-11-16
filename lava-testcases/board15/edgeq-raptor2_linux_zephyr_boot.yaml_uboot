@@ -1,0 +1,230 @@
+device_type: edgeq-raptor2
+
+
+job_name: Edgeq-raptor2 linux, Zephyr and linux+Zephyr boot test
+timeouts:
+  job:
+    minutes: 20
+  action:
+    minutes: 20
+  connection:
+    minutes: 20
+priority: medium
+visibility: public
+
+
+actions:
+- deploy:
+    namespace: linux
+    timeout:
+      minutes: 10
+    to: flasher
+    images:
+      image:
+        url: file:/lab-nfs/koti/latestimages/raptor2_180322_304/FIRMWARE/NON_SECURE_MODE/EVB-V2/firmware.bin
+
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;saveenv'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2_180322_304"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+      - command: mtest 0x410000000 0x4e0000000 0xa5a5dead 1
+        name: U-bootmtest
+        successes:
+        - message: "with 0 errors"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "U-Boot mtest command failed"
+      - command: mmc write 0x410000000 0 700000
+        name: U-Bootmmcwrite
+        successes:
+         - message: "write: OK"
+        failures:
+        - message: "written: ERROR"
+          exception: InfrastructureError
+          error: "mmc write command failed"
+      - command: mmc read 0x500000000 0 700000
+        name: U-Bootmmcread
+        successes:
+         - message: "read: OK"
+        failures:
+        - message: "read: ERROR"
+          exception: InfrastructureError
+          error: "mmc read command failed"
+
+
+
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ;dhcp'
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_180322_304/'
+    - ' setenv tftp_boot "setenv img_path ${img_path}/LINUX;run tftp_linux; run boot_linux_r" '
+    - ' run tftp_boot'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basic_linux_commands
+      prompts: ["# "]
+      script:
+      - command: ls -ltr;pwd
+        name: lstest
+        successes:
+        - message: "total"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "ls failed"
+      - command: ls -ltr;pwd
+        name: udhcpc-command
+        successes:
+        - message: "obtained, lease time"
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "udhcpc failed"
+
+
+- boot:
+    namespace: linux
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_180322_304/'
+    - ' setenv tftp_bootz "setenv img_path ${img_path}/WLAN;run tftp_zephyr;run boot_zephyr_r" '
+    - ' run tftp_bootz '
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+
+
+
+- boot:
+    namespace: linux
+    method: u-boot
+    commands:
+    - ' setenv serverip ; dhcp '
+    - ' setenv ethaddr fc:9b:d4:00:00:d7;setenv netretry yes;setenv ipaddr 192.168.3.43;setenv serverip 192.168.3.110; setenv img_path /srv/tftp/koti/raptor2_180322_304/'
+    - ' setenv tftp_boot_amp "setenv img_path ${img_path}/LINUX; run tftp_linux_amp; setenv img_path ${img_path}/WLAN; run tftp_bootz; run boot_linux_r" ' 
+    - ' run tftp_boot_amp '
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+      minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- boot:
+    namespace: isolation
+    method: new_connection
+    connection: uart1
+    prompts: ["uart:"]
+    timeout:
+      minutes: 4
+
+
+- test:
+    namespace: isolation
+    connection-namespace: isolation
+    timeout:
+      minutes: 4
+    interactive:
+    - name: basiczephyrcommands
+      prompts: ["uart:"]
+      script:
+      - command: version
+        name: versioncommandtest
+      - command: version
+        name: versioncommandtest
+        successes:
+        - message: "Zephyr version "
+        failures:
+        - message: "TIMEOUT"
+          exception: InfrastructureError
+          error: "zephyr version command failed"
+

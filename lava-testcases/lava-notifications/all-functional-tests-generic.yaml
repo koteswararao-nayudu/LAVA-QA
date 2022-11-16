@@ -1,0 +1,84 @@
+device_type: edgeq-raptor2
+
+
+job_name: Edgeq-raptor2 linux, Zephyr and linux+Zephyr tests -raptor2_gnb_080722_428
+timeouts:
+  job:
+    minutes: 2990
+  action:
+    minutes: 2990
+  connection:
+    minutes: 2990
+priority: 5
+visibility: public
+
+
+notify:
+    recipients:
+    - to:
+       method: email
+       user: admin
+    - to:
+        method: email
+        email: koteswararao.nayudu@edgeq.io
+    criteria:
+      status: finished
+    verbosity: verbose
+
+actions:
+#notify:
+#    criteria:
+#      status: complete
+#    recipients:
+#    - to:
+#       method: email
+#       user: admin
+##       email: koteswararao.nayudu@edgeq.io
+#    verbosity: verbose
+
+
+########################
+##Edgeq-raptor2 linux, Zephyr and linux+Zephyr boot test -raptor2_gnb_080722_428
+#######################
+
+
+- boot:
+    namespace: linux1
+    method: bootloader
+    bootloader: u-boot
+    commands:
+    - ' setenv ethaddr fc:9b:d4:00:00:04;saveenv'
+    prompts:
+    - '=>'
+    timeout:
+      minutes: 3
+
+- test:
+    namespace: linux1
+    timeout:
+      minutes: 4
+    interactive:
+    - name: FirmwareFlash
+      prompts: ["=>"]
+      script:
+      - command: version
+        name: U-Boot_version
+      - command: version
+        name: FirmwareFlash
+        successes:
+        - message: "raptor2_gnb_080722_428"
+        failures:
+        - message: "TIMEOUT"
+#          exception: InfrastructureError
+          error: "Firmware Flash failed"
+
+#notify:
+#    criteria:
+#      status: complete
+#    recipients:
+#    - to:
+#       method: email
+#       user: admin
+##       email: koteswararao.nayudu@edgeq.io
+#    verbosity: verbose
+

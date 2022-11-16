@@ -1,0 +1,223 @@
+device_type: edgeq-raptor2
+
+
+job_name: Edgeq-raptor2 eMMC/USB regress scenarios- Board#43
+timeouts:
+  job:
+    minutes: 2990
+  action:
+    minutes: 2990
+  connection:
+    minutes: 2990
+priority: 5
+visibility: public
+
+
+actions:
+- boot:
+    namespace: linux1
+    method: u-boot
+    commands:
+    - ' setenv serverip ;'
+    - 'setenv ethaddr fc:9b:d4:00:00:d7; setenv ipaddr 192.168.3.43; setenv serverip 192.168.3.110' 
+    - 'tftp 0x406000000 /srv/tftp/koti/RAPTOR2-GP1-v1.1.3-PLFM_REL/IMAGES/LINUX/LINUX-RT/raptor2-A0.dtb'
+    - 'tftp 0x408000000 /srv/tftp/koti/RAPTOR2-GP1-v1.1.3-PLFM_REL/IMAGES/LINUX/LINUX-RT/Image'
+    - 'tftp 0x40C000000 /srv/tftp/koti/RAPTOR2-GP1-v1.1.3-PLFM_REL/IMAGES/LINUX/uRamdisk.img'
+    - 'run boot_linux_r'
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+    timeout:
+     minutes: 20
+    prompts:
+    - '# '
+    timeout:
+      minutes: 20
+
+
+- test:
+    namespace: linux1
+    timeout:
+      minutes: 20
+    interactive:    
+    - name: eMMC-Linux
+      prompts: ["# "]
+      echo: discard
+      script:
+      #- command: sleep 120; pwd ; sleep  120; pwd; sleep 120; pwd; sleep 120; pwd; sleep 120
+      - command: sleep 60; pwd
+      - command: echo "SUCCESS" >> /root/success.txt; echo "FAIL" >> /root/fail.txt
+      - command: dmesg | grep -i mmc | grep "MMC card at address" && echo "SUCCESS"
+        name: eMMC-detection-Linux
+        successes:
+        - message: "SUCCESS"
+        failures:
+        - message: "FAIL"
+          error: "eMMC detection at linux level test fail"
+      - command: "cd /root; echo 'label: dos' >> mmcblk01.sfdisk ; echo 'label-id: 0x02adb288' >> mmcblk01.sfdisk ; echo 'device: /dev/mmcblk0' >> mmcblk01.sfdisk ; echo 'unit: sectors' >> mmcblk01.sfdisk; echo ' ' >> mmcblk01.sfdisk ; echo '/dev/mmcblk0p1 : start=       2048, size=      4194304, type=83' >> mmcblk01.sfdisk"
+      - command: "cat mmcblk01.sfdisk"
+      - command: umount /dev/mmcblk0* | echo "y" | sfdisk /dev/mmcblk0 < mmcblk01.sfdisk && echo "SUCCESS"
+        name: eMMC-partition-table-creation-Linux
+        successes:
+        - message: "SUCCESS"
+        failures:
+        - message: "FAIL"
+          error: "eMMC partition table creation at linux level test fail"
+      - command: echo "y" | mkfs.ext4 /dev/mmcblk0p1 && echo "SUCCESS"
+        name: eMMC-format-Linux
+        successes:
+        - message: "SUCCESS"
+        failures:
+        - message: "FAIL"
+          error: "eMMC format at linux level test fail"
+      - command: mount /dev/mmcblk0p1 /mnt && sync; touch /mnt/1.txt; echo hai >> /mnt/txt; cat /mnt/1.txt && sync;umount /mnt;df -h; mount /dev/mmcblk0p1 /mnt;df -h && umount /dev/mmcblk0p1 && echo "SUCCESS"
+        name: eMMC-mount-umount
+        successes:
+        - message: "SUCCESS"
+        failures:
+        - message: "FAIL"
+          error: "eMMC mount_umount test fail"
+    - name: USB-Linux
+      prompts: ["# "]
+      echo: discard
+      script:
+      - command: dmesg | grep -i usb | grep "USB .* Storage device detected" && echo "SUCCESS"
+        name: USB-detection-Linux
+        successes:
+        - message: "SUCCESS"
+        failures:
+        - message: "FAIL"
+          error: "USB detection at linux level test fail"
+      - command: cd /root
+      - command: "echo 'label: dos' >> usb.sfdisk ; echo 'label-id: 0x02adb289' >> usb.sfdisk ; echo 'device: /dev/sda' >> usb.sfdisk ; echo 'unit: sectors' >> usb.sfdisk; echo ' ' >> usb.sfdisk ; echo '/dev/sda1 : start=       2048, size=      4194304, type=83' >> usb.sfdisk "
+      - command: "cat usb.sfdisk"
+      - command: umount /dev/sd* | echo "y" | sfdisk /dev/sda < usb.sfdisk && echo "SUCCESS"
+        name: USB-partition-table-creation-Linux
+        successes:
+        - message: "SUCCESS"
+        failures:
+        - message: "FAIL"
+          error: "USB partition table creation at linux level test fail"
+      - command: echo "y" | mkfs.ext4 /dev/sda1 && echo "SUCCESS"
+        name: USB-format-Linux
+        successes:
+        - message: "SUCCESS"
+        failures:
+        - message: "FAIL"
+          error: "USB format at linux level test fail"
+      - command: dmesg	
+      - command: cd /root; umount /sd*; mount /dev/sda1 /mnt ; sync; touch /mnt/1.txt; echo hai >> /mnt/txt; cat /mnt/1.txt ; sync;umount /mnt;df -h; mount /dev/sda1 /mnt ; df -h ; umount /dev/sda1
+
+- test:
+    namespace: linux1
+    timeout:
+      minutes: 20
+    interactive:
+    - name: Linux-eMMC-fio-tests
+      echo: discard
+      prompts: ["# "]
+      script:
+      - command: echo "PASS" >> pass.txt ; echo "FAIL" >> fail.txt
+      - command: cd /root;umount /dev/mmcblk0* ; echo "y" | sfdisk /dev/mmcblk0 < mmcblk01.sfdisk && echo "SUCCESS"
+        name: eMMC-partition-table-creation-Linux
+        successes:
+        - message: "SUCCESS"
+        failures:
+        - message: "FAIL"
+          error: "eMMC partition table creation at linux level test fail"
+      - command: echo "y" | mkfs.ext4 /dev/mmcblk0p1 && cat /root/success.txt;
+        name: eMMC-format-Linux
+        successes:
+        - message: "SUCCESS"
+        failures:
+        - message: "FAIL"
+          error: "eMMC format at linux level test fail"
+      - command: fio --filename=/dev/mmcblk0p1 --name=write --iodepth=16 --rw=write --bs=4k --direct=0 --size=1536M --numjobs=16 --runtime=240 --group_reporting; if [ $? == 0 ] ; then cat pass.txt;else cat fail.txt; fi
+        name: Linux-eMMC-fio-write
+        successes:
+        - message: "PASS"
+        failures:
+        - message: "FAIL"
+          #exception: InfrastructureError
+          error: "eMMC fio write failed"
+      - command: fio --filename=/dev/mmcblk0p1 --name=randwrite --iodepth=16 --rw=randwrite --bs=4k --direct=0 --size=1536M --numjobs=16 --runtime=240 --group_reporting; if [ $? == 0 ] ; then cat pass.txt;else cat fail.txt; fi
+        name: Linux-eMMC-fio-randwrite
+        successes:
+        - message: "PASS"
+        failures:
+        - message: "FAIL"
+          #exception: InfrastructureError
+          error: "eMMC fio randwrite failed"
+      - command: fio --filename=/dev/mmcblk0p1 --name=read --iodepth=16 --rw=read --bs=4k --direct=0 --size=1536M --numjobs=16 --runtime=240 --group_reporting ; if [ $? == 0 ] ; then cat pass.txt;else cat fail.txt; fi
+        name: Linux-eMMC-fio-read
+        successes:
+        - message: "PASS"
+        failures:
+        - message: "FAIL"
+          #exception: InfrastructureError
+          error: "eMMC fio read failed"
+      - command: fio --filename=/dev/mmcblk0p1 --name=randread --iodepth=16 --rw=randread --bs=4k --direct=0 --size=1536M --numjobs=16 --runtime=240 --group_reporting; if [ $? == 0 ] ; then cat pass.txt;else cat fail.txt; fi
+        name: Linux-eMMC-fio-randread
+        successes:
+        - message: "PASS"
+        failures:
+        - message: "FAIL"
+          #exception: InfrastructureError
+          error: "eMMC fio randread failed"
+
+- test:
+    namespace: linux1
+    timeout:
+      minutes: 20
+    interactive:
+    - name: Linux-USB-fio-tests
+      echo: discard
+      prompts: ["# "]
+      script:
+      - command: echo "PASS" >> pass.txt ; echo "FAIL" >> fail.txt
+      - command: cd /root;umount /dev/sd* | echo "y" | sfdisk /dev/sda < usb.sfdisk  && echo "SUCCESS"
+        name: USB-partition-table-creation-Linux
+        successes:
+        - message: "SUCCESS"
+        failures:
+        - message: "FAIL"
+          error: "USB partition table creation at linux level test fail"
+      - command: echo "y" | mkfs.ext4 /dev/sda1 && echo "SUCCESS"
+        name: USB-format-Linux
+        successes:
+        - message: "SUCCESS"
+        failures:
+        - message: "FAIL"
+          error: "USB format at linux level test fail"
+      - command: fio --filename=/dev/sda1 --name=write --iodepth=16 --rw=write --bs=4k --direct=0 --size=1536M --numjobs=16 --runtime=240 --group_reporting; if [ $? == 0 ] ; then cat pass.txt;else cat fail.txt; fi
+        name: Linux-USB-fio-write
+        successes:
+        - message: "PASS"
+        failures:
+        - message: "FAIL"
+          #exception: InfrastructureError
+          error: "USB fio write failed"
+      - command: fio --filename=/dev/sda1 --name=randwrite --iodepth=16 --rw=randwrite --bs=4k --direct=0 --size=1536M --numjobs=16 --runtime=240 --group_reporting; if [ $? == 0 ] ; then cat pass.txt;else cat fail.txt; fi
+        name: Linux-USB-fio-randwrite
+        successes:
+        - message: "PASS"
+        failures:
+        - message: "FAIL"
+          #exception: InfrastructureError
+          error: "USB fio randwrite failed"
+      - command: fio --filename=/dev/sda1 --name=read --iodepth=16 --rw=read --bs=4k --direct=0 --size=1536M --numjobs=16 --runtime=240 --group_reporting ; if [ $? == 0 ] ; then cat pass.txt;else cat fail.txt; fi
+        name: Linux-USB-fio-read
+        successes:
+        - message: "PASS"
+        failures:
+        - message: "FAIL"
+          #exception: InfrastructureError
+          error: "USB fio read failed"
+      - command: fio --filename=/dev/sda1 --name=randread --iodepth=16 --rw=randread --bs=4k --direct=0 --size=1536M --numjobs=16 --runtime=240 --group_reporting; if [ $? == 0 ] ; then cat pass.txt;else cat fail.txt; fi
+        name: Linux-USB-fio-randread
+        successes:
+        - message: "PASS"
+        failures:
+        - message: "FAIL"
+          #exception: InfrastructureError
+          error: "USB fio randread failed"
