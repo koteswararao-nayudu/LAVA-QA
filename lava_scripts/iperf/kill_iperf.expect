@@ -1,0 +1,11 @@
+#!/bin/expect -f
+
+set timeout 60
+
+spawn ssh -o StrictHostKeyChecking=no  equser@192.168.6.220
+expect "password: "
+send "Password\$2021\r"
+expect "$ "
+send "pkill iperf3_lava \r"
+expect "$ "
+send "exit\r"

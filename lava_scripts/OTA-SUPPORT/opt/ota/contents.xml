@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<index>
+	<default tmp="/tmp" />
+
+	<module name="LINUX" uuid_main="2BF98F0C-6665-4952-B7D6-08D87AD74CC5" uuid_backup="3DF7E062-987E-4C0E-A7A5-843EE2687EE2" source="LINUX/LINUX-RT" >
+			<binary file="raptor2-B0.itb" destination="raptor2-B0.itb" />
+	</module>
+	
+	<module name="FILESYSTEM" uuid_main="FB3EBD77-8CE2-4158-AA48-53017D4F601B" uuid_backup="45b7f741-6165-4d89-a9dd-ab8729421475" source="LINUX" >
+			<binary file="rootfs.tar" destination="rootfs.tar" />
+	</module>
+	
+		<module name="BOOTLOADER" uuid_main="11111111" uuid_backup="22222222" source="FIRMWARE" >
+			<binary file="EVB-B0-HAWK/firmware.bin" destination="EVB-B0-HAWK/firmware.bin" />
+			<binary file="EVB-B0-PEGASUS/firmware.bin" destination="EVB-B0-PEGASUS/firmware.bin" />
+			<binary file="EVB-B0-TITAN/firmware.bin" destination="EVB-B0-TITAN/firmware.bin" />
+	</module>
+
+	<module name="L1FW" uuid_main="40706E44-E6CF-472B-BD7F-7D6798323AB0" uuid_backup="B824907B-9278-46DB-BF4F-E7FC90741B6B" source="RAPTOR/L1FW" >
+			<binary file="bin/l1fw.img" destination="bin/l1fw.img" />
+			<binary file="crss_bins/bit_rev_su1.elf" destination="crss_bins/bit_rev_su1.elf" />
+			<binary file="crss_bins/bit_rev_su1.hex" destination="crss_bins/bit_rev_su1.hex" />
+			<binary file="crss_bins/bit_rev_su2.elf" destination="crss_bins/bit_rev_su2.elf" />
+			<binary file="crss_bins/bit_rev_su2.hex" destination="crss_bins/bit_rev_su2.hex" />
+			<binary file="crss_bins/crss0.elf" destination="crss_bins/crss0.elf" />
+			<binary file="crss_bins/crss0.hex" destination="crss_bins/crss0.hex" />
+			<binary file="crss_bins/crss2.elf" destination="crss_bins/crss2.elf" />
+			<binary file="crss_bins/crss2.hex" destination="crss_bins/crss2.hex" />
+			<binary file="platform_log_parser.py" destination="platform_log_parser.py" />
+			<binary file="../raptor2_software_version.txt" destination="raptor2_software_version.txt" />
+	</module>
+	
+	<module name="SUMGMT" uuid_main="6D9ECC5F-69FB-4BB6-A3BE-B20613613AC8" uuid_backup="3F98D51F-69FB-4944-BB2C-F09E4E005700" source="RAPTOR/SUMGMT" >
+			<binary file="bin/OamWrapper" destination="bin/OamWrapper" />
+			<binary file="bin/evlogd" destination="bin/evlogd" />
+			<binary file="bin/metanoia_rfic_status" destination="bin/metanoia_rfic_status" />
+			<binary file="bin/monitor_udp" destination="bin/monitor_udp" />
+			<binary file="bin/raptor_sumgr" destination="bin/raptor_sumgr" />
+			<binary file="bin/rfic_mgr" destination="bin/rfic_mgr" />
+			<binary file="bin/set_dac" destination="bin/set_dac" />
+			<binary file="bin/svcctrld" destination="bin/svcctrld" />
+			<binary file="bin/time_syncmgr" destination="bin/time_syncmgr" />
+			<binary file="bin/time_syncmgr_standalone" destination="bin/time_syncmgr_standalone" />
+			<binary file="etc/layer1_config_params.yaml" destination="etc/layer1_config_params.yaml" />
+			<binary file="etc/memory_usage.sh" destination="etc/memory_usage.sh" />
+			<binary file="etc/raptor2_service.sh" destination="etc/raptor2_service.sh" />
+			<binary file="etc/rfic_config.yaml" destination="etc/rfic_config.yaml" />
+			<binary file="etc/set_vars.sh" destination="etc/set_vars.sh" />
+			<binary file="etc/su_deployment_config.yaml" destination="etc/su_deployment_config.yaml" />
+			<binary file="etc/su_deployment_config_prach_sf.yaml" destination="etc/su_deployment_config_prach_sf.yaml" />
+			<binary file="etc/sys_params.sh" destination="etc/sys_params.sh" />
+			<binary file="etc/sysmon.sh" destination="etc/sysmon.sh" />
+			<binary file="lib/libmgmtSwApp.so" destination="lib/libmgmtSwApp.so" />
+			<binary file="tools/fw_img_packer" destination="tools/fw_img_packer" />
+			<binary file="tools/fw_img_packer_arm" destination="tools/fw_img_packer_arm" />
+			<binary file="tools/fw_img_packer_x86" destination="tools/fw_img_packer_x86" />
+	</module>
+	
+	<module name="CU" uuid_main="B6A1EC0B-56DB-4D6A-98CA-12D62DFD0E3E" uuid_backup="9C068E97-CA54-486C-8FC4-87488444D01D" source="RAPTOR/CU" >
+			<binary file="bin/compile_logs.txt" destination="bin/compile_logs.txt" />
+			<binary file="bin/cuParserArm" destination="bin/cuParserArm" />
+			<binary file="bin/cuParserx86" destination="bin/cuParserx86" />
+			<binary file="bin/gnb_cu" destination="bin/gnb_cu" />
+			<binary file="bin/libcrypto.so.3" destination="bin/libcrypto.so.3" />
+			<binary file="bin/libdson.so" destination="bin/libdson.so" />
+			<binary file="bin/liboamcu.so" destination="bin/liboamcu.so" />
+			<binary file="bin/libssl.so.3" destination="bin/libssl.so.3" />
+			<binary file="config/README.txt" destination="config/README.txt" />
+			<binary file="config/mem_config.txt" destination="config/mem_config.txt" />
+			<binary file="config/mem_config.txt_aws" destination="config/mem_config.txt_aws" />
+			<binary file="config/mem_config_1046_aio_cu.txt" destination="config/mem_config_1046_aio_cu.txt" />
+			<binary file="config/mem_config_1046_aio_cu_ota.txt" destination="config/mem_config_1046_aio_cu_ota.txt" />
+			<binary file="config/mem_config_1046_aio_cu_pal.txt" destination="config/mem_config_1046_aio_cu_pal.txt" />
+			<binary file="config/mem_config_cu_cp.txt" destination="config/mem_config_cu_cp.txt" />
+			<binary file="config/mem_config_cu_up.txt" destination="config/mem_config_cu_up.txt" />
+			<binary file="config/mem_config_jumbo.txt" destination="config/mem_config_jumbo.txt" />
+			<binary file="config/mem_config_original.txt" destination="config/mem_config_original.txt" />
+			<binary file="config/mem_config_pal_r2.txt" destination="config/mem_config_pal_r2.txt" />
+			<binary file="config/mem_config_reduced.txt" destination="config/mem_config_reduced.txt" />
+			<binary file="config/mem_config_socket_um12_dl_1G.txt" destination="config/mem_config_socket_um12_dl_1G.txt" />
+			<binary file="config/oam_3gpp_cu_sa_1du_1cell.json" destination="config/oam_3gpp_cu_sa_1du_1cell.json" />
+			<binary file="config/oam_3gpp_cu_sa_1du_1cell_am.json" destination="config/oam_3gpp_cu_sa_1du_1cell_am.json" />
+			<binary file="config/oam_3gpp_cu_sa_1du_1cell_l1sim.json" destination="config/oam_3gpp_cu_sa_1du_1cell_l1sim.json" />
+			<binary file="config/oam_3gpp_cu_sa_1du_6cell_source.json" destination="config/oam_3gpp_cu_sa_1du_6cell_source.json" />
+			<binary file="config/oam_3gpp_cu_sa_1du_6cell_target.json" destination="config/oam_3gpp_cu_sa_1du_6cell_target.json" />
+			<binary file="config/oam_3gpp_cu_sa_2du_2cell.json" destination="config/oam_3gpp_cu_sa_2du_2cell.json" />
+			<binary file="config/oam_3gpp_cu_sa_tregw_1du_1cell.json" destination="config/oam_3gpp_cu_sa_tregw_1du_1cell.json" />
+			<binary file="config/oam_3gpp_cu_sa_trigw_1du_1cell.json" destination="config/oam_3gpp_cu_sa_trigw_1du_1cell.json" />
+			<binary file="config/oam_cu_json_cfg.txt" destination="config/oam_cu_json_cfg.txt" />
+			<binary file="config/oam_gnb_cell_down_up_req.json" destination="config/oam_gnb_cell_down_up_req.json" />
+			<binary file="config/sys_config.txt" destination="config/sys_config.txt" />
+			<binary file="config/sys_config.txt_aws" destination="config/sys_config.txt_aws" />
+			<binary file="config/sys_config.txt_crypto" destination="config/sys_config.txt_crypto" />
+			<binary file="config/sys_config.txt_mtp_telit" destination="config/sys_config.txt_mtp_telit" />
+			<binary file="config/sys_config.txt_palboard" destination="config/sys_config.txt_palboard" />
+			<binary file="config/sys_config.txt_prisma" destination="config/sys_config.txt_prisma" />
+			<binary file="config/sys_config.txt_srb_integrity" destination="config/sys_config.txt_srb_integrity" />
+			<binary file="config/sys_config_1046_aio_cu.txt" destination="config/sys_config_1046_aio_cu.txt" />
+			<binary file="config/sys_config_1046_aio_cu_ota.txt" destination="config/sys_config_1046_aio_cu_ota.txt" />
+			<binary file="config/sys_config_1046_aio_cu_pal.txt" destination="config/sys_config_1046_aio_cu_pal.txt" />
+			<binary file="config/sys_config_basic.txt" destination="config/sys_config_basic.txt" />
+			<binary file="config/sys_config_cu_cp.txt" destination="config/sys_config_cu_cp.txt" />
+			<binary file="config/sys_config_cu_up.txt" destination="config/sys_config_cu_up.txt" />
+			<binary file="config/sys_config_l1sim.txt" destination="config/sys_config_l1sim.txt" />
+			<binary file="config/sys_config_pal.txt" destination="config/sys_config_pal.txt" />
+			<binary file="config/sys_config_pal_r2.txt" destination="config/sys_config_pal_r2.txt" />
+	</module>		
+	
+	<module name="DU" uuid_main="8F23B665-5A52-4505-87ED-B07EB321BBCA" uuid_backup="436A2B11-9051-4799-8338-30E08F10CEB3" source="RAPTOR/DU" >
+			<binary file="bin/Du_Cp_ParserArm" destination="bin/Du_Cp_ParserArm" />
+			<binary file="bin/Du_Cp_Parserx86" destination="bin/Du_Cp_Parserx86" />
+			<binary file="bin/compile_logs.txt" destination="bin/compile_logs.txt" />
+			<binary file="bin/duParserArm" destination="bin/duParserArm" />
+			<binary file="bin/duParserx86" destination="bin/duParserx86" />
+			<binary file="bin/fapiLogParserArm" destination="bin/fapiLogParserArm" />
+			<binary file="bin/fapiLogParserX86" destination="bin/fapiLogParserX86" />
+			<binary file="bin/ftl_config.cfg" destination="bin/ftl_config.cfg" />
+			<binary file="bin/gnb_du_ftl" destination="bin/gnb_du_ftl" />
+			<binary file="bin/liboamdu.so" destination="bin/liboamdu.so" />
+			<binary file="config/mem_config.txt" destination="config/mem_config.txt" />
+			<binary file="config/mem_config.txt_aws" destination="config/mem_config.txt_aws" />
+			<binary file="config/mem_config_1046_aio_du.txt" destination="config/mem_config_1046_aio_du.txt" />
+			<binary file="config/mem_config_1046_aio_du_ota.txt" destination="config/mem_config_1046_aio_du_ota.txt" />
+			<binary file="config/mem_config_1046_aio_du_pal.txt" destination="config/mem_config_1046_aio_du_pal.txt" />
+			<binary file="config/mem_config_1cell_128UE.txt" destination="config/mem_config_1cell_128UE.txt" />
+			<binary file="config/mem_config_1cell_32UE.txt" destination="config/mem_config_1cell_32UE.txt" />
+			<binary file="config/mem_config_Mu0_12cell_768_UE_NSA.txt" destination="config/mem_config_Mu0_12cell_768_UE_NSA.txt" />
+			<binary file="config/mem_config_Mu3_4cell_64_UE.txt" destination="config/mem_config_Mu3_4cell_64_UE.txt" />
+			<binary file="config/mem_config_arm.txt" destination="config/mem_config_arm.txt" />
+			<binary file="config/mem_config_original.txt" destination="config/mem_config_original.txt" />
+			<binary file="config/mem_config_pal_r2.txt" destination="config/mem_config_pal_r2.txt" />
+			<binary file="config/mem_config_reduced.txt" destination="config/mem_config_reduced.txt" />
+			<binary file="config/mem_config_urllc.txt" destination="config/mem_config_urllc.txt" />
+			<binary file="config/oam_3gpp_cell_cfg_mu0_12cell.json" destination="config/oam_3gpp_cell_cfg_mu0_12cell.json" />
+			<binary file="config/oam_3gpp_cell_cfg_mu0_1cell.json" destination="config/oam_3gpp_cell_cfg_mu0_1cell.json" />
+			<binary file="config/oam_3gpp_cell_cfg_mu0_1cell_ota.json" destination="config/oam_3gpp_cell_cfg_mu0_1cell_ota.json" />
+			<binary file="config/oam_3gpp_cell_cfg_mu0_4cell.json" destination="config/oam_3gpp_cell_cfg_mu0_4cell.json" />
+			<binary file="config/oam_3gpp_cell_cfg_mu0_6cell.json" destination="config/oam_3gpp_cell_cfg_mu0_6cell.json" />
+			<binary file="config/oam_3gpp_cell_cfg_mu0_8cell.json" destination="config/oam_3gpp_cell_cfg_mu0_8cell.json" />
+			<binary file="config/oam_3gpp_cell_cfg_mu1_1cell.json" destination="config/oam_3gpp_cell_cfg_mu1_1cell.json" />
+			<binary file="config/oam_3gpp_cell_cfg_mu1_1cell_am.json" destination="config/oam_3gpp_cell_cfg_mu1_1cell_am.json" />
+			<binary file="config/oam_3gpp_cell_cfg_mu1_1cell_l1sim.json" destination="config/oam_3gpp_cell_cfg_mu1_1cell_l1sim.json" />
+			<binary file="config/oam_3gpp_cell_cfg_mu1_1cell_tregw.json" destination="config/oam_3gpp_cell_cfg_mu1_1cell_tregw.json" />
+			<binary file="config/oam_3gpp_cell_cfg_mu1_1cell_trigw.json" destination="config/oam_3gpp_cell_cfg_mu1_1cell_trigw.json" />
+			<binary file="config/oam_3gpp_cell_cfg_mu1_6cell.json" destination="config/oam_3gpp_cell_cfg_mu1_6cell.json" />
+			<binary file="config/oam_3gpp_cell_cfg_mu3_1cell.json" destination="config/oam_3gpp_cell_cfg_mu3_1cell.json" />
+			<binary file="config/oam_3gpp_cell_cfg_mu3_1cell_bm_AM.json" destination="config/oam_3gpp_cell_cfg_mu3_1cell_bm_AM.json" />
+			<binary file="config/oam_3gpp_cell_cfg_mu3_1cell_bm_qcom_ota.json" destination="config/oam_3gpp_cell_cfg_mu3_1cell_bm_qcom_ota.json" />
+			<binary file="config/oam_3gpp_cell_cfg_mu3_2cell_bm_AM.json" destination="config/oam_3gpp_cell_cfg_mu3_2cell_bm_AM.json" />
+			<binary file="config/oam_3gpp_cell_cfg_mu3_2cell_bm_qcom_ota.json" destination="config/oam_3gpp_cell_cfg_mu3_2cell_bm_qcom_ota.json" />
+			<binary file="config/oam_3gpp_cell_cfg_mu3_3cell_bm_qcom_ota.json" destination="config/oam_3gpp_cell_cfg_mu3_3cell_bm_qcom_ota.json" />
+			<binary file="config/oam_3gpp_cell_cfg_mu3_4cell_bm.json" destination="config/oam_3gpp_cell_cfg_mu3_4cell_bm.json" />
+			<binary file="config/oam_3gpp_cell_cfg_mu3_4cell_bm_AM.json" destination="config/oam_3gpp_cell_cfg_mu3_4cell_bm_AM.json" />
+			<binary file="config/oam_3gpp_cell_cfg_mu3_4cell_bm_qcom_ota.json" destination="config/oam_3gpp_cell_cfg_mu3_4cell_bm_qcom_ota.json" />
+			<binary file="config/oam_3gpp_cell_cfg_mu3_6cell.json" destination="config/oam_3gpp_cell_cfg_mu3_6cell.json" />
+			<binary file="config/oam_du_json_cfg.txt" destination="config/oam_du_json_cfg.txt" />
+			<binary file="config/sys_config.txt" destination="config/sys_config.txt" />
+			<binary file="config/sys_config.txt_aws" destination="config/sys_config.txt_aws" />
+			<binary file="config/sys_config.txt_crypto" destination="config/sys_config.txt_crypto" />
+			<binary file="config/sys_config.txt_mtp_telit" destination="config/sys_config.txt_mtp_telit" />
+			<binary file="config/sys_config.txt_palboard" destination="config/sys_config.txt_palboard" />
+			<binary file="config/sys_config.txt_prisma" destination="config/sys_config.txt_prisma" />
+			<binary file="config/sys_config.txt_srb_integrity" destination="config/sys_config.txt_srb_integrity" />
+			<binary file="config/sys_config_1046_aio_2WT_du_ota.txt" destination="config/sys_config_1046_aio_2WT_du_ota.txt" />
+			<binary file="config/sys_config_1046_aio_du_2WT.txt" destination="config/sys_config_1046_aio_du_2WT.txt" />
+			<binary file="config/sys_config_1046_aio_du_2WT_pal.txt" destination="config/sys_config_1046_aio_du_2WT_pal.txt" />
+			<binary file="config/sys_config_1046_aio_du_3WT.txt" destination="config/sys_config_1046_aio_du_3WT.txt" />
+			<binary file="config/sys_config_1046_aio_du_3WT_module_separation.txt" destination="config/sys_config_1046_aio_du_3WT_module_separation.txt" />
+			<binary file="config/sys_config_1046_aio_du_reduced_hugepage.txt" destination="config/sys_config_1046_aio_du_reduced_hugepage.txt" />
+			<binary file="config/sys_config_am.txt" destination="config/sys_config_am.txt" />
+			<binary file="config/sys_config_arm.txt" destination="config/sys_config_arm.txt" />
+			<binary file="config/sys_config_basic.txt" destination="config/sys_config_basic.txt" />
+			<binary file="config/sys_config_crss_bit_rev_pal.txt" destination="config/sys_config_crss_bit_rev_pal.txt" />
+			<binary file="config/sys_config_du_ftl.txt" destination="config/sys_config_du_ftl.txt" />
+			<binary file="config/sys_config_l1sim.txt" destination="config/sys_config_l1sim.txt" />
+			<binary file="config/sys_config_pal_r2.txt" destination="config/sys_config_pal_r2.txt" />
+			<binary file="config/sys_config_qcom_mmwave_aio.txt" destination="config/sys_config_qcom_mmwave_aio.txt" />
+			<binary file="config/ys_cfg.txt" destination="config/ys_cfg.txt" />
+			<binary file="du_log_post_process/du_log_parser" destination="du_log_post_process/du_log_parser" />
+	</module>		
+</index>
+

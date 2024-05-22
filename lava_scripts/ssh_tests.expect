@@ -1,0 +1,20 @@
+#!/bin/expect -f
+
+set timeout 600
+#stty -echo
+
+spawn ssh -o StrictHostKeyChecking=no  equser@[lindex $argv 0]
+expect "password: "
+send "Password\$2021\r"
+expect "$ "
+send "ssh  -o UserKnownHostsFile=/dev/null  -o StrictHostKeyChecking=no  root@[lindex $argv 1] \r"
+#send "ssh -o StrictHostKeyChecking=no  root@[lindex $argv 1] 'echo sshtestcompleted' >> /tmp/lavacheck.txt \r"
+#send "ssh -o StrictHostKeyChecking=no  root@[lindex $argv 1] 'echo sshtestcompleted >> 1' | /tmp/lavacheck.txt \r"
+expect "password"
+send "root\r"
+expect "#"
+send "systemctl status sshd | grep -i active\r"
+expect "#"
+send "uname -a\r"
+expect "#"
+send "exit\r"

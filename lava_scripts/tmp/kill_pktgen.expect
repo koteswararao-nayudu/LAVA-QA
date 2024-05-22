@@ -1,0 +1,19 @@
+#!/bin/expect -f
+
+set timeout 60
+
+#spawn ssh -o StrictHostKeyChecking=no  equser@192.168.6.220
+spawn ssh -o StrictHostKeyChecking=no  equser@[lindex $argv 0]
+expect "password: "
+send "Password\$2021\r"
+expect "$ "
+send "sudo pkill pktgen \r"
+expect "password"
+send "Password\$2021\r"
+expect "$ "
+sleep 3
+send "sudo dpdk-devbind.py --bind=ixgbe 0000:07:00.1 \r"
+expect "$ "
+sleep 3
+send "exit\r"
+exit

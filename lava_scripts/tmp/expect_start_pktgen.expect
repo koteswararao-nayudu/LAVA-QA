@@ -1,0 +1,16 @@
+#!/bin/expect -f
+
+set timeout 120
+
+#spawn ssh -o StrictHostKeyChecking=no  equser@192.168.6.220
+spawn ssh -o StrictHostKeyChecking=no  equser@[lindex $argv 0]
+expect "password: "
+send "Password\$2021\r"
+expect "$ "
+send "sudo bash /home/equser/start_pktgen.sh \r"
+expect "password"
+send "Password\$2021\r"
+#expect "$ "
+expect "Pktgen:/> "
+sleep 5
+#send "exit\r"

@@ -1,0 +1,65 @@
+#!/bin/bash
+## Author: charley@edgeq.io
+## Module: Integration of package downloading, installing, and switching partitions
+
+working_subdir="/opt/ota"
+operation="download_validation"
+http_path=$1
+download_file_name=$2
+user_and_password=$3
+auth_pem_path_file=$working_subdir/"auth_rsa_public_key.pem"
+speed_limit=""
+rebooting=""
+decrypt_pem_path_file=$working_subdir/"cipher_rsa_private_key.pem"
+download_password="-"
+
+help_str="help"
+
+# get the current working directory
+current_dir=$(pwd)
+
+# check if the current directory is not /opt/ota
+# if [ "$current_dir" != "$working_subdir" ]; then
+#     echo "Please copy all tool files from /sysupgrade/tools/target to /opt/ota, then start to execute this shell scripts"
+# 	echo "For example, user can run 'sudo mkdir -p /opt/ota && sudo cp /sysupgrade/tools/target/* /opt/ota/', then start to execute this shell scripts"
+#     exit 620
+# fi
+
+if [ "$1" == "$help_string" ]; then
+  echo "command line: sudo ./pdi [download_protocol_addr] [release_package_name] [user:password] {speed_limit} {-r}"
+else
+    # Shift the first four parameters location
+    shift 3
+    # Parse remaining command line arguments
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -r)
+                rebooting="-r"
+                shift
+                ;;
+            *)
+                # Check if the argument matches the speed_time format
+                if [[ "$1" =~ ^[0-9]+[KMGkmg]$ ]]; then
+                    speed_limit="$1"
+                fi
+                shift
+                ;;
+        esac
+    done
+    echo "Start to download release package to emmc OTA partition...."
+    sudo ./pdv $http_path $download_file_name $user_and_password -a $auth_pem_path_file -e $decrypt_pem_path_file $speed_limit
+    download_status=$?
+    if [ "$download_status" -eq 0 ]; then
+        sudo ./pkginstall
+        install_status=$?
+        if [ "$install_status" -eq 0 ]; then
+            sudo ./swipart $rebooting
+        else
+            echo "Install image to emmc/nor-flash error"
+            exit 637
+        fi
+    else
+        echo "Download authentication/validation failed. Cannot use this tar ball!!"
+        exit 625
+    fi
+fi

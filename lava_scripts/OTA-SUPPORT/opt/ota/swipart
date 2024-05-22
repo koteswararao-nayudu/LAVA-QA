@@ -1,0 +1,223 @@
+#!/bin/bash
+## Author: charley@edgeq.io
+## Module: Switching/Upgrading emmc partition between a/b
+
+MTD0_SIZE=512
+MTD1_SIZE=128
+operation=$1
+help_str="help"
+firmware_ota_folder=$2
+firmware_prompt=$3
+B0_MTD0_SIZE=128
+B0_FIRMWARE_SIZE=1024
+PARTITION_A_MTD="mtd6"
+PARTITION_B_MTD="mtd8"
+PARTTITION_MBR="mtd0"
+# Device and partition labels
+DEVICE="mmcblk0"
+LABEL_A="config_a"
+LABEL_B="config_b"
+REBOOT_OP="-r"
+CHECK_PART="-l"
+CONFIG_UPGRADE_OPTION="-c"
+
+# check the required files for installation to A/B partitions
+if [ "$operation" == "$help_str" ]; then
+  echo "command line: sudo ./swipart {help | -l | -r}"
+  exit 0
+fi
+
+dev_mtd1="/dev/mtd1"
+dev_mtd0="/dev/mtd0"
+# check the /dev/mtd1 in nor-flash
+if [ ! -e "$dev_mtd1" ] || [ ! -e "$dev_mtd0" ] ; then
+   echo "Now install and upgrade feature only supports GNB-PLFM-v1.3.0-RC3.2 and later version!!"
+   exit 632
+fi
+#check the current chipe type
+
+version_filename="/proc/device-tree/chip-version"
+A0_CHIP="A0"
+B0_CHIP="B0"
+chip_type=""
+if [ ! -e "$version_filename" ]; then
+    chip_type="A0"
+else
+    read chip_type < $version_filename
+fi
+# echo "The current chip type: $chip_type"
+
+old_firmware="/tmp/old_firmware.bin"
+new_firmware="/tmp/new_firmware.bin"
+firmware_update_flag="no"
+env_data="/tmp/env_data"
+mbr_data="/tmp/mbr_data"
+fimware_base_dir="/tmp/FIRMWARE/"
+default_firmware_name="firmware.bin"
+firmware_name=$fimware_base_dir/$default_firmware_name
+check_tar_file="check_tar_file"
+tar_file_name=""
+
+if [ "$operation" == "$CHECK_PART" ]; then
+    if [ "$chip_type" == "$B0_CHIP" ]; then
+        # cd /opt/ota && sudo chmod 777 * && sudo ./nor_flasher.sh mtd3 read $env_data 128 B0 >/dev/null 2>&1
+        # echo "Change the current environment data in nor flash"
+        # sudo python3 ./utils.py --environment_path $env_data # >/dev/null 2>&1
+        # echo "Start to read the nor flash mbr data to a file"
+        sudo python ./program_nor_flash.py $PARTTITION_MBR read $mbr_data $B0_MTD0_SIZE B0 >/dev/null 2>&1
+        # echo "Change the current mbr data in nor flash"
+        # sudo python3 ./utils.py --mbr_path $mbr_data # >/dev/null 2>&1
+        sudo python ./utils.py --show_curr_backup $mbr_data
+    else
+        echo "Not support chip type: $chip_type"
+        exit 1
+    fi    
+    exit 0
+fi
+
+if [ "$operation" == "$CONFIG_UPGRADE_OPTION" ]; then
+    if [ "$chip_type" == "$B0_CHIP" ]; then
+        # Get partition numbers using lsblk
+        # PARTITION_A_RAW=$(lsblk -o NAME,PARTLABEL -n "/dev/$DEVICE" | awk -v label="$LABEL_A" '$2 == label {print $1}')
+        # PARTITION_B_RAW=$(lsblk -o NAME,PARTLABEL -n "/dev/$DEVICE" | awk -v label="$LABEL_B" '$2 == label {print $1}')
+        # Remove "|-" from partition numbers
+        # PARTITION_A=$(echo "$PARTITION_A_RAW" | sed 's/|-$//')
+        # PARTITION_B=$(echo "$PARTITION_B_RAW" | sed 's/|-$//')
+        PARTITION_A=$(lsblk -o NAME,PARTLABEL -n "/dev/$DEVICE" | awk -v label="$LABEL_A" '$2 == label {gsub("[|\\-]", "", $1); print $1}')
+        PARTITION_B=$(lsblk -o NAME,PARTLABEL -n "/dev/$DEVICE" | awk -v label="$LABEL_B" '$2 == label {gsub("[|\\-]", "", $1); print $1}')
+
+        if [ -n "$PARTITION_A" ] && [ -n "$PARTITION_B" ]; then
+            echo "Partition number for $LABEL_A: $PARTITION_A"
+            echo "Partition number for $LABEL_B: $PARTITION_B"
+
+            # You can perform further actions here if needed
+            # Mount points
+            MOUNT_A="/mnt/config_a"
+            MOUNT_B="/mnt/config_b"
+            # Create mount points if they don't exist
+            mkdir -p "$MOUNT_A"
+            mkdir -p "$MOUNT_B"
+
+            # Mount partitions
+            mount "/dev/$PARTITION_A" "$MOUNT_A" >/dev/null 2>&1
+            mount "/dev/$PARTITION_B" "$MOUNT_B" >/dev/null 2>&1
+
+            sudo chmod 777 * && sudo python ./program_nor_flash.py $PARTTITION_MBR read $mbr_data $B0_MTD0_SIZE B0 >/dev/null 2>&1
+            # echo "Read the current mbr data in nor flash"
+            sudo python3 ./utils.py --mbr_path $mbr_data # >/dev/null 2>&1
+
+            # echo "The pattern return $?"
+            status=$?
+
+            #Install to available partition 
+            AB_partition=""
+            if [ " $status" -eq 1 ]; then
+                echo "Copy all config data from partition B to A"
+                # Copy files from config_a to config_b
+                sudo cp -rf "$MOUNT_B"/* "$MOUNT_A"/
+            elif [ "$status" -eq 2 ]; then
+                echo "Copy all config data from partition A to B"
+                # Copy files from config_a to config_b
+                sudo cp -rf "$MOUNT_A"/* "$MOUNT_B"/
+            else
+                echo "No partition is selected"
+            fi
+
+
+            # Unmount partitions
+            umount "$MOUNT_A" >/dev/null 2>&1
+            umount "$MOUNT_B" >/dev/null 2>&1
+
+            # Clean up mount points
+            rmdir "$MOUNT_A"
+            rmdir "$MOUNT_B"
+
+            # echo "Files copied successfully from $LABEL_A to $LABEL_B"
+        else
+            echo "Both partition labels $LABEL_A and $LABEL_B must exist"
+            exit 1
+        fi
+    else
+        echo "Not support chip type: $chip_type"
+        exit 1
+    fi    
+    exit 0
+fi
+
+## Read environment data from NOR flash
+## If there is a input from shell, than pass it to utils. Otherwise, only pass file for environment data
+if [ "$chip_type" == "$A0_CHIP" ]; then
+    echo "Start to read the nor flash environment data to a file"
+    # cd /opt/ota && sudo chmod 777 * && sudo ./nor_flasher.sh mtd1 read $env_data 128 B0 >/dev/null 2>&1
+    sudo chmod 777 * && sudo python ./program_nor_flash.py mtd1 read $env_data $MTD1_SIZE B0 >/dev/null 2>&1
+    echo "Change the current environment data in nor flash"
+    sudo python3 ./utils.py --environment_path $env_data # >/dev/null 2>&1
+else
+    if [ "$chip_type" == "$B0_CHIP" ]; then
+        # cd /opt/ota && sudo chmod 777 * && sudo ./nor_flasher.sh mtd3 read $env_data 128 B0 >/dev/null 2>&1
+        # echo "Change the current environment data in nor flash"
+        # sudo python3 ./utils.py --environment_path $env_data # >/dev/null 2>&1
+        # echo "Start to read the nor flash mbr data to a file"
+        sudo chmod 777 * && sudo python ./program_nor_flash.py $PARTTITION_MBR read $mbr_data $B0_MTD0_SIZE B0 >/dev/null 2>&1
+        echo "Change the current mbr data in nor flash"
+        sudo python3 ./utils.py --mbr_path $mbr_data # >/dev/null 2>&1
+
+    else
+        echo "Not support chip type: $chip_type"
+        exit 1
+    fi
+fi
+
+# echo "The pattern return $?"
+status=$?
+
+#Install to available partition 
+AB_partition=""
+if [ " $status" -eq 1 ]; then
+    echo "The new partition will be partition A"
+#    echo "Do you want to switch to partition A ?"
+elif [ "$status" -eq 2 ]; then
+    echo "The new partition will be partition B"
+#    echo "Do you want to switch to partition B ?"
+else
+    echo "No partition is selected"
+fi
+
+partition_switch="no"
+# echo "Check the new_installation.txt about partition switching"
+sudo python ./utils.py --check_upgrade partitionSwitch
+status=$?
+if [ "$status" -eq 1 ]; then
+    partition_switch="yes"
+else
+    echo "No partition switching"
+fi
+
+if [ "$partition_switch" == "yes" ]; then
+    # For B0, the MBR will be updated
+    if [ "$chip_type" == "$A0_CHIP" ]; then    
+        # sudo ./nor_flasher.sh mtd1 update-verify $env_data 128 B0
+        sudo python ./program_nor_flash.py mtd1 update-verify $env_data $MTD1_SIZE B0 >/dev/null 2>&1
+    else
+        if [ "$chip_type" == "$B0_CHIP" ]; then
+            # cd /opt/ota && sudo chmod 777 * && sudo ./nor_flasher.sh mtd1 read $env_data 128 B0 >/dev/null 2>&1
+            sudo python ./program_nor_flash.py $PARTTITION_MBR update-verify $mbr_data $B0_MTD0_SIZE B0 >/dev/null 2>&1
+            mbr_update_status=$?
+	        if [ "$mbr_update_status" -eq 0 ]; then
+		        echo "partition switching finished"
+                if [ "$operation" == "$REBOOT_OP" ]; then
+                    echo "Rebooting after partition swiching"
+                    sync && sudo reboot
+                fi
+	        else
+		        echo "nor-flash partition switching error: $mbr_update_status"
+                exit 643
+	        fi
+        else
+            echo "Not support chip type: $chip_type"
+            exit 633
+        fi
+    fi
+    echo "Complete the partition switching, please rebooting"
+fi
+sync

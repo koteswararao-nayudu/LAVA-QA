@@ -1,0 +1,663 @@
+#!/bin/bash
+## Author: charley@edgeq.io
+## Module: Installing emmc partition between a/b
+
+partition_fstab_create(){
+       echo "Create fstab for installation file system..."
+       # cd /opt/ota && sudo chmod 777 * && sudo python ./eq_flash.py
+	   # echo "Creating fstab file!!"
+	   # cd /opt/ota && sudo chmod 777 * && sudo ./gen_fstab
+       # sudo ./fstab_create --partition_xml ./partition.xml
+       sudo ./gen_fstab --partition_xml ./partition.xml
+}
+temp_mnt="/tmp/mnt"
+temp_ota="/tmp/ota"
+mini_rootfs="mini-rootfs.tar"
+temp_root="/tmp/mnt/root"
+full_rootfs_tar="rootfs.tar"
+download_rootfs_in_full="/tmp/LINUX/rootfs.tar"
+download_mini_rootfs="/tmp/LINUX/mini-rootfs.tar"
+rootfs_main="./rootfs_part_main.txt"
+rootfs_backup="./rootfs_part_backup.txt"
+release_path="/mnt/release_package"
+default_image_file="IMAGE.tar.gz"
+tmp_edgeQ_path="/tmp/edgeQ_ota"
+edgeQ_ota_path="/mnt"
+tools_path="/mnt/tools"
+ota_partition="/dev/mmcblk0p15"
+coredump_partition="/dev/mmcblk0p12"
+current_partition_disk="./partition.disk"
+default_manifest_file="manifest.xml"
+working_folder=$(pwd)
+fstab_file="$working_folder/fstab"
+current_dir=$(pwd)
+A0_CHIP="A0"
+B0_CHIP="B0"
+
+switch_to_newroot() {
+    echo "Switching current root file system to new root file system......"
+    if [ ! -e  "$temp_mnt" ]; then
+        # echo "Create /tmp/mnt "
+        mkdir -p $temp_mnt
+    fi
+
+    sudo mount -t tmpfs -o size=3G tmpfs /tmp/mnt
+    echo "copy the mini-rootfs to /tmp/mnt and untar it"
+    sudo cp "$download_mini_rootfs" /tmp/mnt
+    cd /tmp/mnt && tar -xvf "$mini_rootfs" >/dev/null 2>&1
+    # echo "Mount the current /proc /dev/ /sys to /tmp/mnt"
+    cd / && sudo mount --bind /proc /tmp/mnt/proc
+    sudo mount --bind /dev /tmp/mnt/dev
+    sudo mount --bind /sys /tmp/mnt/sys
+    # echo "Create /tmp/mnt/oldroot "
+    cd /tmp/mnt && sudo mkdir oldroot
+    # echo "Create /tmp/mnt/rootfs_dir"
+    sudo mkdir rootfs_dir
+    if [ ! -e "$temp_root" ]; then
+        sudo mkdir root
+    fi
+    if [ -e  "$rootfs_main" ]; then
+        sudo cp $rootfs_main /tmp/mnt/
+    fi
+    if [ -e  "$rootfs_backup" ]; then
+        sudo cp $rootfs_backup /tmp/mnt/
+    fi    
+    sudo cp /tmp/LINUX/rootfs.tar /tmp/mnt/ 
+    sudo mount --make-rprivate /
+    # echo "Switch to the new root file system"
+    sudo pivot_root /tmp/mnt /tmp/mnt/oldroot
+}
+copy_rootfs_to_emmc() {
+    AB_PARTITION=$1
+    local_rootfs_main_txt="rootfs_part_main.txt"
+    local_rootfs_backup_txt="rootfs_part_backup.txt"
+    # echo "Working in the new root file system......"
+    if [ -e  "$local_rootfs_main_txt" ]; then
+        export rootfs_part_main=`cat rootfs_part_main.txt`
+    fi
+    if [ -e  "$local_rootfs_backup_txt" ]; then
+        export rootfs_part_backup=`cat rootfs_part_backup.txt`
+    fi
+    echo "Current local_rootfs_main_txt: ${rootfs_part_main}, and AB_PARTITION: ${AB_PARTITION}"
+    if [ -e  "${rootfs_part_main}" ] && [ "$AB_PARTITION" == "a_partition" ]; then
+        echo "mount ${rootfs_part_main} to ${rootfs_dir}......"
+        cd /
+		mount "${rootfs_part_main}" /rootfs_dir >/dev/null 2>&1 && sync
+    else
+        if [ -e  "${rootfs_part_backup}" ] && [ "$AB_PARTITION" == "b_partition" ]; then
+            echo "mount ${rootfs_part_backup} to ${rootfs_dir}......"
+            cd /
+		    mount "${rootfs_part_backup}" /rootfs_dir >/dev/null 2>&1 && sync
+        else
+            if [ -e  "${rootfs_part_main}" ] && [ "$AB_PARTITION" == "b_partition" ]; then
+                echo "mount ${rootfs_part_main} to ${rootfs_dir}......"
+                cd /
+		        mount "${rootfs_part_main}" /rootfs_dir >/dev/null 2>&1 && sync
+            else
+                echo "Now no device block can be used. At least, one device block should be exist for rootfs copy"
+                echo "back to old root file system......"
+                cd /
+                chroot /oldroot /bin/bash -c '
+                cd / && echo "Remove all temporary sub-directories......"
+                rm -rf /tmp/mnt
+                '
+                chroot /oldroot
+                exit 0 
+            fi       
+        fi
+    fi
+    if [ -e "$full_rootfs_tar" ]; then
+        echo "Start to untar the rootfs.tar......"
+        mv rootfs.tar /root/ && sync
+		cd /root && tar -xpf rootfs.tar -C /rootfs_dir
+		# echo "Updating fstab as per partition.xml!!" && sync && sudo cp /opt/ota/fstab /tmp/mnt/etc/fstab || status_check "Updating fstab!!"
+		cd && sync && umount /rootfs_dir
+        rm -f /root/* 
+    fi
+}
+back_to_oldroot() {
+    echo "back to old root file system......"
+    cd /
+    chroot /oldroot /bin/bash -c '
+    cd / && echo "Remove all temporary sub-directories......"
+    rm -rf /tmp/mnt
+    '
+    chroot /oldroot
+}
+
+emmc_rootfs_install() {
+	PROMPT=$1
+    if [ ! "$PROMPT" == "force" ]; then
+        ab_partition_rootfs=$1
+    else
+        ab_partition_rootfs=$2
+    fi
+    rootfs_install_flag="no"
+    # check the rootfs.tar mini-rootfs.tar under /tmp/LINUX or
+    # check mini-rootfs.tar under /tmp/edgeQ_ota/release_package
+    if [ "$PROMPT" == "force" ]; then
+        echo "Check the new_installation.txt about rootfs installation"
+        sudo python ./utils.py --check_install rootfs
+        #Install to available partition 
+        status=$?
+        if [ "$status" -eq 1 ]; then
+            rootfs_install_flag="yes"
+        fi
+    else
+        echo "Would you like to install the new rootfs to replace the current one?"
+        echo "Press y to continue.."
+        read input
+        if [ ${input} == "y" ]; then
+            rootfs_install_flag="yes"
+        fi
+    fi
+    if [ "$rootfs_install_flag" == "yes" ]; then
+        if [ ! -e "$download_rootfs_in_full" ] || [ ! -e "$download_mini_rootfs" ]; then
+            echo "rootfs.tar or mini-rootfs.tar doesn't exist, no rootfs update"
+        else
+            # echo "prepare the new root file system and copy rootfs.tar to emmc...."
+            # switch to the new rootfs from mini-rootfs.tar
+            switch_to_newroot
+            # copy the rootfs from /tmp/LINUX to emmc
+            # echo "Before call copy_rootfs_to_emmc partition: ${ab_partition_rootfs} "
+            copy_rootfs_to_emmc $ab_partition_rootfs
+            # switch back to the current rootfs
+            back_to_oldroot
+        fi
+    else
+        echo "No rootfs will be installed"   
+    fi
+}
+
+install_rootfs_to_partition() {
+    AB_PARTITION=$1
+    local_rootfs_main_txt="rootfs_part_main.txt"
+    local_rootfs_backup_txt="rootfs_part_backup.txt"
+    rootfs_mount="/mnt"
+    current_rootfs_tar="/tmp/LINUX/rootfs.tar"
+    # echo "Working in the new root file system......"
+    if [ -e  "$local_rootfs_main_txt" ]; then
+        export rootfs_part_main=`cat rootfs_part_main.txt`
+    fi
+    if [ -e  "$local_rootfs_backup_txt" ]; then
+        export rootfs_part_backup=`cat rootfs_part_backup.txt`
+    fi
+
+    echo "Current available AB_PARTITION: ${AB_PARTITION}"
+    if [ -e  "${rootfs_part_main}" ] && [ "$AB_PARTITION" == "a_partition" ]; then
+        echo "mount ${rootfs_part_main} to ${rootfs_mount}......"
+        cd /
+		mount "${rootfs_part_main}" /${rootfs_mount} >/dev/null 2>&1 && sync
+    else
+        if [ -e  "${rootfs_part_backup}" ] && [ "$AB_PARTITION" == "b_partition" ]; then
+            echo "mount ${rootfs_part_backup} to ${rootfs_mount}......"
+            cd /
+		    mount "${rootfs_part_backup}" /${rootfs_mount} >/dev/null 2>&1 && sync
+        else
+            echo "Now no device block can be used. At least, one device block should be exist for rootfs copy"
+            exit 0       
+        fi
+    fi
+    if [ -e "$current_rootfs_tar" ]; then
+        echo "Start to untar the rootfs.tar from ${current_rootfs_tar}......"
+		tar -xpf ${current_rootfs_tar} -C /${rootfs_mount} >/dev/null 2>&1 && sync
+		# echo "Updating fstab as per partition.xml!!" && sync && sudo cp /opt/ota/fstab /tmp/mnt/etc/fstab || status_check "Updating fstab!!"
+    fi 
+    umount  /${rootfs_mount}  
+}
+# install rootfs.tar to partition A/B directly
+sd_rootfs_install() {
+	PROMPT=$1
+    if [ ! "$PROMPT" == "force" ]; then
+        ab_partition_rootfs=$1
+    else
+        ab_partition_rootfs=$2
+    fi
+    rootfs_install_flag="no"
+
+    if [ "$PROMPT" == "force" ]; then
+        echo "Check the new_installation.txt about rootfs installation"
+        sudo python ./utils.py --check_install rootfs
+        #Install to available partition 
+        status=$?
+        if [ "$status" -eq 1 ]; then
+            rootfs_install_flag="yes"
+        fi
+    else
+        echo "Would you like to install the new rootfs to replace the current one?"
+        echo "Press y to continue.."
+        read input
+        if [ ${input} == "y" ]; then
+            rootfs_install_flag="yes"
+        fi
+    fi
+    if [ "$rootfs_install_flag" == "yes" ]; then
+        if [ ! -e "$download_rootfs_in_full" ] ; then
+            echo "rootfs.tar doesn't exist, no rootfs update"
+        else
+            # install the rootfs.tar to partition A/B
+            install_rootfs_to_partition $ab_partition_rootfs
+        fi
+    else
+        echo "No rootfs will be installed"   
+    fi
+}
+
+# install all software to either partition A/B
+emmc_partition_installation(){
+    AB_PARTITION=$1
+    TARGET_FOLDER=$2
+    TARGET_FILE_NAME=$3
+    INPUT_CHIP_TYPE=$4
+    PROMPT="force"
+    work_directory="/mnt/dist"
+    install_emmc_op="install_emmc_op"
+    mbr_data="/tmp/mbr_data"
+
+    sysupgrade_release_path="sysupgrade/release_package"
+    sysupgrade_tools_path="sysupgrade/tools/target"
+
+    # measure emmc size
+    total_emmc_size=$(lsblk -o SIZE /dev/mmcblk0 | awk 'NR==2{gsub(/\..*/, ""); print $1}')  
+    # Remove trailing whitespace characters
+    total_emmc_size=$(echo "$total_emmc_size" | tr -d '[:space:]')
+    current_emmc_number=$((total_emmc_size))
+    if [ $current_emmc_number -gt 8 ]; then
+        # echo "Start to distribute sparse files $TARGET_FILE_NAME to /mnt"
+        sudo mount "${ota_partition}" /mnt >/dev/null 2>&1 && sync
+        sleep 1
+        sudo mkdir -p /mnt/dist
+        # echo "Start to mount ${coredump_partition}"
+        sudo mount "${coredump_partition}" /mnt/dist >/dev/null 2>&1 && sync
+        sudo tar -xzvf $TARGET_FOLDER/$TARGET_FILE_NAME -C /mnt/dist >/dev/null 2>&1 && sync
+        # Find the path containing "sysupgrade/release_package" under /mnt
+        # echo "Find out the release and tool path"
+        # path=$(find /mnt/dist -type d -path "*/$sysupgrade_release_path" -print -quit 2>/dev/null)
+        path=$(find /mnt/dist -type d -print 2>/dev/null | grep -i "$sysupgrade_release_path")
+
+        # Find the path containing "sysupgrade/tools/target" under /mnt
+        sudo mkdir -p /mnt/dist/tools
+        # tool_path=$(find /mnt/dist -type d -path "*/$sysupgrade_tools_path" -print -quit 2>/dev/null)
+        tool_path=$(find /mnt/dist -type d -print 2>/dev/null | grep -i "$sysupgrade_tools_path")
+
+        if [ -z "$path" ]; then
+            echo "Release package path is not found in selected folder of OTA partition"
+            exit 635
+        fi
+
+        if [ -z "$tool_path" ]; then
+            echo "Release package tools path is not found in selected folder of OTA partition"
+            # exit 635
+        fi
+        # echo "Move the files to working path, $path, and $tool_path"
+        # Move all image files and folders under the found path to /mnt
+        # find "$path"/* -mindepth 0 -maxdepth 0 -exec mv -t /mnt/dist {} +
+        sudo mv "$path"/* /mnt/dist
+
+        # Move all tools files and folders under the found path to /mnt
+        # find "$tool_path"/* -mindepth 0 -maxdepth 0 -exec mv -t /mnt/dist {} +
+        if test -e "$tool_path" ; then
+            sudo mv "$tool_path"/* /mnt/dist/
+        fi 
+        # Set the directory path
+        work_directory="/mnt/dist"
+
+        # Remove files and folders not matching the criteria
+        # find "$work_directory" ! \( -name 'target.tar.gz' \) -mindepth 1 -exec rm -rf {} \;
+        
+        #untar the final sparse files
+        echo "untar sparse file from target.tar.gz!!..."
+        sudo tar -xzvf /mnt/dist/target.tar.gz -C /mnt/dist >/dev/null 2>&1 && sync
+        sudo cp $TARGET_FOLDER/manifest.xml /mnt/dist/
+        sudo cp $TARGET_FOLDER/manifest.xml ${working_folder}/
+        sudo rm /mnt/dist/target.tar.gz
+        # sudo ls /mnt/dist/
+        # echo "Files and folders moved to /mnt successfully."
+    fi
+
+	# echo "Updating the binaries in partitions!!"
+    
+    # cd /opt/ota && sudo chmod 777 * && sudo python ./new_eq_populate.py --new_located ${AB_PARTITION} --new_folder ${TARGET_FOLDER} --new_file_name ${TARGET_FILE_NAME}	--emmc_size $current_emmc_number >/dev/null 2>&1 && sync
+    sudo chmod 777 * && sudo python ./emmc_install_partitions.py --operator ${install_emmc_op} \
+    --new_partition ${AB_PARTITION} --source_path ${work_directory} --manifest_xml ${work_directory}/${default_manifest_file} --chip_type ${INPUT_CHIP_TYPE} # >/dev/null 2>&1 && sync
+	emmc_installing_status=$?
+	if [ "$emmc_installing_status" -eq 0 ]; then
+		echo "Complete emmc and nor-flash partitions installing"
+	else
+		echo "emmc partition installing error: $emmc_installing_status"
+        exit 635
+	fi
+
+    if [ $current_emmc_number -gt 8 ]; then
+        #echo "clean up the tempoary sub-directores!!"
+        sudo rm -rf /mnt/dist/*
+        sudo umount /mnt/dist
+        sudo rm -rf /mnt/dist
+        sudo umount /mnt
+    fi
+
+    # Modify and copy the fstab to the rootfs_a or rootfs_b, or rootfs
+    if [ -e "$fstab_file" ]; then
+        echo "Create and modify fstab to related partition"
+        sudo python ./utils.py --manifest_xml ${working_folder}/${default_manifest_file} --fstab_file ${fstab_file} --new_partition ${AB_PARTITION}
+        sudo umount /mnt
+    fi
+    if [ "$INPUT_CHIP_TYPE" == "$B0_CHIP" ]; then
+        # save the current installed package name to new_installation.txt file, $TARGET_FOLDER
+        # echo "Start to save partition ota filr"
+        sudo python ./utils.py --installed_ota_folder $TARGET_FOLDER --current_env $mbr_data
+    fi
+
+    if [ "$INPUT_CHIP_TYPE" == "$A0_CHIP" ]; then
+    	echo "Updating the rootfs!!"
+        if test -e /tmp/mnt ; then
+            # echo "Find /tmp/mnt"
+            sudo umount /tmp/mnt
+        else
+            # echo "Create /tmp/mnt"
+            sudo mkdir -p /tmp/mnt
+        fi
+
+        # generate the rootfs_a, rootfs_b, or rootfs device files
+        sync && sudo python ./rootfs_devfile_gen.py $current_partition_disk
+
+        if [ $current_emmc_number -gt 8 ]; then
+            # install rootfs.tar directly to partition A/B
+            # echo "Current partition as: ${AB_PARTITION}"
+            sd_rootfs_install $PROMPT $AB_PARTITION
+        else
+            # install rootfs.tar by using mini-rootfs.tar
+            # echo "Current partition as: ${AB_PARTITION}"
+            emmc_rootfs_install $PROMPT $AB_PARTITION
+        fi
+    fi
+}
+
+distribute_all_files() {
+    current_xml_folder=$1
+    if test -e ${release_path}/${default_image_file}; then
+        echo "Untar the image ball and distribute all files: ${release_path}/${default_image_file}"
+        cd  ${release_path}
+        if test -e ./IMAGE.tar; then
+           sudo rm -f IMAGE.tar
+        fi
+        # echo "Not untar ${release_path}/${default_image_file}"
+        # sudo gunzip ${default_image_file} && rm -f ${default_image_file}
+        # exit 0
+        sudo tar -xzpf ${default_image_file} -C /tmp  >/dev/null 2>&1
+        # sudo tar -xpf IMAGE.tar -C /tmp  >/dev/null 2>&1
+        # echo "Complete untar"
+        # move the tools to /tmp
+        if test -e ${tmp_edgeQ_path}; then
+            sudo rm -rf ${tmp_edgeQ_path}
+        fi
+        sudo mkdir -p ${tmp_edgeQ_path} 
+        sudo mv ${tools_path} ${tmp_edgeQ_path}
+        sudo cp -f ${current_xml_folder}/manifest.xml ${tmp_edgeQ_path}
+        cd $edgeQ_ota_path && rm -rf release_package && sync
+        cd ${current_dir}
+        # echo "Remove the tar ball !!!"
+        # sudo rm ${edgeQ_ota_path}/$current_tar_ball
+        # cleanup the tempoary downloading path
+    fi
+}
+
+untar_target_file() {
+    TAR_FILE=$1
+    # Relative paths to the release and tools directories within the archive
+    cd $edgeQ_ota_path
+    RELEASE_PATH="release_package"
+    TOOLS_PATH="tools"
+    echo "Current tar ball: $TAR_FILE"
+    STRIP_COMPONENTS=$(sudo tar tzf "$TAR_FILE" | awk -F/ -v release_path="$RELEASE_PATH" -v tools_path="$TOOLS_PATH" '
+    {
+        for (i = 1; i <= NF; i++) {
+            if ($i == release_path) {
+                print i - 1
+                exit
+            }
+            if ($i == tools_path) {
+                print i - 1
+                exit
+            }
+        }
+    }
+    ')
+    # echo "current STRIP number: $STRIP_COMPONENTS"
+    # Extract the release and tools directories to the current directory, stripping the appropriate number of components
+    # sudo tar xzf "$TAR_FILE" --strip-components="$STRIP_COMPONENTS" >/dev/null 2>&1
+    if [ $STRIP_COMPONENTS -ne 0 ]; then
+        STRIP_COMPONENTS=$((STRIP_COMPONENTS - 1))
+        sudo rm -rf ${RELEASE_PATH}
+        sudo tar xzf "$TAR_FILE" --strip-components="$STRIP_COMPONENTS"  >/dev/null 2>&1
+        if [ ! -e ${release_path} ]; then
+            cd / && sudo mv /${RELEASE_PATH} ${edgeQ_ota_path} && sudo cp -rf /${TOOLS_PATH} ${edgeQ_ota_path}
+            rm -rf /${TOOLS_PATH}
+            sync
+        fi
+    fi 
+    cd ${current_dir}
+    echo "Successfully extracted $RELEASE_PATH and $TOOLS_PATH to $(pwd)"
+}
+# check the image files and xml files for partition install
+contents_xml="./contents.xml"
+partition_xml="./partition.xml"
+partition_disk="./partition.disk"
+firmware_path="/tmp/FIRMWARE"
+linux_path="/tmp/LINUX"
+raptor_path="/tmp/RAPTOR"
+dev_mtd0="/dev/mtd0"
+operation=$1
+installed_file=$operation
+help_str="help"
+check_tar_file="check_tar_file"
+version_filename="/proc/device-tree/chip-version"
+
+chip_type=""
+
+
+if [ ! -e "$version_filename" ]; then
+    chip_type="A0"
+else
+    read chip_type < $version_filename
+fi
+
+# read the current either MBR or ENV to /tmp/env_data
+# echo "The current chip type: $chip_type"
+
+# get the current working directory
+current_dir=$(pwd)
+working_subdir="/opt/ota"
+# check if the current directory is not /opt/ota
+# if [ "$current_dir" != "$working_subdir" ]; then
+#     echo "Please copy all tool files from /sysupgrade/tools/target or from emmc device /dev/mmcblk0p11/target/ to /opt/ota, then start to execute this shell scripts"
+# 	  echo "For example, user can run 'sudo mkdir -p /opt/ota && sudo cp /sysupgrade/tools/target/* /opt/ota/', then start to execute this shell scripts"
+#     exit 620
+# fi
+
+# check the required files for installation to A/B partitions
+if [ "$1" == "$help_str" ]; then
+  echo "command line: sudo ./pkginstall {help | --list | [installing file] }"
+  exit 0
+fi
+
+# check the downloaded ota packages in emmc
+if [ "$1" == "--list" ]; then
+    echo "====================================="
+    echo "====================================="
+    sudo python ./utils.py --show_ota show_ota
+    exit 0
+fi
+
+# measure emmc size
+emmc_size=$(lsblk -o SIZE /dev/mmcblk0 | awk 'NR==2{gsub(/\..*/, ""); print $1}')
+  
+# Remove trailing whitespace characters
+emmc_size=$(echo "$emmc_size" | tr -d '[:space:]')
+# echo "The current emmc size: ${emmc_size} G"
+emmc_number=$((emmc_size))
+
+# Compare size with 8GB (8*1024*1024*1024 bytes)
+if [ $emmc_number -gt 8 ]; then
+    # The following code is only for the 32G emmc
+    # echo "The size is about 32GB"
+    if [ "$installed_file" != "" ]; then
+        # get folder and tar file name from utils.py
+        tar_outputs=$(python ./utils.py --check_tar_file ${check_tar_file} --tar_folder ${installed_file})
+    else
+        # get folder and tar file name from utils.py
+        tar_outputs=$(python ./utils.py --check_tar_file ${check_tar_file})
+    fi
+
+    # Read the lines of output into an array
+    IFS=$'\n' read -d '' -r -a out_lines <<< "$tar_outputs"
+
+    found_folder_name=$?
+    # Extract the folder name from the first line
+    found_folder_name=${out_lines[0]}
+
+    # Extract the first xxx.tar.gz file name from the second line
+    tar_file_name=${out_lines[1]}
+    # Display the folder name and file name
+    echo "Folder Name: $found_folder_name"
+    echo "File Name: $tar_file_name"
+
+    if [ -n "$found_folder_name" ] && [ -n "$tar_file_name" ]; then
+        if [ "$chip_type" == "$A0_CHIP" ]; then
+            # tar_file_name=$(basename "$tar_file_name")
+            echo "Found the tar.gz file from ota partition, ${found_folder_name}, and ${tar_file_name}"
+            # distribute tar.gz files to /tmp/FIRMWARE, /tmp/LINUX, /tmp/RAPTOR
+            mount "${ota_partition}" /mnt >/dev/null 2>&1 && sync
+            untar_target_file $tar_file_name
+            distribute_all_files $found_folder_name
+            umount /mnt
+        fi 
+    else
+        echo "For B0, directly using the downloaded package"
+    fi
+else
+    # check the downloaded image files for installation
+    if [ ! -e "$firmware_path" ] || [ ! -e "$linux_path" ] || [ ! -e "$raptor_path" ]; then
+        echo "Some required files do not exist, please run package_download_valiadation.sh to save the following files"
+        echo "Be sure all downloaded files are in /tmp/FIRMWARE, /tmp/LINUX, /tmp/RAPTOR have been generated before run this scripts"
+        exit 1
+    fi
+    echo "The size is about 8GB"
+fi
+
+if [ ! -n "$found_folder_name" ] || [ ! -n "$tar_file_name" ] ; then
+    echo "The required downloaded file doesn't exist!!"
+    exit 630
+fi
+
+tar_file_name=$(basename "$tar_file_name")
+echo "Current downloaded file: $tar_file_name"
+
+# check the installation required files for partition info
+if [ ! -e "$contents_xml" ] || [ ! -e "$partition_xml" ]; then
+   echo "Needed two files for installation, $contents_xml and $partition_xml"
+   echo "Please download $contents_xml and $partition_xml to the current folder or move them from /tmp/edgeQ_ota/tools!!"
+   exit 631
+fi
+
+# check the /dev/mtd1 in nor-flash
+if [ ! -e "$dev_mtd0" ]; then
+   echo "No corrected mtd partition. Now install and upgrade feature only supports GNB-PLFM-v1.3.0-RC3.2 and later version!!"
+   exit 632
+fi
+
+# check the generated files
+sudo rm -f $fstab_file
+if [ ! -e "$fstab_file" ]; then
+  # generate the partition.disk
+  partition_fstab_create
+fi
+
+# saved_mount_file="/tmp/saved_mount_points.txt"
+# # Check the mmc blocks in /dev and save the sub-directory path if it is busy and mounted
+# mmc_blocks=$(ls /dev/mmcblk0p* 2> /dev/null)
+# if test -e /tmp/saved_mount_points.txt ; then
+#     sudo rm /tmp/saved_mount_points.txt
+# fi
+# #echo "All mmc_blocks: $mmc_blocks"
+# #echo "End of mmc_blocks"
+# for block in $mmc_blocks; do
+#   if grep "$block " /proc/mounts; then
+#     mount_point=$(grep "$block " /proc/mounts | awk '{print $2}')
+#     if [ -n "$mount_point" ]; then
+#       # echo "Saving sub-directory path for $block, $mount_point"
+#       echo "$block:$mount_point" >> /tmp/saved_mount_points.txt
+#     fi
+#   fi
+# done
+
+# # Step 2: Print all mounted sub-directories and unmount their corresponding mmc blocks
+# if test -e /tmp/saved_mount_points.txt ; then
+#     # echo "Unmounted sub-directories:"
+#     while read -r saved_mount_point; do
+#       if [ -n "$saved_mount_point" ]; then
+#         block=$(echo "$saved_mount_point" | cut -d':' -f1)
+#         mount_point=$(echo "$saved_mount_point" | cut -d':' -f2)
+#         # echo "$mount_point: $block"
+#         sudo umount "$mount_point" >/dev/null
+#       fi
+#     done < /tmp/saved_mount_points.txt
+# fi
+
+## Read environment data from NOR flash
+## If there is a input from shell, than pass it to utils. Otherwise, only pass file for environment data
+env_data="/tmp/env_data"
+mbr_data="/tmp/mbr_data"
+
+
+if [ "$chip_type" == "$A0_CHIP" ]; then
+    echo "Start to read environment to a file"
+    sudo chmod 777 * && sudo python ./program_nor_flash.py mtd1 read $env_data 128 B0 >/dev/null 2>&1 && sync
+    # echo "Change the current environment data in nor flash"
+    sudo python ./utils.py --environment_path $env_data
+else
+    if [ "$chip_type" == "$B0_CHIP" ]; then
+        # echo "Start to read mbr to a file"
+        sudo chmod 777 * && sudo python ./program_nor_flash.py mtd0 read $mbr_data 128 B0 >/dev/null 2>&1 && sync
+        # echo "Change the current environment data in nor flash"
+        sudo python ./utils.py --mbr_path $mbr_data
+    else
+        echo "Not support chip type: $chip_type"
+        exit 633
+    fi
+fi
+
+
+#Install to available partition 
+status=$?
+AB_partition=""
+if [ "$status" -eq 1 ]; then
+    echo "The new partition will be partition A"
+    AB_partition="a_partition"
+    emmc_partition_installation $AB_partition $found_folder_name $tar_file_name $chip_type
+elif  [ "$status" -eq 2 ]; then
+    echo "The new partition will be partition B"
+    AB_partition="b_partition"
+    emmc_partition_installation $AB_partition $found_folder_name $tar_file_name $chip_type
+else
+    echo "No available partition in emmc"
+    exit 634
+fi
+
+# # Remount all mmc blocks using the saved sub-directory info
+# if test -e /tmp/saved_mount_points.txt ; then
+#   :
+#   # echo "Remounting mmc blocks:"
+  
+#   while read -r saved_mount_point; do
+#     if [ -n "$saved_mount_point" ]; then
+#       block=$(echo "$saved_mount_point" | cut -d':' -f1)
+#       mount_point=$(echo "$saved_mount_point" | cut -d':' -f2)
+#       # echo "Remounting $block to $mount_point"
+#       sudo mount "$block" "$mount_point"
+#       # sudo exec mount "$block" "$mount_point" >/dev/null
+#     fi
+#   done < /tmp/saved_mount_points.txt
+
+# fi
+echo "Complete install downloaded package to emmc and nor-flash partitions"

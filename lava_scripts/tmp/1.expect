@@ -1,0 +1,4 @@
+#!/bin/expect -f
+set timeout 100
+spawn scp -r -o UserKnownHostsFile=/dev/null  -o StrictHostKeyChecking=no  equser@192.168.3.125:/lab-nfs/koti/lava_scripts /root
+expect "password: "

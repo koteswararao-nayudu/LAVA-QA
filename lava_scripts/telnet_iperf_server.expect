@@ -1,0 +1,12 @@
+#!/bin/expect -f
+
+set timeout 6000000000000000000000
+
+spawn telnet  192.168.6.220
+expect "login:"
+send "equser\r"
+expect "Password:"
+send "Password\$2021\r"
+expect "$ "
+send "ifconfig \r"
+expect "$ "

@@ -1,0 +1,2 @@
+Copy the "ota" directory under /opt on the board
+	scp -r uname@ip:<path>/ota /opt

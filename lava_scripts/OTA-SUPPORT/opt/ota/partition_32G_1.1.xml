@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<configuration>
+    <parser_instructions>
+         <!-- NOTE: entries here are used by the parser when generating output -->
+         <!-- NOTE: each filename must be on it's own line as in variable=value-->
+         WRITE_PROTECT_BOUNDARY_IN_KB    = 65536
+         GROW_LAST_PARTITION_TO_FILL_DISK= true
+         ALIGN_PARTITIONS_TO_PERFORMANCE_BOUNDARY = true
+         PERFORMANCE_BOUNDARY_IN_KB = 4
+    </parser_instructions>
+	
+	<!-- NOTE: Below is the information about the partition table -->
+	<partition_table label="gpt" label-id="6929C9DC-556E-468F-B29F-48935394DEC6" device="/dev/mmcblk0" unit="sectors" first-lba="34" last-lba="22275964" sector-size="512"/>
+
+    <!-- NOTE: "physical_partition" are listed in order and apply to devices such as eMMC cards that can have (for example) 3 physical partitions -->
+    <!-- This is physical partition 0 -->
+    <physical_partition>
+        <!-- NOTE: Define information for each partition, which will be created in order listed here -->
+        <!-- NOTE: Place all "readonly=true" partitions side by side for optimum space usage -->
+        <!-- NOTE: If OPTIMIZE_READONLY_PARTITIONS=true, then partitions won't be in the order listed here -->
+        <!--       they will instead be placed side by side at the beginning of the disk -->
+
+	<!--       boot_a and boot_b are 64MB ext4 partitions and would have kernel Image including dts -->
+        <partition label="boot_a" partition="a" pid="1" start="2048"   sector="131072" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" guid="2BF98F0C-6665-4952-B7D6-08D87AD74CC5" bootable="false" readonly="true"/>
+        <partition label="boot_b" partition="b" pid="2" start="133120" sector="131072" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" guid="3DF7E062-987E-4C0E-A7A5-843EE2687EE2" bootable="false" readonly="true"/>
+
+	<!--       su_a and su_b are 64MB ext4 partitions and would have all SU Firmwares -->
+	    <partition label="mgmt_sw_a" partition="a" pid="3" start="264192" sector="131072" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" guid="6D9ECC5F-69FB-4BB6-A3BE-B20613613AC8" bootable="false" readonly="true"/>
+        <partition label="mgmt_sw_b" partition="b" pid="4" start="395264" sector="131072" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" guid="3F98D51F-69FB-4944-BB2C-F09E4E005700" bootable="false" readonly="true"/>
+
+    	<!--       l1_a and l1_b are 64MB ext4 partitions and would have L1 apps  -->
+        <partition label="l1fw_a" partition="a" pid="5" start="526336" sector="131072" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" guid="40706E44-E6CF-472B-BD7F-7D6798323AB0" bootable="false" readonly="true"/>
+	    <partition label="l1fw_b" partition="b" pid="6" start="657408" sector="131072" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" guid="B824907B-9278-46DB-BF4F-E7FC90741B6B" bootable="false" readonly="true"/>
+
+	<!--       l2_a and l2_b are 128MB, ext4 partitions and would have L2 Apps  -->
+        <partition label="du_sw_a" partition="a" pid="7" start="788480"  sector="262144" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" guid="8F23B665-5A52-4505-87ED-B07EB321BBCA" bootable="false" readonly="true"/>
+	    <partition label="du_sw_b" partition="b" pid="8" start="1050624" sector="262144" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" guid="436A2B11-9051-4799-8338-30E08F10CEB3" bootable="false" readonly="true"/>
+
+    	<!--       l3_a and l3_b are 128MB, ext4 partitions and would have L3 Apps  -->
+        <partition label="cu_sw_a" partition="a" pid="9" start="1312768" sector="262144" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" guid="B6A1EC0B-56DB-4D6A-98CA-12D62DFD0E3E" bootable="false" readonly="true"/>
+	    <partition label="cu_sw_b" partition="b" pid="10" start="1574912" sector="262144" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" guid="9C068E97-CA54-486C-8FC4-87488444D01D" bootable="false" readonly="true"/>
+
+    	<!--       Below are non a/b dump partitions: log=1GB, Raw=4GB  -->
+	    <partition label="logdump"  pid="11" start="1837056" sector="2359296" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" guid="6FBC78AF-2812-4FFA-87F4-D00B26E94F65" bootable="false" readonly="false"/>
+	    <partition label="coredump" pid="12" start="4196352" sector="8388608" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" guid="9D236837-77A5-4DA2-B464-09D646042670" bootable="false" readonly="false"/>
+
+    	<!--       Below is rootfs partition   -->
+	    <partition label="rootfs_a" partition="a" pid="13" start="12584960" sector="2422751" type="B921B045-1DF0-41C3-AF44-4C6F280D3FAE" guid="FB3EBD77-8CE2-4158-AA48-53017D4F601B" bootable="false" readonly="false" sparse="true"/>
+	    <partition label="rootfs_b" partition="b" pid="14" start="15007711" sector="2422751" type="B921B045-1DF0-41C3-AF44-4C6F280D3FAE" guid="45b7f741-6165-4d89-a9dd-ab8729421475" bootable="false" readonly="false" sparse="true"/>
+
+    	<!--       ota is non a/b , 2GB and ext4 partition -->
+	    <partition label="ota" pid="15" start="17430462" sector="4845502" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" guid="9F552CDA-092D-4E9C-B6BA-682A44579099" bootable="false" readonly="false"/>
+
+    </physical_partition>
+</configuration>

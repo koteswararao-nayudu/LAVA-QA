@@ -1,0 +1,375 @@
+#!/bin/bash
+## Author: Charleym@edgeq.io
+## Module: Download the sw_release_package.zip
+# check the image files and xml files for partition install
+
+TARGET_ELEMENT_NAME="image_file_name"
+manifest_xml="manifest.xml"
+default_tar_ball="target.tar.gz"
+current_tar_ball=""
+default_image_file="IMAGE.tar.gz"
+release_path="/ota_tmp/edgeQ_ota/release_package"
+tools_path="/ota_tmp/edgeQ_ota/tools"
+edgeQ_ota_path="/ota_tmp/edgeQ_ota"
+ota_path="/ota_tmp"
+FIRMWARE_PATH="/tmp/FIRMWARE"
+LINUX_PATH="/tmp/LINUX"
+RAPTOR_PATH="/tmp/RAPTOR"
+tmp_edgeQ_path="/tmp/edgeQ_ota"
+NEW_INSTALLATION_TXT="./new_installation.txt"
+decrypted_file="sw_release_package.zip"
+root_dir="/root"
+
+check_disk_space() {
+    if [ -d $FIRMWARE_PATH ] ; then
+        sudo rm -rf $FIRMWARE_PATH
+    fi
+    if [ -d $LINUX_PATH ] ; then
+        sudo rm -rf $LINUX_PATH
+    fi
+    if [ -d $RAPTOR_PATH ] ; then
+        sudo rm -rf $RAPTOR_PATH
+    fi
+    if [ -d $edgeQ_ota_path ] ; then
+        sudo rm -rf $edgeQ_ota_path
+    fi
+    # Get the free space on the /tmp directory in bytes
+    ROOT_FREE_SPACE=$(df --output=avail / | tail -n 1)
+    # ROOT_FREE_SPACE=$(expr 150 \* 1024)
+    # Convert the free space to megabytes
+    ROOT_FREE_SPACE_MB=$((ROOT_FREE_SPACE / 1024 * 4 ))
+
+    # Check if the free space is greater than 350 MB
+    if [ "$ROOT_FREE_SPACE_MB" -gt 300 ]; then
+        :
+        # echo "Current /root space is larger than 350M"
+    else
+        echo "no space in /root for download a new release"
+        exit 621
+    fi
+
+    # Get the free space on the /tmp directory in bytes
+    TMP_FREE_SPACE=$(df --output=avail /tmp | tail -n 1)
+    # TMP_FREE_SPACE=$(expr 150 \* 1024)
+
+    # Convert the free space to megabytes
+    TMP_FREE_SPACE_MB=$((TMP_FREE_SPACE / 1024 * 4 ))
+
+    # Check if the free space is greater than 350 MB
+    if [ "$TMP_FREE_SPACE_MB" -gt 500 ]; then
+        :
+        # echo "Current /tmp space is larger than 350M"
+    else
+        echo "no space in /tmp for download a new release"
+        exit 621
+    fi    
+}
+check_donwload_path() {
+    echo "check the download path and space"
+    if test -e ${ota_path}; then
+        # cd / && sudo umount ${ota_path} && sudo rm -rf ${ota_path}
+        sudo umount ${ota_path} && sudo rm -rf ${ota_path}
+    fi
+    # echo "create ota_tmp for downloading"
+    sudo mkdir ${ota_path}
+    sudo mount -t tmpfs -o size=3G tmpfs ${ota_path} 
+    sudo mkdir -p ${edgeQ_ota_path}
+    # cd /opt/ota
+}
+decrypted_download_package() {
+    encrypt_file=$1
+    PRIVATE_KEY_FILE=$2
+    if [[ -e ${tools_path}/${encrypt_file} ]] ; then
+        sudo chmod 777 * && sudo python3 ./download_and_validation.py --operation  download_decryption \
+        --pem_file ${PRIVATE_KEY_FILE} \
+        --image_name ${tools_path}/${encrypt_file} \
+        --manifest_xml_file ${edgeQ_ota_path}/${manifest_xml}
+    fi
+}
+
+download_package() {
+    HTTP_URL=$1
+    DOWNLOAD_FILE_NAME=$2
+    DOWNLOAD_PASSWORD=$3
+    AUTH_PEM_KEY_FILE=$4
+    CIPHER_PEM_KEY_FILE=$5
+    SPEED_LIMIT="0"
+    if [ -n "$6" ]; then
+        SPEED_LIMIT=$6
+    fi
+    OLD_DOWNLOAD_FILE_NAME=""
+	echo "Start to download the release package!!"
+	sudo python ./download_and_validation.py --operation download_package \
+    --http_path  ${HTTP_URL}  --download_file_name ${DOWNLOAD_FILE_NAME} --download_password ${DOWNLOAD_PASSWORD} --limit-rate ${SPEED_LIMIT}
+
+    if test -e ${tools_path}/${DOWNLOAD_FILE_NAME} ; then
+        echo "Remove the downloaded file header, downloaded file: $DOWNLOAD_FILE_NAME"
+        NEW_DOWNLOAD_FILE_NAME=$(python ./imageHDC.py --operation split_header --input_image_file ${tools_path}/${DOWNLOAD_FILE_NAME})
+        # echo "After removing header, the return file: $NEW_DOWNLOAD_FILE_NAME"
+        if [ ${tools_path}/${DOWNLOAD_FILE_NAME} != ${tools_path}/${NEW_DOWNLOAD_FILE_NAME} ]; then
+            rm -f ${tools_path}/${DOWNLOAD_FILE_NAME}
+            DOWNLOAD_FILE_NAME=$NEW_DOWNLOAD_FILE_NAME
+        else
+            echo "Don't need to remove the header from downloaded image"
+        fi
+        echo "After removing the header, the current file: ${tools_path}/${NEW_DOWNLOAD_FILE_NAME}"
+    else
+        echo "Downloading file doesn't exist or decryption error,quit shell scrpts"
+        exit 624    
+    fi
+    if [[ "${DOWNLOAD_FILE_NAME}" == sw_cipher* ]]; then
+        if test -e ${tools_path}/${DOWNLOAD_FILE_NAME} ; then
+        sudo chmod 777 * && sudo python ./download_and_validation.py --operation download_decryption \
+        --pem_file  ${CIPHER_PEM_KEY_FILE}  --image_name ${tools_path}/${DOWNLOAD_FILE_NAME} --decrypted_file ${tools_path}/${decrypted_file}
+            decryption_status=$?
+		    if [ "$decryption_status" -eq 0 ] ; then
+				echo "Complete decryption for dwonloading package"
+		    else
+				echo "Decrypting downloaded package error: $decryption_status"
+                exit 624
+		    fi
+        fi
+        if test -e ${tools_path}/${decrypted_file} ; then
+            OLD_DOWNLOAD_FILE_NAME=${DOWNLOAD_FILE_NAME}
+            DOWNLOAD_FILE_NAME=${decrypted_file}
+            # remove the tempoary files
+            sudo rm -rf ${tools_path}/*.encrypted && sudo rm -rf ${tools_path}/*.decrypted
+            # ls *.encrypted && ls *.decrypted
+        else
+            DOWNLOAD_FILE_NAME=""
+        fi
+
+    fi
+    if test -e ${tools_path}/${DOWNLOAD_FILE_NAME} ; then
+        # echo "Found release package : ${DOWNLOAD_FILE_NAME}"
+        # cd ${tools_path} && sudo unzip ${DOWNLOAD_FILE_NAME}
+        sudo unzip -d ${tools_path} ${tools_path}/${DOWNLOAD_FILE_NAME}
+        # For reduce the working space, remove the old download file after unzip
+        if [[ "${OLD_DOWNLOAD_FILE_NAME}" == "" ]] && [ -e ${tools_path}/${DOWNLOAD_FILE_NAME} ] ; then
+            # echo "Remove the downloading file, ${tools_path}/${DOWNLOAD_FILE_NAME}"
+            sudo rm -f ${tools_path}/${DOWNLOAD_FILE_NAME}
+        else
+            # echo "Remove the downloading file, ${tools_path}/${OLD_DOWNLOAD_FILE_NAME}"
+            sudo rm -f ${tools_path}/${OLD_DOWNLOAD_FILE_NAME}
+        fi
+        # Extract the value of the XML element using xmllint
+        current_tar_ball=$(xmllint --xpath "string(//$TARGET_ELEMENT_NAME)" "${tools_path}/${manifest_xml}")
+        echo "Current tar ball: ${tools_path}/${current_tar_ball}"
+        # echo "The current target ball: $current_tar_ball"
+        if test -e ${tools_path}/${current_tar_ball} ; then
+            # echo "Found target tar ball : ${current_tar_ball}, and move it to release folder"
+            sudo mv ${tools_path}/${current_tar_ball} ${edgeQ_ota_path}/
+            if test -e ${tools_path}/${manifest_xml} ; then
+                sudo mv ${tools_path}/${manifest_xml} ${edgeQ_ota_path}/
+            fi
+            # echo "Remove the download release file"
+            if test -e ${tools_path}/${DOWNLOAD_FILE_NAME} ; then
+                sudo rm ${tools_path}/${DOWNLOAD_FILE_NAME}
+            fi
+        fi
+    else
+        echo "Downloading file doesn't exist or decryption error,quit shell scrpts"
+        exit 624
+    fi
+}
+
+
+valided_package() {
+    PRIVATE_KEY_FILE=$1
+    if [[ -e ${edgeQ_ota_path}/${current_tar_ball}  &&  -e ${edgeQ_ota_path}/${manifest_xml} ]] ; then
+        sudo chmod 777 * && sudo python3 ./download_and_validation.py --operation  download_validation \
+        --pem_file ${PRIVATE_KEY_FILE} \
+        --image_name ${edgeQ_ota_path}/${current_tar_ball} \
+        --manifest_xml_file ${edgeQ_ota_path}/${manifest_xml}
+    fi
+}
+
+cleanup_donwload_path() {
+    echo "Clean up the tempoary downloading path"
+    cd / && sudo umount ${ota_path} && sudo rm -rf ${ota_path}
+}
+create_new_installation_file() {
+        # detect the rootfs.tar and mini-rootfs.tar existing 
+        # create a file for root file installation later
+        # echo "Create new_installation.txt under /opt/ota"
+        if [ -e "$NEW_INSTALLATION_TXT" ]; then
+            rm -rf "$NEW_INSTALLATION_TXT"
+        fi
+        sudo touch $NEW_INSTALLATION_TXT
+        # echo "emmc_stalling: yes" > $NEW_INSTALLATION_TXT
+        # echo "tools_installing: no" >> $NEW_INSTALLATION_TXT
+        # echo "rootfs_installing: yes" >> $NEW_INSTALLATION_TXT
+        # echo "firmware_installing: yes" >> $NEW_INSTALLATION_TXT
+        echo "partitionSwitch_upgrade: no" >> $NEW_INSTALLATION_TXT
+        # echo "" >> $NEW_INSTALLATION_TXT
+}
+distribute_all_files() {
+    if test -e ${release_path}/${default_image_file}; then
+        echo "Untar the image ball and distribute all files: ${release_path}/${default_image_file}"
+        cd  ${release_path}
+        if test -e ./IMAGE.tar; then
+           sudo rm -f IMAGE.tar
+        fi
+        # echo "Not untar ${release_path}/${default_image_file}"
+        # sudo gunzip ${default_image_file} && rm -f ${default_image_file}
+        # exit 0
+        sudo tar -xzpf ${default_image_file} -C /tmp  >/dev/null 2>&1
+        # sudo tar -xpf IMAGE.tar -C /tmp  >/dev/null 2>&1
+        # echo "Complete untar"
+        # move the tools to /tmp
+        if test -e ${tmp_edgeQ_path}; then
+            sudo rm -rf ${tmp_edgeQ_path}
+        fi
+        sudo mkdir -p ${tmp_edgeQ_path} 
+        sudo mv ${tools_path} ${tmp_edgeQ_path}
+        sudo cp -f ${edgeQ_ota_path}/manifest.xml ${tmp_edgeQ_path}
+        # echo "Remove the tar ball !!!"
+        # sudo rm ${edgeQ_ota_path}/$current_tar_ball
+        # cleanup the tempoary downloading path
+        cleanup_donwload_path
+        create_new_installation_file
+    fi
+}
+
+untar_target_file() {
+    TAR_FILE=$1
+    # Relative paths to the release and tools directories within the archive
+    cd $edgeQ_ota_path
+    RELEASE_PATH="release_package"
+    TOOLS_PATH="tools"
+    echo "Current tar ball: $TAR_FILE"
+    STRIP_COMPONENTS=$(sudo tar tzf "$TAR_FILE" | awk -F/ -v release_path="$RELEASE_PATH" -v tools_path="$TOOLS_PATH" '
+    {
+        for (i = 1; i <= NF; i++) {
+            if ($i == release_path) {
+                print i - 1
+                exit
+            }
+            if ($i == tools_path) {
+                print i - 1
+                exit
+            }
+        }
+    }
+    ')
+    # echo "current STRIP number: $STRIP_COMPONENTS"
+    # Extract the release and tools directories to the current directory, stripping the appropriate number of components
+    # sudo tar xzf "$TAR_FILE" --strip-components="$STRIP_COMPONENTS" >/dev/null 2>&1
+    if [ $STRIP_COMPONENTS -ne 0 ]; then
+        STRIP_COMPONENTS=$((STRIP_COMPONENTS - 1))
+        sudo rm -rf ${RELEASE_PATH}
+        sudo tar xzf "$TAR_FILE" --strip-components="$STRIP_COMPONENTS"  >/dev/null 2>&1
+        if [ ! -e ${release_path} ]; then
+            cd / && sudo mv /${RELEASE_PATH} ${edgeQ_ota_path} && sudo cp -rf /${TOOLS_PATH} ${edgeQ_ota_path}
+            rm -rf /${TOOLS_PATH}
+            sync
+        fi
+    fi
+    cd ${edgeQ_ota_path} && rm -f ${TAR_FILE} 
+    echo "Successfully extracted $RELEASE_PATH and $TOOLS_PATH to $(pwd)"
+}
+
+working_subdir="/opt/ota"
+# operation=$1
+http_path=$1
+download_file_name=$2
+user_and_password=$3
+auth_pem_path_file=$working_subdir/"auth_rsa_public_key.pem"
+speed_limit=""
+decrypt_pem_path_file=$working_subdir/"cipher_rsa_private_key.pem"
+download_password="-"
+
+help_str="help"
+
+# get the current working directory
+current_dir=$(pwd)
+
+# check if the current directory is not /opt/ota
+# if [ "$current_dir" != "$working_subdir" ]; then
+#     echo "Please copy all tool files from /sysupgrade/tools/target to /opt/ota, then start to execute this shell scripts"
+#     echo "For example, user can run 'sudo mkdir -p /opt/ota && sudo cp /sysupgrade/tools/target/* /opt/ota/', then start to execute this shell scripts"
+#     exit 620
+# fi
+# measure emmc size
+emmc_size=$(lsblk -o SIZE /dev/mmcblk0 | awk 'NR==2{gsub(/\..*/, ""); print $1}')
+  
+# Remove trailing whitespace characters
+emmc_size=$(echo "$emmc_size" | tr -d '[:space:]')
+# echo "The current emmc size: ${emmc_size} G"
+emmc_number=$((emmc_size))
+
+if [ "$1" == "$help_string" ]; then
+  echo "command line: sudo ./pdv [download_protocol_addr] [release_package_name] [user:password] [speed_limit] -a {[auth_public_key]} -e {[cipher_private_key]}"
+else
+    # Shift the first four parameters location
+    shift 3
+    # Parse remaining command line arguments
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -a)
+                shift
+                auth_pem_path_file="$1"
+                shift
+                ;;
+            -e)
+                shift
+                decrypt_pem_path_file="$1"
+                shift
+                ;;
+            *)
+                # Check if the argument matches the speed_time format
+                if [[ "$1" =~ ^[0-9]+[KMGkmg]$ ]]; then
+                    speed_limit="$1"
+                fi
+                shift
+                ;;
+        esac
+    done    
+
+    if [ -n "$http_path" ] && [ -n "$download_file_name" ] ;
+    then
+        download_password=$user_and_password
+        # check the /tmp space
+        check_disk_space
+        # check the untar space for IMAGE.tar.gz
+        check_donwload_path
+        download_package $http_path $download_file_name $download_password $auth_pem_path_file $decrypt_pem_path_file $speed_limit;
+        if [ "$?" -eq 1 ] ; then
+            echo "Download failed"
+            exit 623
+        fi
+        # check if it is cipher package, if it is, then decrypt the package first
+    else
+        echo "Needed http path and download file name to download files, missing paramters"
+        exit 622
+    fi
+    if [ -n "$auth_pem_path_file" ];
+    then
+        echo "Valid the download tar ball !!"
+        valided_package $auth_pem_path_file;
+        status=$?
+        if [ "$status" -eq 0 ]; then
+            if [ $emmc_number -gt 8 ]; then
+                # echo "Untar the target ball"
+                echo "Store the new download package to ota partition: ${manifest_xml}, ${current_tar_ball}"
+                sudo python ./utils.py --ota_store ${edgeQ_ota_path}/${manifest_xml} --ota_file ${edgeQ_ota_path}/${current_tar_ball}
+                create_new_installation_file
+                cleanup_donwload_path
+                umount /mnt
+                echo "Complete download release package and store it to OTA partition!!!"
+                exit 0
+            else
+                untar_target_file $current_tar_ball
+                echo "Distribute all files to /ota_tmp/edgeQ_ota/release_package and /ota_tmp/edgeQ_ota/tools"
+                distribute_all_files
+                echo "Complete download release package and distribute all files!!!"
+            fi
+        else
+            echo "Download authentication/validation failed. Cannot use this tar ball!!"
+            exit 625
+        fi
+    else
+        echo "Needed pem file and path to valid the download tar ball, missing pem paramters"
+        exit 622
+    fi
+fi

@@ -1,0 +1,18 @@
+#!/bin/expect -f
+
+set timeout 60
+
+#spawn ssh [lindex $argv 1]@[lindex $argv 0]
+spawn ssh -o StrictHostKeyChecking=no  equser@192.168.6.220
+#send "ssh -o StrictHostKeyChecking=no  equser@192.168.6.220"
+expect "password: "
+send "Password\$2021\r"
+expect "$ "
+#send "sudo ifconfig enp7s0f1 mtu 2000\r"
+send "sudo ifconfig enp7s0f1 mtu [lindex $argv 0]\r"
+expect "password for equser"
+send "Password\$2021\r"
+expect "$ "
+send "ifconfig enp7s0f1 \r"
+expect "$ "
+send "exit\r"
